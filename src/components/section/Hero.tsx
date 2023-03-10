@@ -1,6 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faCalendarAlt, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarAlt,
+  faLocationArrow,
+  faTicket,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Hero() {
   return (
@@ -24,10 +28,10 @@ export default function Hero() {
             </div>
           </div>
 
-          <h1 className="text-start text-4xl font-bold tracking-tight text-black md:text-center md:text-6xl lg:text-center lg:text-7xl">
+          <h1 className="text-start text-4xl font-bold tracking-tight text-white md:text-center md:text-6xl lg:text-center lg:text-7xl">
             Pameran Karya Mahasiswa Teknologi Pendidikan
           </h1>
-          <p className="max-w-2xl text-start text-gray-700 md:text-center lg:text-center">
+          <p className="max-w-2xl text-start text-white md:text-center lg:text-center">
             Taruh apalah tema disini gtuuu kek Mengembangkan Teknologi Untuk
             Menciptakan Inovasi Berbasis Karakter Bangsa
           </p>
@@ -36,15 +40,24 @@ export default function Hero() {
         <div
           id="hero-cta-group"
           className="flex w-full max-w-md flex-col items-center justify-start md:flex-row lg:flex-row"
-        ></div>
+        >
+          <button
+            id="button-hero-get-tickets"
+            title="Watch sessions"
+            className="w-full inline-flex items-center justify-center rounded-lg border border-transparent bg-white px-4 py-2 text-base font-medium text-black shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+          >
+            <FontAwesomeIcon width="20" height="20" icon={faTicket} />
+            <p className="ml-2">Get Tickets</p>
+          </button>
+        </div>
 
-        <div className="flex w-full flex-col items-center justify-center space-y-3 text-xl sm:flex-row sm:space-y-0 sm:space-x-6">
+        <div className="flex w-full flex-col items-center justify-center space-y-3 text-xl sm:flex-row sm:space-y-0 sm:space-x-6 text-white">
           <div className="flex items-center space-x-2">
             <FontAwesomeIcon icon={faCalendarAlt} />
-            <p>.... Mei 2023</p>
+            <p>16 Mei</p>
             <FontAwesomeIcon icon={faLocationArrow} />
             <a href="#">
-              <p>Spatial.io Rooms</p>
+              <p>Spatial.io</p>
             </a>
           </div>
           <div>
@@ -52,10 +65,10 @@ export default function Hero() {
           </div>
           <div className="flex items-center space-x-2">
             <FontAwesomeIcon icon={faCalendarAlt} />
-            <p>..... Mei 2023</p>
+            <p>25 Mei</p>
             <FontAwesomeIcon icon={faLocationArrow} />
             <a href="#">
-              <p>Malang Creative Center, Jawa Timur</p>
+              <p>Malang Creative Center</p>
             </a>
           </div>
         </div>
@@ -72,7 +85,7 @@ export default function Hero() {
           span {
             font-size: 280px;
             color: transparent;
-            -webkit-text-stroke: 2px #30442a;
+            -webkit-text-stroke: 2px #fff;
             text-transform: uppercase;
             display: inline-block;
             line-height: 0.75;

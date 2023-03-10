@@ -4,9 +4,9 @@ import Image from "next/image";
 
 function Header() {
   return (
-    <header className="transition-all ease-in-out font-GoogleSans pt-4">
+    <header className="transition-all ease-in-out font-GoogleSans pt-4 z-50 absolute left-0 top-0">
       <nav className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="flex w-full items-center justify-around">
+        <div className="flex w-full items-center justify-around space-x-16">
           <div className="flex items-center">
             <Link href="/">
               <Image
@@ -21,25 +21,25 @@ function Header() {
           <div className="hidden space-x-8 lg:block">
             <Link
               href="/about"
-              className="text-base font-medium text-black hover:text-gray-800"
+              className="text-base font-medium text-white hover:text-gray-200"
             >
               About
             </Link>
             <Link
               href="/speakers"
-              className="text-base font-medium text-black hover:text-gray-800"
+              className="text-base font-medium text-white hover:text-gray-200"
             >
               Speakers
             </Link>
             <Link
               href="/schedule"
-              className="text-base font-medium text-black hover:text-gray-800"
+              className="text-base font-medium text-white hover:text-gray-200"
             >
               Schedule
             </Link>
             <Link
               href="/sponsors"
-              className="text-base font-medium text-black hover:text-gray-800"
+              className="text-base font-medium text-white hover:text-gray-200"
             >
               Sponsors
             </Link>

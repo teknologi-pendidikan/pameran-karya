@@ -11,7 +11,7 @@ export default function Hero() {
     <>
       <section
         id="hero"
-        className="flex w-full flex-col items-center justify-start space-y-8 px-24 transition-all  duration-500 ease-in-out"
+        className="font-PlusJakartaSans flex w-full 2xl:w-1/2 flex-col items-center justify-start space-y-8 px-24 transition-all  duration-500 ease-in-out overflow-hidden z-10"
       >
         <div
           id="hero-content-group"
@@ -73,6 +73,14 @@ export default function Hero() {
           </div>
         </div>
         <style jsx>{`
+          .pers {
+            perspective: 1000px;
+          }
+
+          .rota {
+            transform: rotatey(40deg);
+          }
+
           #hero {
             transform: skewY(-5deg);
           }

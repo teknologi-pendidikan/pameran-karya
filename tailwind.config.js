@@ -4,7 +4,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        GoogleSans: ['"Google Sans"', "sans-serif"],
+        PlusJakartaSans: ['"Plus Jakarta Sans"', "sans-serif"],
+        'display': ['"Plus Jakarta Sans"', "sans-serif"],
+        'body': ['"Plus Jakarta Sans"', "sans-serif"],
       },
     },
   },

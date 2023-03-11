@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { NextApiRequest, NextApiResponse } from "next";
+require("dotenv").config();
 
 export default function handler(
   req: NextApiRequest,
@@ -7,7 +8,7 @@ export default function handler(
 ) {
   const fetch = require("cross-fetch");
 
-  const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/master?key=AIzaSyD87kvYxkTgNEvtDZj5OCECyE2aGbJtS_U&majorDimension=COLUMNS`;
+  const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/peserta?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
 
   fetch(SHEETS_ENDPOINT)
     .then((response) => response.json())

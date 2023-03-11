@@ -12,7 +12,7 @@ function Header() {
               <Image
                 className="h-20 w-auto"
                 src="/logo-pameran.svg"
-                alt="GDG Chennai - Devfest 2022"
+                alt="Logo Pameran TEP 2023"
                 width={200}
                 height={100}
               />

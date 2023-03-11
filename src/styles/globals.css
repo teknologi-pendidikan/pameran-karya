@@ -12,3 +12,7 @@
     font-family: "Plus Jakarta Sans", sans-serif;
   }
 }
+
+.grow-animation {
+  transition: all 0.2s ease-in-out;
+}

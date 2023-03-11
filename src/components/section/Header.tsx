@@ -21,25 +21,25 @@ function Header() {
           <div className="hidden space-x-8 lg:block">
             <Link
               href="/about"
-              className="text-base font-medium text-white hover:text-gray-200"
+              className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"
             >
               About
             </Link>
             <Link
               href="/speakers"
-              className="text-base font-medium text-white hover:text-gray-200"
+              className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"
             >
               Participants
             </Link>
             <Link
               href="/schedule"
-              className="text-base font-medium text-white hover:text-gray-200"
+              className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"
             >
               Teams
             </Link>
             <Link
               href="/sponsors"
-              className="text-base font-medium text-white hover:text-gray-200"
+              className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"
             >
               Virtual Exhibitions
             </Link>

@@ -19,9 +19,6 @@ export default function RightPanel() {
           .rotator {
             transform: rotatey(-20deg);
           }
-          * {
-            outline: 8px solid white;
-          }
         `}
       </style>
     </>

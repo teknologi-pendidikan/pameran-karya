@@ -1,19 +1,32 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
+import Image from "next/image";
+
 export default function LeftPanel() {
   return (
     <>
       <div className="wrapper">
-        <div className="flex flex-col space-y-8 rotator">
-          <img src="/A1.png" />
-          <div className="flex flex-row space-x-6">
-            <img src="/A2.png" />
-            <div className="flex flex-col space-y-10">
-              <img src="/A3.png" />
-              <img src="/A4.png" />
+        <div className="flex flex-col rotator space-y-2">
+          <Link href="/about" className="border hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 opacity-75 hover:opacity-100">
+            <Image src="/A1.png" width={574} height={167} alt="about" />
+          </Link>
+          <div className="flex flex-row justify-between">
+            <Link href="/about" className="border hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 opacity-75 hover:opacity-100">
+              <Image src="/A2.png" width={344} height={189} alt="about" />
+            </Link>
+            <div className="flex flex-col justify-evenly">
+              <Link href="/about" className="border hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 opacity-75 hover:opacity-100">
+                <Image src="/A3.png" width={201} height={86} alt="about" />
+              </Link>
+              <Link href="/about" className="border hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 opacity-75 hover:opacity-100">
+                <Image src="/A3.png" width={201} height={86} alt="about" />
+              </Link>
             </div>
           </div>
-          <img src="/A5.png" />
+          <Link href="/about" className="border hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 opacity-75 hover:opacity-100">
+            <Image src="/A1.png" width={574} height={167} alt="about" />
+          </Link>
         </div>
       </div>
       <style jsx>
@@ -24,9 +37,6 @@ export default function LeftPanel() {
 
           .rotator {
             transform: rotatey(20deg);
-          }
-          * {
-            outline: 8px solid white;
           }
         `}
       </style>

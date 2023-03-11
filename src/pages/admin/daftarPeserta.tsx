@@ -1,33 +1,7 @@
 /* eslint-disable react/jsx-key */
 // @ts-nocheck
 
-import { useState, useEffect } from "react"
-import { useSession } from "next-auth/react"
-
-
-export default function DaftarPeserta({ daftarpeserta }) {
-  const { data: session } = useSession()
-  const [content, setContent] = useState()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("/api/system/protected")
-      const json = await res.json()
-      if (json.content) {
-        setContent(json.content)
-      }
-    }
-    fetchData()
-  }, [session])
-
-  if (!session) {
-    return (
-      <div>
-        <p>403: Not Authorized</p>
-      </div>
-    )
-  }
-  
+export default function DaftarPeserta({ daftarpeserta }) {  
   return (
     <>
       <h1 className="text-xl">Daftar Peserta</h1>

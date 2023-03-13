@@ -27,6 +27,14 @@ export default function handler(
         };
         output.push(item);
       }
-      res.status(200).json(output);
+      res.json(output);
+      return res.status(200).end();
     });
 }
+
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

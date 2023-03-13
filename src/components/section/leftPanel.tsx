@@ -11,7 +11,7 @@ export default function LeftPanel() {
   return (
     <>
       <div className="wrapper">
-        <div className="flex flex-col  space-y-2">
+        <div className="flex flex-col rotator space-y-2">
           <Link
             href="/about"
             className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-"

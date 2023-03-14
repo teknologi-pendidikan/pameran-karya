@@ -1,11 +1,19 @@
-import { Inter } from "next/font/google";
+// @ts-nocheck
 import Header from "@/components/section/Header";
 import LeftPanel from "@/components/section/leftPanel";
 import RightPanel from "@/components/section/RightPanel";
 
-const inter = Inter({ subsets: ["latin"] });
+import { GetStaticProps } from "next";
 
-export default function Home() {
+type Frontcontent = {
+  id: string;
+  title: string;
+  desc: string;
+  link: string;
+};
+
+export default function Home({ content }) {
+  console.log(content);
   return (
     <>
       <main className="hidden xl:flex flex-col scrollbar-hide">
@@ -23,7 +31,7 @@ export default function Home() {
           id="mainmenu"
           className="flex items-center justify-between h-screen overflow-hidden px-12 mt-12"
         >
-          <LeftPanel />
+          <LeftPanel content={content} />
           <RightPanel />
         </section>
       </main>
@@ -47,3 +55,36 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps<{
+  content: Frontcontent[];
+}> = async () => {
+  const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/descinfo?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
+
+  let content = [];
+  await fetch(SHEETS_ENDPOINT)
+    .then((response) => response.json())
+    .then((json) => {
+      const data = json.values;
+      const id = data[0];
+      const title = data[1];
+      const desc = data[2];
+      const link = data[3];
+
+      for (let i = 1; i < data[0].length; i += 1) {
+        const item = {
+          id: id[i],
+          title: title[i],
+          desc: desc[i],
+          link: link[i],
+        };
+        content.push(item);
+      }
+    });
+
+  return {
+    props: {
+      content,
+    },
+  };
+};

@@ -1,13 +1,22 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import Image from "next/image";
 import ButtonPrimary1 from "@/components/modules/button-primary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { NextPage } from "next";
 
-export default function LeftPanel() {
+type Frontcontent = {
+  id: string;
+  title: string;
+  desc: string;
+  link: string;
+};
+
+interface LeftPanelProps {
+  content: Frontcontent[];
+}
+
+const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
   return (
     <>
       <div className="wrapper">
@@ -20,16 +29,14 @@ export default function LeftPanel() {
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
               <div>
                 <h1 className="text-4xl font-bold text-white pt-2">
-                  <FontAwesomeIcon icon={faInfoCircle} className="fa-sm"/> Pengumuman
+                  <FontAwesomeIcon icon={faInfoCircle} className="fa-sm" />{" "}
+                  {content[0].title}
                 </h1>
               </div>
               <p className="text-2xl font-bold text-blue-800 hover:text-blue-600 pt-2">
-                This is the content of the block system from the API data, it
-                could fit about 200 characters, not more than that. It maybe
-                more, but NO!
+                {content[0].desc}
               </p>
             </div>
-            {/* <FontAwesomeIcon icon={faInfoCircle} className="absolute z-10 opacity-30 top-0 left-0 fa-10x"/> */}
           </Link>
           <div className="flex flex-row justify-between">
             <Link
@@ -96,3 +103,5 @@ export default function LeftPanel() {
     </>
   );
 }
+
+export default LeftPanel;

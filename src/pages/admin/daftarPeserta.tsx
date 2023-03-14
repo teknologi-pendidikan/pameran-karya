@@ -19,18 +19,20 @@ export default function DaftarPeserta() {
     <>
       <h1 className="text-xl">Daftar Peserta</h1>
       <table className="table-auto border-collapse border border-slate-500">
-        <tr>
-          <th className="border border-slate-600">UUID</th>
-          <th className="border border-slate-600">NIM</th>
-          <th className="border border-slate-600">Nama</th>
-        </tr>
-        {data.map((peserta: pesertaDataModel) => (
-          <tr key={peserta.uuid}>
-            <td className="border border-slate-600">{peserta.uuid}</td>
-            <td className="border border-slate-600">{peserta.nim}</td>
-            <td className="border border-slate-600">{peserta.nama}</td>
+        <tbody>
+          <tr>
+            <th className="border border-slate-600">UUID</th>
+            <th className="border border-slate-600">NIM</th>
+            <th className="border border-slate-600">Nama</th>
           </tr>
-        ))}
+          {data.map((peserta: pesertaDataModel) => (
+            <tr key={peserta.uuid}>
+              <td className="border border-slate-600">{peserta.uuid}</td>
+              <td className="border border-slate-600">{peserta.nim}</td>
+              <td className="border border-slate-600">{peserta.nama}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </>
   );

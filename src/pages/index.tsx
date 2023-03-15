@@ -28,11 +28,11 @@ export default function Home({ content }) {
         </video>
         <Header />
         <section
-          id="mainmenu"
+          id="panel-mainmenu"
           className="flex items-center justify-between h-screen overflow-hidden px-12 mt-12"
         >
           <LeftPanel content={content} />
-          <RightPanel />
+          <RightPanel content={content}/>
         </section>
       </main>
       <div className="xl:hidden flex h-screen mx-64">

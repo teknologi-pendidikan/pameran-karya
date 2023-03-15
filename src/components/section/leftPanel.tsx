@@ -22,10 +22,10 @@ interface LeftPanelProps {
 const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
   return (
     <>
-      <div className="wrapper">
+      <div id="panel-left" className="wrapper">
         <div className="flex flex-col rotator space-y-2">
           <Link
-            href={content[0].link}
+            href={content[0].link} id={content[0].id}
             className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
           >
             <ButtonPrimary1 />
@@ -43,7 +43,7 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
           </Link>
           <div className="flex flex-row justify-between">
             <Link
-              href="/about"
+              href="/about" id={content[1].id}
               className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
             >
               <ButtonShortHalf />
@@ -61,7 +61,7 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
             </Link>
             <div className="flex flex-col justify-between">
               <Link
-                href="/about"
+                href="/about" 
                 className=" hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 "
               >
                 <ButtonShortThird />
@@ -77,7 +77,7 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
             </div>
           </div>
           <Link
-            href={content[4].link}
+            href={content[4].link} id={content[4].id}
             className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 hover:opacity-100"
           >
             <ButtonPrimary1 />

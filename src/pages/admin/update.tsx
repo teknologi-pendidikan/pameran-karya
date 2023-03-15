@@ -1,31 +1,29 @@
 // @ts-nocheck
 /* eslint-disable @next/next/no-img-element */
 
-let data = {
-  uuid: "00",
-  mode: "00000",
-  key: "00000000-0000-0000-0000-000000000000",
-  reason: "000000",
-  status: "0000000",
-};
+import Router from 'next/router'
 
 const CallUpdateContentAPI = async (event) => {
   event.preventDefault();
-  const reason = event.target.reason.value;
-  const key = event.target.key.value;
-  const res = await fetch("/api/update", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      reason: reason,
-      key: key,
-    }),
-  });
+  const reason: string = event.target.reason.value;
+  const key: string = event.target.key.value;
 
-  const result = await res.json();
-  alert(`CONTENT UPDATE TRIGGERED:: REASON: ${result.reason}, KEY: ${result.key}, MODE: ${result.mode}, STATUS: ${result.success}, Created At: ${result.created_at}`);
+  if (reason === "" || key === "") {
+    alert("Missing required fields!");
+    return;
+  }
+
+  const res = await fetch(
+    `https://api.netlify.com/build_hooks/640edb1876710f35d5103388?trigger_title=${key}::${reason}`,
+    {
+      method: "POST",
+    }
+  );
+
+  alert(
+    `CONTENT UPDATE TRIGGERED:: REASON: ${reason}, KEY: ${key}, MODE: redeploy-build, STATUS: true, Created At: ${Date.now}`
+  );
+  Router.reload(window.location.pathname);
 };
 
 export default function UpdateContent() {
@@ -36,22 +34,6 @@ export default function UpdateContent() {
           <h1 className="text-3xl font-bold text-center text-gray-900">
             Web Content Updater (on-demand build system)
           </h1>
-          {/* <table className="table-auto border-collapse border border-slate-500">
-            <tbody>
-              <tr>
-                <th className="border border-slate-600">mode</th>
-                <th className="border border-slate-600">key</th>
-                <th className="border border-slate-600">reason</th>
-                <th className="border border-slate-600">status</th>
-              </tr>
-              <tr>
-                <td className="border border-slate-600">{data.mode}</td>
-                <td className="border border-slate-600">{data.key}</td>
-                <td className="border border-slate-600">{data.reason}</td>
-                <td className="border border-slate-600">{data.status}</td>
-              </tr>
-            </tbody>
-          </table> */}
           <img
             src="https://api.netlify.com/api/v1/badges/36d476bb-2534-404b-8af7-e93112e165eb/deploy-status"
             alt="Build Status"

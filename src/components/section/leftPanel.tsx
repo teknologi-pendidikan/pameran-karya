@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import ButtonPrimary1 from "@/components/modules/button-primary";
+import ButtonShortHalf from "../modules/button-short-half";
+import ButtonShortThird from "../modules/button-short-third";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { NextPage } from "next";
@@ -22,8 +25,8 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
       <div className="wrapper">
         <div className="flex flex-col rotator space-y-2">
           <Link
-            href="/about"
-            className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-"
+            href={content[0].link}
+            className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
           >
             <ButtonPrimary1 />
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
@@ -41,49 +44,52 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
           <div className="flex flex-row justify-between">
             <Link
               href="/about"
-              className="relative border hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 opacity-75 hover:opacity-100"
+              className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
             >
-              <Image src="/A2.png" width={344} height={189} alt="about" />
+              <ButtonShortHalf />
               <div
                 id="konten-weekly"
-                className="absolute top-0 left-0 px-4 py-2"
+                className="absolute top-0 left-0 px-8 py-2"
               >
-                <h1 className="text-2xl text-yellow-300 font-bold">
-                  Pengumuman
+                <h1 className="text-2xl text-blue-800 font-bold">
+                  {content[1].title}
                 </h1>
-                <p className="text-xl text-yellow-300 font-bold ">
-                  This is the content of the block system from the API data, it
-                  could fit about 200 characters, not more than that. It maybe
-                  more, but NO!
+                <p className="text-2xl font-bold text-blue-800 hover:text-blue-600 pt-2">
+                  {content[1].desc}
                 </p>
               </div>
             </Link>
-            <div className="flex flex-col justify-evenly">
+            <div className="flex flex-col justify-between">
               <Link
                 href="/about"
-                className="border hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 opacity-75 hover:opacity-100"
+                className=" hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 "
               >
-                <Image src="/A3.png" width={201} height={86} alt="about" />
+                <ButtonShortThird />
+                {/* <Image src="/A3.png" width={201} height={86} alt="about" /> */}
               </Link>
               <Link
                 href="/about"
-                className="border hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 opacity-75 hover:opacity-100"
+                className=" hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
               >
-                <Image src="/A3.png" width={201} height={86} alt="about" />
+                <ButtonShortThird />
+                {/* <Image src="/A3.png" width={201} height={86} alt="about" /> */}
               </Link>
             </div>
           </div>
           <Link
-            href="/about"
-            className="relative border hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 opacity-75 hover:opacity-100"
+            href={content[4].link}
+            className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 hover:opacity-100"
           >
-            <Image src="/A1.png" width={574} height={167} alt="about" />
-            <div id="konten-pengumuman" className="absolute top-0 left-0 p-4">
-              <h1 className="text-4xl text-yellow-300 font-bold">Pengumuman</h1>
-              <p className="text-2xl text-yellow-300 font-bold ">
-                This is the content of the block system from the API data, it
-                could fit about 200 characters, not more than that. It maybe
-                more, but NO!
+            <ButtonPrimary1 />
+            <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
+              <div>
+                <h1 className="text-4xl font-bold text-white pt-2">
+                  <FontAwesomeIcon icon={faInfoCircle} className="fa-sm" />{" "}
+                  {content[4].title}
+                </h1>
+              </div>
+              <p className="text-2xl font-bold text-blue-800 hover:text-blue-600 pt-2">
+                {content[4].desc}
               </p>
             </div>
           </Link>
@@ -102,6 +108,6 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
       </style>
     </>
   );
-}
+};
 
 export default LeftPanel;

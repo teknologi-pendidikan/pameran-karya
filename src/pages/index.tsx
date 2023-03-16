@@ -28,7 +28,7 @@ export default function Home({ content }) {
         <section id="mainmenu">
           <div id="video-wrapper" className="absolute hidden xl:block -z-10">
             <video id="pv" loop autoPlay muted>
-              <source src="/pv_bg_.mp4" type="audio/mp4" />
+              <source src="/pv.webm" type="audio/mp4" />
             </video>
           </div>
           <div

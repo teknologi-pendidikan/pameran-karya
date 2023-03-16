@@ -28,7 +28,7 @@ export default function Home({ content }) {
         <section id="mainmenu">
           <div id="video-wrapper" className="absolute hidden xl:block -z-10">
             <video id="pv" loop autoPlay muted>
-              <source src="/pv_bg_.mp4" type="audio/mp4" />
+              <source src="https://is3.cloudhost.id/teknologipendidikan/public-pamerankarya-pv.webm" type="video/webm" />
             </video>
           </div>
           <div

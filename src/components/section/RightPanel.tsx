@@ -30,10 +30,10 @@ const RightPanel: NextPage<RightPanelProps> = ({ content }) => {
             <ButtonPrimary1 />
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
               <div>
-                <h1 className="text-4xl font-bold text-white pt-2">
+                <h2 className="text-4xl font-bold text-white pt-2">
                   <FontAwesomeIcon icon={faInfoCircle} className="fa-sm" />{" "}
                   {content[5].title}
-                </h1>
+                </h2>
               </div>
               <p className="text-2xl font-bold text-blue-800 hover:text-blue-600 pt-2">
                 {content[5].desc}
@@ -47,10 +47,10 @@ const RightPanel: NextPage<RightPanelProps> = ({ content }) => {
             <ButtonPrimary1 />
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
               <div>
-                <h1 className="text-4xl font-bold text-white pt-2">
+                <h2 className="text-4xl font-bold text-white pt-2">
                   <FontAwesomeIcon icon={faInfoCircle} className="fa-sm" />{" "}
                   {content[6].title}
-                </h1>
+                </h2>
               </div>
               <p className="text-2xl font-bold text-blue-800 hover:text-blue-600 pt-2">
                 {content[6].desc}
@@ -64,10 +64,10 @@ const RightPanel: NextPage<RightPanelProps> = ({ content }) => {
             <ButtonPrimary1 />
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
               <div>
-                <h1 className="text-4xl font-bold text-white pt-2">
+                <h2 className="text-4xl font-bold text-white pt-2">
                   <FontAwesomeIcon icon={faInfoCircle} className="fa-sm" />{" "}
                   {content[7].title}
-                </h1>
+                </h2>
               </div>
               <p className="text-2xl font-bold text-blue-800 hover:text-blue-600 pt-2">
                 {content[7].desc}

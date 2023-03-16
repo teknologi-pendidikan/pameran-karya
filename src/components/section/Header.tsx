@@ -7,6 +7,7 @@ function Header() {
     <header className="my-4 z-50 absolute top-0 w-full font-PlusJakartaSans">
       <nav className="flex flex-col items-center">
         <Link href="/">
+          <h1 className="hidden">Pameran Karya Teknologi Pendidikan 2023</h1>
           <Image
             className=""
             src="/logo-pameran.svg"

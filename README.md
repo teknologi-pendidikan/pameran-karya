@@ -1,38 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pameran Karya Teknologi Pendidikan 2023
 
-## Getting Started
+![Pameran Karya Teknologi Pendidikan 2023](/docs/header.jpg)
+[⚡ Kunjungi Pameran](https://pamerankarya.teknologipendidikan.or.id)
 
-First, run the development server:
+## Tentang
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Pameran Karya Teknologi Pendidikan 2023 adalah sebuah aplikasi berbasis web yang dibuat untuk memudahkan pengelolaan data pameran karya teknologi pendidikan yang diselenggarakan oleh Mahasiswa Departemen Teknologi Pendiidkan Universitas Negeri Malang.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Aplikasi ini dikembangkan sebagai salah satu syarat untuk memenuhi tugas akhir dari mata kuliah Proyek Pameran Digital yang diampu oleh Ibu Arafah Husna, M.Pd.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Tujuan kami dalam membuat aplikasi ini adalah untuk memudahkan memperkenalkan karya teknologi pendidikan yang dibuat oleh mahasiswa Departemen Teknologi Pendidikan Universitas Negeri Malang kepada masyarakat luas melalui saluran digital.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Fitur Aplikasi
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Pengelolaan data pameran karya teknologi pendidikan
+- Pengelolaan data peserta pameran karya teknologi pendidikan
+- Pengelolaan data pendaftar pameran karya teknologi pendidikan
+- Portal informasi utama pameran karya teknologi pendidikan
+- Portal pameran virtual berbasis sosial media
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Teknologi yang Digunakan
 
-## Learn More
+| App/Service                                       | Description         |
+| ------------------------------------------------- | ------------------- |
+| [Next.js](https://nextjs.org/)                    | Frontend Framework  |
+| [Tailwind CSS](https://tailwindcss.com/)          | Web Styling         |
+| [Google Workspace](https://workspace.google.com/) | Database Management |
+| [Netlify](https://netlify.com/)                   | Hosting             |
 
-To learn more about Next.js, take a look at the following resources:
+## Tim Pengembang
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Nama Lengkap           | NIM          | Role                       |
+| ---------------------- | ------------ | -------------------------- |
+| Rengga Prakoso Nugroho | 200121601241 | System & Frontend Engineer |
+| Muhammad Ubaidillah    | 200121601242 | Assest & Web Designer      |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Bntribusi
 
-## Deploy on Vercel
+Jika kamu ingin berkontribusi dalam pengembangan aplikasi ini, silahkan membaca pada [Tata Cara Berkontribusi](/CONTRIBUTING.md).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Lisensi
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Aplikasi ini dilisensikan di bawah [MIT License](/LICENSE).
+Jangan ragu untuk mengkloning dan memodifikasi aplikasi sesuai keinginan, tetapi jangan lupa untuk menambahkan referensi kepada kami sebagai pengembangnya.
+
+## Catatan Penting
+
+Aplikasi ini merupakan aplikasi yang dikembangkan oleh sivitas akademika Universitas Negeri Malang. Aplikasi ini tidak bertujuan untuk kepentingan komersial, namun hanya untuk kepentingan akademik. Aplikasi ini dikelola dibawah infrastruktur EDTECH.ID dengan kerjasama non-eksklusif dengan Mahasiswa Departemen Teknologi Pendidikan UM. Dalam proses manajemen proyek ini, DPTSI EDTECH.ID bertindak sebagai fasilitator yang bertanggung jawab atas pengelolaan proyek dan pengembangan aplikasi ini.
+
+_EDTECH.ID tidak bertanggung jawab atas segala bentuk kerugian yang ditimbulkan oleh penggunaan aplikasi ini._

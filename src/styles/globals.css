@@ -13,17 +13,31 @@
   }
 }
 
+@media only screen and (min-width: 1280px) {
+  .wrapper-pers {
+    perspective: 1000px;
+  }
+
+  .rotator {
+    transform: rotatey(20deg);
+  }
+
+  .rotator-left {
+    transform: rotatey(-20deg);
+  }
+}
+
 .grow-animation {
   transition: all 0.2s ease-in-out;
 }
 
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
 .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* For IE, Edge and Firefox */
 .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

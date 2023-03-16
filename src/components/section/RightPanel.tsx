@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import ButtonPrimary1 from "../modules/button-primary";
+import ButtonPrimary from "../modules/button-primary";
 
 type Frontcontent = {
   id: string;
@@ -21,13 +21,13 @@ interface RightPanelProps {
 const RightPanel: NextPage<RightPanelProps> = ({ content }) => {
   return (
     <>
-      <div id="panel-right" className="wrapper">
-        <div className="flex flex-col rotator space-y-2">
+      <div id="panel-right" className="wrapper-pers">
+        <div className="flex flex-col rotator-left space-y-2">
           <Link
             href={content[5].link} id={content[5].id}
             className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
           >
-            <ButtonPrimary1 />
+            <ButtonPrimary />
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
               <div>
                 <h2 className="text-4xl font-bold text-white pt-2">
@@ -44,7 +44,7 @@ const RightPanel: NextPage<RightPanelProps> = ({ content }) => {
             href={content[6].link} id={content[6].id}
             className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
           >
-            <ButtonPrimary1 />
+            <ButtonPrimary />
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
               <div>
                 <h2 className="text-4xl font-bold text-white pt-2">
@@ -61,7 +61,7 @@ const RightPanel: NextPage<RightPanelProps> = ({ content }) => {
             href={content[7].link} id={content[7].id}
             className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
           >
-            <ButtonPrimary1 />
+            <ButtonPrimary />
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
               <div>
                 <h2 className="text-4xl font-bold text-white pt-2">
@@ -76,17 +76,6 @@ const RightPanel: NextPage<RightPanelProps> = ({ content }) => {
           </Link>
         </div>
       </div>
-      <style jsx>
-        {`
-          .wrapper {
-            perspective: 1000px;
-          }
-
-          .rotator {
-            transform: rotatey(-20deg);
-          }
-        `}
-      </style>
     </>
   );
 };

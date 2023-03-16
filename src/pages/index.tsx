@@ -81,7 +81,10 @@ export default function Home({ content }) {
         <meta name="googlebot" content="index, follow" />
         <meta name="google" content="nositelinkssearchbox" />
         <meta name="google" content="notranslate" />
-        <meta name="copyright" content="Mahasiswa Teknologi Pendidikan UM 2023"></meta>
+        <meta
+          name="copyright"
+          content="Mahasiswa Teknologi Pendidikan UM 2023"
+        ></meta>
 
         {/*  Open Graph / Facebook */}
         <meta property="og:type" content="website" />
@@ -97,54 +100,35 @@ export default function Home({ content }) {
           property="og:description"
           content="Pameran Karya Teknologi Pendidikan 2023 merupakan proyek mahasiswa departemen Teknologi Pendidikan Universitas Negeri Malang dalam memperkenalkan produk dan hasil pengembangan dari keilmuan prodi Teknologi Pendidikan"
         />
-        <meta property="og:image" content="https://pamerankarya.teknologipendidikan.or.id/opengraph.jpg"></meta>
+        <meta
+          property="og:image"
+          content="https://pamerankarya.teknologipendidikan.or.id/opengraph.jpg"
+        ></meta>
 
         {/* JSON-LD Structured Data */}
         <script
-        key="structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webdata) }}
-      />
+          key="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webdata) }}
+        />
       </Head>
-      <main className="hidden xl:flex flex-col scrollbar-hide">
-        <video
-          id="bg"
-          loop
-          autoPlay
-          muted
-          className="absolute -z-10 object-cover"
-        >
-          <source src="/pv_bg_.mp4" type="audio/mp4" />
-        </video>
+      <main className="flex bg-black xl:bg-transparent xl:flex flex-col scrollbar-hide">
         <Header />
-        <section
-          id="panel-mainmenu"
-          className="flex items-center justify-between h-screen overflow-hidden px-12 mt-12"
-        >
-          <LeftPanel content={content} />
-          <RightPanel content={content} />
+        <section id="mainmenu">
+          <div id="video-wrapper" className="absolute hidden xl:block -z-10">
+            <video id="pv" loop autoPlay muted>
+              <source src="/pv_bg_.mp4" type="audio/mp4" />
+            </video>
+          </div>
+          <div
+            id="panel-mainmenu"
+            className="flex xl:flex-row xl:space-y-0 flex-col items-center justify-between h-screen overflow-hidden px-8 space-y-3"
+          >
+            <LeftPanel content={content} />
+            <RightPanel content={content} />
+          </div>
         </section>
       </main>
-      <div
-        id="reject-small-screensize"
-        className="xl:hidden flex h-screen mx-64"
-      >
-        <div className="flex flex-col m-auto space-y-4">
-          <span className="text-black font-body text-2xl">
-            Mohon maaf, resolusi layar anda pada saat ini belum kami dukung
-            sepenuhnya. Mohon gunakan perangkat yang memiliki resolusi minima
-            1280 x 720 (resolusi HD). Terima kasih telah berkenan untuk
-            mengunjungi pameran ini.
-          </span>
-          <span className="text-black font-thin text-md">
-            Tim Pengembangan Platform Digital Pameran TEP 2023
-            <br />
-            <span className="text-blue-700">
-              pamerandigital[at]teknologipendidikan[dot]or[dot]id
-            </span>{" "}
-          </span>
-        </div>
-      </div>
     </>
   );
 }

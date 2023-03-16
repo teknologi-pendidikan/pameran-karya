@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import ButtonPrimary1 from "@/components/modules/button-primary";
+import ButtonPrimary from "@/components/modules/button-primary";
 import ButtonShortHalf from "../modules/button-short-half";
 import ButtonShortThird from "../modules/button-short-third";
 
@@ -22,13 +22,14 @@ interface LeftPanelProps {
 const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
   return (
     <>
-      <div id="panel-left" className="wrapper">
+      <div id="panel-left" className="wrapper-pers">
         <div className="flex flex-col rotator space-y-2">
           <Link
-            href={content[0].link} id={content[0].id}
+            href={content[0].link}
+            id={content[0].id}
             className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
           >
-            <ButtonPrimary1 />
+            <ButtonPrimary classname={``} />
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
               <div>
                 <h2 className="text-4xl font-bold text-white pt-2">
@@ -43,7 +44,8 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
           </Link>
           <div className="flex flex-row justify-between">
             <Link
-              href="/about" id={content[1].id}
+              href="/about"
+              id={content[1].id}
               className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
             >
               <ButtonShortHalf />
@@ -61,7 +63,7 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
             </Link>
             <div className="flex flex-col justify-between">
               <Link
-                href="/about" 
+                href="/about"
                 className=" hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 "
               >
                 <ButtonShortThird />
@@ -77,10 +79,11 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
             </div>
           </div>
           <Link
-            href={content[4].link} id={content[4].id}
+            href={content[4].link}
+            id={content[4].id}
             className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 hover:opacity-100"
           >
-            <ButtonPrimary1 />
+            <ButtonPrimary />
             <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
               <div>
                 <h2 className="text-4xl font-bold text-white pt-2">
@@ -95,17 +98,6 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
           </Link>
         </div>
       </div>
-      <style jsx>
-        {`
-          .wrapper {
-            perspective: 1000px;
-          }
-
-          .rotator {
-            transform: rotatey(20deg);
-          }
-        `}
-      </style>
     </>
   );
 };

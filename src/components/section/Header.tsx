@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function Header() {
   return (
-    <header className="my-4 z-50 absolute top-0 w-full font-PlusJakartaSans">
+    <header className="my-4 z-50 block xl:absolute xl:top-0 w-full font-PlusJakartaSans">
       <nav className="flex flex-col items-center">
         <Link href="/">
           <h1 className="hidden">Pameran Karya Teknologi Pendidikan 2023</h1>
@@ -16,7 +16,7 @@ function Header() {
             height={100}
           />
         </Link>
-        <div className="space-x-8">
+        <div className="mb-4 block space-x-8">
           <Link
             href="/about"
             className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"

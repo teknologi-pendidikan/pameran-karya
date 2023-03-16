@@ -35,7 +35,7 @@ Tujuan kami dalam membuat aplikasi ini adalah untuk memudahkan memperkenalkan ka
 | Rengga Prakoso Nugroho | 200121601241 | System & Frontend Engineer |
 | Muhammad Ubaidillah    | 200121601242 | Assest & Web Designer      |
 
-## Bntribusi
+## Berkotribusi
 
 Jika kamu ingin berkontribusi dalam pengembangan aplikasi ini, silahkan membaca pada [Tata Cara Berkontribusi](/CONTRIBUTING.md).
 
@@ -49,3 +49,15 @@ Jangan ragu untuk mengkloning dan memodifikasi aplikasi sesuai keinginan, tetapi
 Aplikasi ini merupakan aplikasi yang dikembangkan oleh sivitas akademika Universitas Negeri Malang. Aplikasi ini tidak bertujuan untuk kepentingan komersial, namun hanya untuk kepentingan akademik. Aplikasi ini dikelola dibawah infrastruktur EDTECH.ID dengan kerjasama non-eksklusif dengan Mahasiswa Departemen Teknologi Pendidikan UM. Dalam proses manajemen proyek ini, DPTSI EDTECH.ID bertindak sebagai fasilitator yang bertanggung jawab atas pengelolaan proyek dan pengembangan aplikasi ini.
 
 _EDTECH.ID tidak bertanggung jawab atas segala bentuk kerugian yang ditimbulkan oleh penggunaan aplikasi ini._
+
+## Sponsor
+
+Proyek ini didukung serta disponsori oleh:
+
+[![EDTECH.ID](/docs/Logo_EDTECH.png "EDTECH.ID")](https://teknologipendidikan.or.id)
+
+[![Google Workspcae](/docs/Logo_google_workspace.png "Google Workspace")](https://workspace.google.com)
+
+[![Tim DPTSI](/docs/Logo_DPTSI.png "Tim DPTSI EDTECH.ID sebagai pengelola infrastruktur proyek")](https://dptsi.edtech.or.id)
+
+[![Deploys by Netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg "Deploys by Netlify")](https://www.netlify.com)

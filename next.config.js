@@ -6,7 +6,11 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "api.netlify.com",
-      }
+      },
+      {
+        protocol: "https",
+        hostname: "api.um.ac.id",
+      },
     ],
   },
 }

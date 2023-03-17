@@ -9,9 +9,9 @@
 ### Dokumen Teknis Lainnya
 
 - [Konsep Aplikasi](concept.md)
-- [Penggunaan Panel Admin](adminpanel.md)
+- [Penggunaan Panel Admin (wip)](adminpanel.md)
 - [Penggunaan Google Sheets](google-sheets.md)
-- [Penggunaan Netlify](Netlify.md)
+- [Penggunaan Netlify (wip)](Netlify.md)
 - [Arsitektur Aplikasi](architecture.md)
 - [Pemetaan Karya Teknologi Pendidikan](mapping.md)
 

@@ -4,7 +4,6 @@ import Head from "next/head";
 import Header from "@/components/section/Header";
 import LeftPanel from "@/components/section/leftPanel";
 import RightPanel from "@/components/section/RightPanel";
-import Script from "next/script";
 
 import { GetStaticProps } from "next";
 
@@ -24,11 +23,11 @@ export default function Home({ content }) {
         </title>
       </Head>
       <main className="flex bg-black xl:bg-transparent xl:flex flex-col scrollbar-hide">
-        <Header />
+        <Header position="absolute"/>
         <section id="mainmenu">
           <div id="video-wrapper" className="absolute hidden xl:block -z-10">
-            <video id="pv" loop autoPlay muted>
-              <source src="https://is3.cloudhost.id/teknologipendidikan/public-pamerankarya-pv.webm" type="video/webm" />
+            <video id="pv" loop autoPlay muted >
+              <source src="https://is3.cloudhost.id/teknologipendidikan/videoprofil-tepum.mp4" type="video/mp4" />
             </video>
           </div>
           <div

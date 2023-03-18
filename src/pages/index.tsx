@@ -22,7 +22,6 @@ export default function Home({ content }) {
         </title>
       </Head>
       <main className="flex bg-black xl:bg-transparent xl:flex flex-col">
-        <Header posRootHeader="absolute" />
         <section id="mainmenu">
           <div id="video-wrapper" className="absolute hidden xl:block -z-10">
             <video id="pv" loop autoPlay muted>

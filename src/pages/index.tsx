@@ -20,9 +20,9 @@ export default function Home({ content }) {
           Pameran Karya Teknologi Pendidikan 2023 - Universitas Negeri Malang
         </title>
       </Head>
-      <main className="flex bg-black xl:bg-transparent xl:flex flex-col">
+      <main className="bg-black xl:bg-transparent">
         <section id="mainmenu" className="h-screen grid">
-          <div id="video-wrapper" className="absolute hidden xl:block -z-10">
+          <div id="video-wrapper" className="absolute hidden xl:block -z-1">
             <video id="pv" loop autoPlay muted>
               <source
                 src="https://is3.cloudhost.id/teknologipendidikan/videoprofil-tepum.mp4"
@@ -30,20 +30,13 @@ export default function Home({ content }) {
               />
             </video>
           </div>
-            {/* <div
-              id="panel-mainmenu"
-              className="flex xl:flex-row xl:space-y-0 flex-col items-center justify-between overflow-hidden px-8 space-y-3"
-            >
-              <LeftPanel content={content} />
-              <RightPanel content={content} />
-            </div> */}
-            <div
-              id="panel-mainmenu"
-              className="grid xl:grid-cols-2 justify-items-center items-center place-content-center"
-            >
-              <LeftPanel content={content} />
-              <RightPanel content={content} />
-            </div>
+          <div
+            id="panel-mainmenu"
+            className="grid xl:grid-cols-2 xl:justify-items-center xl:items-center place-content-center gap-2"
+          >
+            <LeftPanel content={content} />
+            <RightPanel content={content} />
+          </div>
         </section>
       </main>
     </>

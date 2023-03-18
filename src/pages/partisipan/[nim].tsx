@@ -2,7 +2,7 @@
 
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
-import Header from "@/components/section/Header";
+import Header from "@/components/organisms/Header";
 import Image from "next/image";
 
 type Frontcontent = {

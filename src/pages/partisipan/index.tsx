@@ -1,10 +1,7 @@
 // @ts-nocheck
 import Head from "next/head";
-import Header from "@/components/section/Header";
 import Link from "next/link";
-import Image from "next/image";
-import LogoPameran from "@/components/modules/logo-pameran";
-import ProfileCard from "@/components/modules/profile-card";
+import ProfileCard from "@/components/molecules/profile-card";
 
 import { GetStaticProps } from "next";
 
@@ -24,43 +21,6 @@ export default function Partisipan({ partisipan }) {
       <Head>
         <title>Partisipan Pameran</title>
       </Head>
-      <header className="bg-white pt-4 mb-8 z-50 block w-full font-PlusJakartaSans border-b-4">
-        <nav className="flex flex-col items-center">
-          <Link href="/">
-            <LogoPameran
-              colorPameran="#0568fc"
-              colorKarya="#0568fc"
-              colorTEP="#0568fc"
-            />
-          </Link>
-          <div className="mb-4 block space-x-8">
-            <Link
-              href="/about"
-              className="text-base font-medium text-neutral-800 hover:text-gray-200 hover:underline underline-offset-4"
-            >
-              Tentang
-            </Link>
-            <Link
-              href="/partisipan"
-              className="text-base font-medium text-neutral-800 hover:text-gray-200 hover:underline underline-offset-4"
-            >
-              Partisipan
-            </Link>
-            <Link
-              href="/schedule"
-              className="text-base font-medium text-neutral-800 hover:text-gray-200 hover:underline underline-offset-4"
-            >
-              Tim Belakang Layar
-            </Link>
-            <Link
-              href="/sponsors"
-              className="text-base font-medium text-neutral-800 hover:text-gray-200 hover:underline underline-offset-4"
-            >
-              Butuh bantuan?
-            </Link>
-          </div>
-        </nav>
-      </header>
       <main className="container mx-auto px-4 max-w-screen-2xl space-y-24 mb-24">
         <div className="space-y-5 bg-blue-300 px-6 py-16 md:px-12 md:py-24 rounded-lg border-4 border-gray-800">
           <h1 className="text-5xl md:text-7xl font-bold">

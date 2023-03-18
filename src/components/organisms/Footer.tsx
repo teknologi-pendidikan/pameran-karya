@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import LogoPameran from "@components/modules/logo-pameran";
-import LogoTEPUM from "@components/modules/logo-tepum";
-import LogoDPTSI from "../modules/logo-dptsi";
-import LogoEdtech from "../modules/logo-edtech";
+import LogoPameran from "@/components/atoms/logo-pameran";
+import LogoTEPUM from "@/components/atoms/logo-tepum";
+import LogoDPTSI from "@components/atoms/logo-dptsi";
+import LogoEdtech from "@components/atoms/logo-edtech";
 
 export default function Footer() {
   return (

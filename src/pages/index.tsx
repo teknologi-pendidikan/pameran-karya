@@ -1,10 +1,8 @@
 // @ts-nocheck
-
 import Head from "next/head";
-import Header from "@/components/section/Header";
-import LeftPanel from "@/components/section/leftPanel";
-import RightPanel from "@/components/section/RightPanel";
-import Footer from "@/components/section/Footer";
+import Header from "@/components/organisms/Header";
+import LeftPanel from "@/components/organisms/leftPanel";
+import RightPanel from "@/components/organisms/RightPanel";
 
 import { GetStaticProps } from "next";
 
@@ -16,19 +14,22 @@ type Frontcontent = {
 };
 
 export default function Home({ content }) {
-    return (
+  return (
     <>
       <Head>
         <title>
           Pameran Karya Teknologi Pendidikan 2023 - Universitas Negeri Malang
         </title>
       </Head>
-      <main className="flex bg-black xl:bg-transparent xl:flex flex-col scrollbar-hide">
-        <Header position="absolute"/>
+      <main className="flex bg-black xl:bg-transparent xl:flex flex-col">
+        <Header posRootHeader="absolute" />
         <section id="mainmenu">
           <div id="video-wrapper" className="absolute hidden xl:block -z-10">
-            <video id="pv" loop autoPlay muted >
-              <source src="https://is3.cloudhost.id/teknologipendidikan/videoprofil-tepum.mp4" type="video/mp4" />
+            <video id="pv" loop autoPlay muted>
+              <source
+                src="https://is3.cloudhost.id/teknologipendidikan/videoprofil-tepum.mp4"
+                type="video/mp4"
+              />
             </video>
           </div>
           <div
@@ -39,8 +40,6 @@ export default function Home({ content }) {
             <RightPanel content={content} />
           </div>
         </section>
-        
-        <Footer />
       </main>
     </>
   );

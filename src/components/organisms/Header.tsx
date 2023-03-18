@@ -1,14 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import LogoPameran from "../modules/logo-pameran";
+import LogoPameran from "@components/atoms/logo-pameran";
 
-interface HeaderProps {
-  position: string;
-}
+type HeaderProps = {
+  posRootHeader?: "absolute" | "fixed";
+  extendRootHeader?: string;
+};
 
-function Header({position}: HeaderProps) {
+function Header(header: HeaderProps) {
   return (
-    <header className={`my-4 z-50 xl:absolute xl:top-0 w-full font-PlusJakartaSans`}>
+    <header className={`my-4 z-50 xl:${header.posRootHeader} xl:top-0 w-full font-PlusJakartaSans ${header.extendRootHeader}`}>
       <nav className="flex flex-col items-center">
         <Link href="/">
           <h1 className="hidden">Pameran Karya Teknologi Pendidikan 2023</h1>

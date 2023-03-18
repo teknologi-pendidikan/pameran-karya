@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import ButtonPrimary from "../modules/button-primary";
+import ButtonPrimary from "@components/atoms/button-primary";
 
 type Frontcontent = {
   id: string;

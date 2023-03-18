@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import ButtonPrimary from "@/components/modules/button-primary";
-import ButtonShortHalf from "../modules/button-short-half";
-import ButtonShortThird from "../modules/button-short-third";
+import ButtonPrimary from "@/components/atoms/button-primary";
+import ButtonShortHalf from "@components/atoms/button-short-half";
+import ButtonShortThird from "@components/atoms/button-short-third";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";

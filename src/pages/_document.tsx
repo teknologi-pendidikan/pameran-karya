@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+
 const webdata = {
   "@context": "http://schema.org/",
   "@type": "Event",

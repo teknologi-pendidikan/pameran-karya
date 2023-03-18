@@ -4,6 +4,7 @@ import Head from "next/head";
 import Header from "@/components/section/Header";
 import LeftPanel from "@/components/section/leftPanel";
 import RightPanel from "@/components/section/RightPanel";
+import Footer from "@/components/section/Footer";
 
 import { GetStaticProps } from "next";
 
@@ -38,6 +39,8 @@ export default function Home({ content }) {
             <RightPanel content={content} />
           </div>
         </section>
+        
+        <Footer />
       </main>
     </>
   );

@@ -1,6 +1,5 @@
 // @ts-nocheck
 import Head from "next/head";
-import Header from "@/components/organisms/Header";
 import LeftPanel from "@/components/organisms/leftPanel";
 import RightPanel from "@/components/organisms/RightPanel";
 

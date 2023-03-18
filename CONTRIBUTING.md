@@ -5,15 +5,17 @@
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Directory Structure](#directory-structure)
+- [Technical Difficulties](#technical-difficulties)
 
 ### Dokumen Teknis Lainnya
 
-- [Konsep Aplikasi](concept.md)
-- [Penggunaan Panel Admin (wip)](adminpanel.md)
-- [Penggunaan Google Sheets](google-sheets.md)
-- [Penggunaan Netlify (wip)](Netlify.md)
-- [Arsitektur Aplikasi](architecture.md)
-- [Pemetaan Karya Teknologi Pendidikan](mapping.md)
+- [Konsep Aplikasi](/docs/concept.md)
+- [Penggunaan Panel Admin (wip)](/docs/adminpanel.md)
+- [Penggunaan Google Sheets](/docs/google-sheets.md)
+- [Penggunaan Netlify (wip)](/docs/Netlify.md)
+- [Arsitektur Aplikasi](/docs/architecture.md)
+- [Pemetaan Karya Teknologi Pendidikan](/docs/mapping.md)
 
 ## Introduction
 
@@ -42,7 +44,7 @@ Tujuan kami dalam membuat aplikasi ini adalah untuk memudahkan memperkenalkan ka
 
 ### Directory Structure
 
-``` text
+```text
 /
 |---src/
 |   |---components/ # Reusable components
@@ -54,3 +56,13 @@ Tujuan kami dalam membuat aplikasi ini adalah untuk memudahkan memperkenalkan ka
 |---public # Static files
 |---docs # Documentation
 ```
+
+## Technical Difficulties
+
+- [ ] Mobile view is not responsive
+- [ ] The website is not SEO friendly
+- [ ] The website is not accessible
+- [ ] The website is not optimized for performance
+- [ ] The website is not optimized for security
+- [ ] The website is not optimized for privacy
+- [ ] The website is not optimized for accessibility

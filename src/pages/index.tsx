@@ -21,7 +21,7 @@ export default function Home({ content }) {
         </title>
       </Head>
       <main className="flex bg-black xl:bg-transparent xl:flex flex-col">
-        <section id="mainmenu">
+        <section id="mainmenu" className="h-screen grid">
           <div id="video-wrapper" className="absolute hidden xl:block -z-10">
             <video id="pv" loop autoPlay muted>
               <source
@@ -30,13 +30,20 @@ export default function Home({ content }) {
               />
             </video>
           </div>
-          <div
-            id="panel-mainmenu"
-            className="flex xl:flex-row xl:space-y-0 flex-col items-center justify-between h-screen overflow-hidden px-8 space-y-3"
-          >
-            <LeftPanel content={content} />
-            <RightPanel content={content} />
-          </div>
+            {/* <div
+              id="panel-mainmenu"
+              className="flex xl:flex-row xl:space-y-0 flex-col items-center justify-between overflow-hidden px-8 space-y-3"
+            >
+              <LeftPanel content={content} />
+              <RightPanel content={content} />
+            </div> */}
+            <div
+              id="panel-mainmenu"
+              className="grid xl:grid-cols-2 justify-items-center items-center place-content-center"
+            >
+              <LeftPanel content={content} />
+              <RightPanel content={content} />
+            </div>
         </section>
       </main>
     </>

@@ -86,6 +86,7 @@ export default function Document() {
           property="og:image"
           content="https://pamerankarya.teknologipendidikan.or.id/opengraph.jpg"
         ></meta>
+        <link rel="manifest" href="/manifest.json" />
 
         {/* JSON-LD Structured Data */}
         <script

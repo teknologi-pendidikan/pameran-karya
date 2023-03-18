@@ -12,7 +12,7 @@ export default function Layout({ children: children }: LayoutProps) {
     <>
       <Header
         posRootHeader={router.asPath === "/" ? "absolute" : "fixed"}
-        extendRootHeader={router.asPath !== "/" ? "border-b-4" : ""}
+        extendRootHeader={router.asPath == "/" ? "xl:bg-transparent bg-black" : "border-b-4"}
       />
       {children}
       <Footer />

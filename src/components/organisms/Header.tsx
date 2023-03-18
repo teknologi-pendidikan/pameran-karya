@@ -9,8 +9,8 @@ type HeaderProps = {
 
 function Header(header: HeaderProps) {
   return (
-    <header className={`my-4 z-50 xl:${header.posRootHeader} xl:top-0 w-full font-PlusJakartaSans ${header.extendRootHeader}`}>
-      <nav className="flex flex-col items-center">
+    <header className={`z-50 xl:${header.posRootHeader} xl:top-0 w-full font-PlusJakartaSans ${header.extendRootHeader}`}>
+      <nav className="flex flex-col items-center py-4">
         <Link href="/">
           <h1 className="hidden">Pameran Karya Teknologi Pendidikan 2023</h1>
           <LogoPameran />

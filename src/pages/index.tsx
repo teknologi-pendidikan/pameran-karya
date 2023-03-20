@@ -21,15 +21,7 @@ export default function Home({ content }) {
         </title>
       </Head>
       <main className="bg-black xl:bg-transparent">
-        <section id="mainmenu" className="h-screen grid">
-          <div id="video-wrapper" className="absolute hidden xl:block -z-1">
-            <video id="pv" loop autoPlay muted>
-              <source
-                src="https://is3.cloudhost.id/teknologipendidikan/videoprofil-tepum.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
+        <header id="mainmenu" className="h-screen grid">
           <div
             id="panel-mainmenu"
             className="grid xl:grid-cols-2 xl:justify-items-center xl:items-center place-content-center gap-2"
@@ -37,7 +29,19 @@ export default function Home({ content }) {
             <LeftPanel content={content} />
             <RightPanel content={content} />
           </div>
-        </section>
+          <video
+            id="pv"
+            loop
+            autoPlay
+            muted
+            className="absolute hidden xl:block -z-10"
+          >
+            <source
+              src="https://is3.cloudhost.id/teknologipendidikan/videoprofil-tepum.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </header>
       </main>
     </>
   );

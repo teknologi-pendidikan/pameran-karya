@@ -5,6 +5,7 @@ type Props = {
     width?: number;
     height?: number;
     fill?: string;
+    className?: string;
 };
 
 const LogoEdtech = (props: Props) => (
@@ -14,6 +15,7 @@ const LogoEdtech = (props: Props) => (
     viewBox="0 0 907 196"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    className={props.className}
   >
     <g clipPath="url(#a)" fillRule="evenodd" clipRule="evenodd" fill={ props.fill || "#22272C"}>
       <path d="M83.353 11.047c24.041-.592 44.954 7.09 62.737 23.047 16.59 15.737 25.831 35.076 27.723 58.016a84.462 84.462 0 0 1-1.824 24.403c-19.108-7.216-38.649-8.665-58.623-4.348-19.882 4.537-36.915 14.028-51.097 28.47 6.54-24.379 4.607-48.065-5.797-71.058C49.871 55.495 40.536 43.542 28.47 33.72c13.45-12.146 29.22-19.47 47.31-21.972a124.46 124.46 0 0 1 7.573-.701Z" />

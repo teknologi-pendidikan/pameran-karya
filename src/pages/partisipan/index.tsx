@@ -21,7 +21,7 @@ export default function Partisipan({ partisipan }) {
       <Head>
         <title>Partisipan Pameran</title>
       </Head>
-      <main className="container mx-auto px-4 max-w-screen-2xl space-y-24 mb-24">
+      <main className="container mx-auto px-4 max-w-screen-2xl space-y-12 mb-24 mt-8">
         <div className="space-y-5 bg-blue-300 px-6 py-16 md:px-12 md:py-24 rounded-lg border-4 border-gray-800">
           <h1 className="text-5xl md:text-7xl font-bold">
             Partisipan Pameran Karya.

@@ -4,6 +4,7 @@ type LogoTEPUMProps = {
     width?: number;
     height?: number;
     fill?: string;
+    className?: string;
 };
 
 const LogoTEPUM = (Props: LogoTEPUMProps) => (
@@ -13,6 +14,7 @@ const LogoTEPUM = (Props: LogoTEPUMProps) => (
     viewBox="0 0 311 166"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    className={Props.className}
   >
     <path
       fillRule="evenodd"

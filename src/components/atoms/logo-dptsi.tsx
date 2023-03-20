@@ -4,6 +4,7 @@ type Props = {
   height?: number;
   width?: number;
   fill?: string;
+  className?: string;
 };
 
 const LogoDPTSI = (props: Props) => (
@@ -13,6 +14,7 @@ const LogoDPTSI = (props: Props) => (
     viewBox="0 0 80 33"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    className={props.className}
   >
     <g clipPath="url(#a)">
       <path

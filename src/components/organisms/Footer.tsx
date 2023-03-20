@@ -27,9 +27,15 @@ export default function Footer() {
         </Link>
       </div>
       <div className="flex flex-row items-center justify-center space-x-6">
-        <LogoTEPUM height={80} width={110} fill="#fff" />
-        <LogoDPTSI height={80} width={130} fill="#fff" />
-        <LogoEdtech height={80} width={190} fill="#fff" />
+        <Link href="http://tep.fip.um.ac.id">
+          <LogoTEPUM height={80} width={110} fill="#fff" className="hover:scale-125"/>
+        </Link>
+        <Link href="https://dptsi.edtech.or.id">
+          <LogoDPTSI height={80} width={130} fill="#fff" className="hover:scale-125"/>
+        </Link>
+        <Link href="https://teknologipendidikan.or.id">
+          <LogoEdtech height={80} width={190} fill="#fff" className="hover:scale-125"/>
+        </Link>
       </div>
       <div className="text-gray-300 text-sm">
         Copyright © Tim Pameran Karya Teknologi Pendidikan 2023. All Rights

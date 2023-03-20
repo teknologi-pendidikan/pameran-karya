@@ -26,7 +26,7 @@ export default function Home({ content }) {
           <div
             id="panel-mainmenu"
             // className="grid xl:grid-cols-2 xl:justify-items-center xl:items-center place-content-center gap-2"
-            className="flex flex-col xl:flex-row justify-between items-center space-x-4 xl:w-full px-16"
+            className="flex flex-col xl:flex-row justify-center xl:justify-between items-center space-x-4 xl:w-full px-16 scale-[0.6] xl:scale-100 space-y-4"
           >
             <LeftPanel content={content} />
             <RightPanel content={content} />

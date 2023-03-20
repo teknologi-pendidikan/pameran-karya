@@ -21,7 +21,7 @@ export default function Home({ content }) {
           Pameran Karya Teknologi Pendidikan 2023 - Universitas Negeri Malang
         </title>
       </Head>
-      <main className="bg-black xl:bg-transparent">
+      <main className="bg-white xl:bg-transparent">
         <header id="mainmenu" className="relative flex items-center justify-center h-screen mb-12 overflow-hidden">
           <div
             id="panel-mainmenu"

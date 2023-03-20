@@ -2,6 +2,7 @@
 import Head from "next/head";
 import LeftPanel from "@/components/organisms/leftPanel";
 import RightPanel from "@/components/organisms/RightPanel";
+import About from "@/components/organisms/About";
 
 import { GetStaticProps } from "next";
 
@@ -21,10 +22,11 @@ export default function Home({ content }) {
         </title>
       </Head>
       <main className="bg-black xl:bg-transparent">
-        <header id="mainmenu" className="h-screen grid">
+        <header id="mainmenu" className="relative flex items-center justify-center h-screen mb-12 overflow-hidden">
           <div
             id="panel-mainmenu"
-            className="grid xl:grid-cols-2 xl:justify-items-center xl:items-center place-content-center gap-2"
+            // className="grid xl:grid-cols-2 xl:justify-items-center xl:items-center place-content-center gap-2"
+            className="flex flex-col xl:flex-row justify-between items-center space-x-4 xl:w-full px-16"
           >
             <LeftPanel content={content} />
             <RightPanel content={content} />
@@ -34,7 +36,7 @@ export default function Home({ content }) {
             loop
             autoPlay
             muted
-            className="absolute hidden xl:block -z-10"
+            className="absolute -z-10 w-auto min-w-full min-h-full max-w-none"
           >
             <source
               src="https://is3.cloudhost.id/teknologipendidikan/videoprofil-tepum.mp4"
@@ -42,6 +44,9 @@ export default function Home({ content }) {
             />
           </video>
         </header>
+        <section id="main-content" className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 mb-24 ">
+        <About />
+        </section>
       </main>
     </>
   );

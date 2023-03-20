@@ -11,33 +11,50 @@ export default function Footer() {
       id="footer"
       className="flex flex-col items-center justify-center w-full h-min bg-black pt-4 pb-10 space-y-2"
     >
-      <LogoPameran />
-      <div className="my-4 space-x-5 text-gray-300 text-sm">
-        <Link href="/about" className="hover:underline underline-offset-4">
+      <div id="logo-pameran-wrapper" className="scale-75 xl:scale-100">
+        <LogoPameran />
+      </div>
+      <div className="container px-4 lg:max-w-screen-3xl text-center space-x-6 text-white">
+        <Link href="/about" className="hover:underline underline-offset-4 my-2">
           Tentang
         </Link>
-        <Link href="/partisipan" className="hover:underline underline-offset-4">
+        <Link href="/partisipan" className="hover:underline underline-offset-4 my-2">
           Partisipan
         </Link>
-        <Link href="/schedule" className="hover:underline underline-offset-4">
+        <Link href="/schedule" className="hover:underline underline-offset-4 my-2">
           Tim Belakang Layar
         </Link>
-        <Link href="/sponsors" className="hover:underline underline-offset-4">
+        <Link href="/sponsors" className="hover:underline underline-offset-4 my-2">
           Butuh bantuan?
         </Link>
       </div>
-      <div className="flex flex-row items-center justify-center space-x-6">
+      <div className="flex px-4 scale-50 xl:scale-100 items-center justify-center space-x-6">
         <Link href="http://tep.fip.um.ac.id">
-          <LogoTEPUM height={80} width={110} fill="#fff" className="hover:scale-125"/>
+          <LogoTEPUM
+            height={80}
+            width={110}
+            fill="#fff"
+            className="hover:scale-125"
+          />
         </Link>
         <Link href="https://dptsi.edtech.or.id">
-          <LogoDPTSI height={80} width={130} fill="#fff" className="hover:scale-125"/>
+          <LogoDPTSI
+            height={80}
+            width={130}
+            fill="#fff"
+            className="hover:scale-125"
+          />
         </Link>
         <Link href="https://teknologipendidikan.or.id">
-          <LogoEdtech height={80} width={190} fill="#fff" className="hover:scale-125"/>
+          <LogoEdtech
+            height={80}
+            width={190}
+            fill="#fff"
+            className="hover:scale-125"
+          />
         </Link>
       </div>
-      <div className="text-gray-300 text-sm">
+      <div className="text-gray-300 text-sm text-center">
         Copyright © Tim Pameran Karya Teknologi Pendidikan 2023. All Rights
         Reserved.
       </div>

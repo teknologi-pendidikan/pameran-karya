@@ -3,6 +3,8 @@ import Head from "next/head";
 import LeftPanel from "@/components/organisms/leftPanel";
 import RightPanel from "@/components/organisms/RightPanel";
 import About from "@/components/organisms/About";
+import Image from "next/image";
+import ImageBG from "../../public/bg-pik.png";
 
 import { GetStaticProps } from "next";
 
@@ -21,31 +23,30 @@ export default function Home({ content }) {
           Pameran Karya Teknologi Pendidikan 2023 - Universitas Negeri Malang
         </title>
       </Head>
-      <main className="bg-white xl:bg-transparent">
-        <header id="mainmenu" className="relative flex items-center justify-center h-screen mb-12 overflow-hidden">
+      <main className="bg-white xl:bg-transparent relative">
+        <Image
+          src={ImageBG}
+          alt="bgpik"
+          className="absolute top-0 -z-10"
+          priority
+        />
+        <header
+          id="mainmenu"
+          className="relative flex items-center justify-center h-screen mb-12 overflow-hidden border-b-4"
+        >
           <div
             id="panel-mainmenu"
-            // className="grid xl:grid-cols-2 xl:justify-items-center xl:items-center place-content-center gap-2"
-            className="flex flex-col xl:flex-row justify-center xl:justify-between items-center space-x-4 xl:w-full px-16 scale-[0.6] xl:scale-100 space-y-4"
+            className="flex flex-col xl:flex-row justify-center items-center space-x-[50rem] xl:w-full px-16 scale-[0.6] xl:scale-[0.6] 2xl:scale-[0.85] space-y-4 xl:mt-40 2xl:mt-80"
           >
             <LeftPanel content={content} />
             <RightPanel content={content} />
           </div>
-          <video
-            id="pv"
-            loop
-            autoPlay
-            muted
-            className="absolute -z-10 w-auto min-w-full min-h-full max-w-none"
-          >
-            <source
-              src="https://is3.cloudhost.id/teknologipendidikan/videoprofil-tepum.mp4"
-              type="video/mp4"
-            />
-          </video>
         </header>
-        <section id="main-content" className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 mb-24 ">
-        <About />
+        <section
+          id="main-content"
+          className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 mb-24 text-white"
+        >
+          <About />
         </section>
       </main>
     </>

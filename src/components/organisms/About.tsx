@@ -1,6 +1,7 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import React from "react";
-import ReactPlayer from "react-player";
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,14 +11,11 @@ import {
 
 export default function About() {
   return (
-    <div className="space-y-24 mt-28">
+    <div className="space-y-24 my-40">
       <div className="space-y-8">
         <div className="space-y-3">
-          <h1 className="text-4xl text-grey-700 font-display font-semibold">
-            <span className="text-black font-bold">
-              <span className="text-blue-500">Selamat datang</span>
-            </span>{" "}
-            Teknolog Pendidikan!
+          <h1 className="text-4xl text-grey-700 font-display font-semibold text-center">
+            Selamat datang Teknolog Pendidikan!
           </h1>
         </div>
         <div className="flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-20">
@@ -80,7 +78,7 @@ export default function About() {
               <ReactPlayer
                 width="100%"
                 url="https://www.youtube.com/watch?v=EZ_DPwBU4h8"
-                controls
+                light="true"
               />
             </div>
           </div>

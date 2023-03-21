@@ -7,6 +7,8 @@ import Image from "next/image";
 import ImageBG from "../../public/bg-pik.png";
 
 import { GetStaticProps } from "next";
+import JenisKarya from "@/components/organisms/JenisKarya";
+import PlayerSelector from "@/components/organisms/PlayerSelector";
 
 type Frontcontent = {
   id: string;
@@ -29,10 +31,11 @@ export default function Home({ content }) {
           alt="bgpik"
           className="absolute top-0 -z-10"
           priority
+          quality={50}
         />
         <header
           id="mainmenu"
-          className="relative flex items-center justify-center h-screen mb-12 overflow-hidden border-b-4"
+          className="relative flex items-center justify-center h-screen mb-12 overflow-hidden"
         >
           <div
             id="panel-mainmenu"
@@ -47,6 +50,8 @@ export default function Home({ content }) {
           className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 mb-24 text-white"
         >
           <About />
+          <JenisKarya />
+          <PlayerSelector />
         </section>
       </main>
     </>

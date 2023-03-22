@@ -1,0 +1,38 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Pameran Karya Teknologi Pendidikan UM 2023
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Rengga Prakoso
+    family-names: Nugroho
+    email: rengganugroho@teknologipendidikan.or.id
+    affiliation: Teknologi Pendidikan ID
+    orcid: 'https://orcid.org/0000-0002-7604-7150'
+  - given-names: Mohammad Ubaiddillah
+    email: mohammad.ubaidillah.2001216@students.um.ac.id
+    affiliation: Universitas Negeri Malang
+repository-code: 'https://github.com/teknologi-pendidikan/pameran-karya'
+url: 'https://pamerankarya.teknologipendidikan.or.id'
+abstract: >-
+  Pameran Karya Teknologi Pendidikan 2023 is a web-based
+  application created to facilitate the management of data
+  on exhibitions of educational technology works organized
+  by students of the Department of Educational Technology,
+  State University of Malang. Our goal in making this
+  application is to make it easier to introduce educational
+  technology works made by students of the Department of
+  Educational Technology, State University of Malang to the
+  wider community through digital channels.
+keywords:
+  - teknologi pendidikan
+  - pameran karya
+  - pameran digital
+license: MIT
+commit: 1e9a296686424c297d6d6dc7caeafd01fcc35021
+version: 1.0.0
+date-released: '2023-04-14'

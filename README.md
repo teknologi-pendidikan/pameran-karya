@@ -41,7 +41,10 @@ Jika kamu ingin berkontribusi dalam pengembangan aplikasi ini, silahkan membaca 
 
 ## Lisensi
 
-Aplikasi ini dilisensikan di bawah [MIT License](/LICENSE).
+Dokumentasi aplikasi ini di folder `aset`, `public`, `docs`, dan `data` dilisensikan di bawah [lisensi CC-BY-SA](/LICENSE).
+
+Semua kode lain di repositori ini dilisensikan di bawah [lisensi MIT](/LICENSE-CODE).
+
 Jangan ragu untuk mengkloning dan memodifikasi aplikasi sesuai keinginan, tetapi jangan lupa untuk menambahkan referensi kepada kami sebagai pengembangnya.
 
 ## Catatan Penting

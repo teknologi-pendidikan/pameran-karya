@@ -45,14 +45,14 @@ export default function Home({ content }) {
             <RightPanel content={content} />
           </div>
         </header>
-        <section
+        <div
           id="main-content"
           className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 mb-24 text-white"
         >
           <About />
           <JenisKarya />
           <PlayerSelector />
-        </section>
+        </div>
       </main>
     </>
   );

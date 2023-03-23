@@ -18,7 +18,7 @@ function Header(header: HeaderProps) {
       </Link>
       <div className="mb-4 hidden 2xl:block space-x-8">
         <Link
-          href="/about"
+          href="/tentang"
           className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"
         >
           Tentang
@@ -30,13 +30,13 @@ function Header(header: HeaderProps) {
           Partisipan
         </Link>
         <Link
-          href="/schedule"
+          href="/karya"
           className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"
         >
-          Tim Belakang Layar
+          karya
         </Link>
         <Link
-          href="/sponsors"
+          href="/bantuan"
           className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"
         >
           Butuh bantuan?

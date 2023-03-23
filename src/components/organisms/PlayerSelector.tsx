@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function PlayerSelector() {
   return (
-    <div className="mt-28">
-      <SectionTitle title="Play as Who?" />
+    <section className="mt-28" id="player-selector">
+      <SectionTitle title="Siapa Anda?" />
       <div className="flex flex-row items-center justify-center space-x-[20rem]">
         <div className="text-3xl text-center saturate-0 hover:scale-110 hover:saturate-100 transition ease-in-out duration-500">
           <Image src={Player_1} alt="player_1" />
@@ -20,6 +20,6 @@ export default function PlayerSelector() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

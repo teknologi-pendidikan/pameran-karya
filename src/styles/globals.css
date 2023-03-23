@@ -12,10 +12,10 @@
     font-family: "Plus Jakarta Sans", sans-serif;
   }
 
-  * {
+  /* * {
     outline: 1px solid red;
     background-color: rgba(100, 0, 0, 0.1);
-  }
+  } */
 }
 
 @media only screen and (min-width: 1280px) {
@@ -45,4 +45,11 @@
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+.globe {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  cursor: grabbing;
 }

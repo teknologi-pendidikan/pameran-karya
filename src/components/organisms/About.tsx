@@ -3,20 +3,14 @@ import dynamic from "next/dynamic";
 import React from "react";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMapMarkerAlt,
-  faCalendarAlt,
-} from "@fortawesome/free-solid-svg-icons";
-
 export default function About() {
   return (
-    <div className="space-y-24 my-40">
+    <section className="space-y-24 my-40" id="tentang">
       <div className="space-y-8">
         <div className="space-y-3">
-          <h1 className="text-4xl text-grey-700 font-display font-semibold text-center">
+          <h2 className="text-4xl text-grey-700 font-display font-semibold text-center">
             Selamat datang Teknolog Pendidikan!
-          </h1>
+          </h2>
         </div>
         <div className="flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-20">
           <div className="w-full space-y-10">
@@ -84,6 +78,6 @@ export default function About() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

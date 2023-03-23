@@ -8,11 +8,11 @@ export default function PlayerSelector() {
     <div className="mt-28">
       <SectionTitle title="Play as Who?" />
       <div className="flex flex-row items-center justify-center space-x-[20rem]">
-        <div className="text-3xl text-center grow-animation saturate-0 hover:scale-110 hover:saturate-100">
+        <div className="text-3xl text-center saturate-0 hover:scale-110 hover:saturate-100 transition ease-in-out duration-500">
           <Image src={Player_1} alt="player_1" />
           <h3>Partsipan Pameran</h3>
         </div>
-        <div className="text-3xl text-center grow-animation saturate-0 hover:scale-110 hover:saturate-100 relative">
+        <div className="text-3xl text-center saturate-0 hover:scale-110 hover:saturate-100 transition ease-in-out duration-500">
           <Image src={Player_2} alt="player_1" />
           <h3>Pengunjung Pameran</h3>
           <div className="absolute top-0 -left-0 bg-black bg-opacity-50">

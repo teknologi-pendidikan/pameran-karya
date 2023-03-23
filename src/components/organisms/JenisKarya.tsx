@@ -12,28 +12,28 @@ export default function JenisKarya() {
           alt="frame-chara"
           priority
           quality={50}
-          className="grow-animation saturate-50 hover:scale-110 hover:saturate-100"
+          className="transition ease-in-out duration-500 saturate-50 hover:scale-110 hover:saturate-100"
         />
         <Image
           src={FrameChara}
           alt="frame-chara"
           priority
           quality={50}
-          className="grow-animation saturate-50 hover:scale-110 hover:saturate-100"
+          className="transition ease-in-out duration-500 saturate-50 hover:scale-110 hover:saturate-100"
         />
         <Image
           src={FrameChara}
           alt="frame-chara"
           priority
           quality={50}
-          className="grow-animation saturate-50 hover:scale-110 hover:saturate-100"
+          className="transition ease-in-out duration-500 saturate-50 hover:scale-110 hover:saturate-100"
         />
         <Image
           src={FrameChara}
           alt="frame-chara"
           priority
           quality={50}
-          className="grow-animation saturate-50 hover:scale-110 hover:saturate-100"
+          className="transition ease-in-out duration-500 saturate-50 hover:scale-110 hover:saturate-100"
         />
       </div>
     </div>

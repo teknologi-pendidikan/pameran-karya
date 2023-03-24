@@ -5,12 +5,12 @@ import LogoEdtech from "../atoms/logo-edtech";
 
 export default function FooterSponsor() {
   return (
-    <div className="flex flex-row justify-end">
+    <div className="flex flex-col md:flex-row items-center md:justify-end">
       <div className="flex flex-col mt-10 h-full">
-        <p className="text-white text-xl font-semibold text-right">
+        <p className="text-white text-xl font-semibold text-center md:text-right">
           Didukung oleh:
         </p>
-        <div className="flex flex-row justify-end space-x-6">
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-center md:justify-end md:space-x-6">
           <Link href="http://tep.fip.um.ac.id">
             <LogoTEPUM
               height={80}

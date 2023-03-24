@@ -41,7 +41,7 @@ const webdata = {
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="id">
       <Head>
         <meta
           name="title"

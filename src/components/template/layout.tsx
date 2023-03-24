@@ -1,5 +1,5 @@
 import Footer from "@components/organisms/Footer";
-import Header from "@components/organisms/Header";
+import Navbar from "@/components/organisms/Navbar";
 import { useRouter } from "next/router";
 
 type LayoutProps = {
@@ -10,10 +10,10 @@ export default function Layout({ children: children }: LayoutProps) {
   const router = useRouter();
   return (
     <>
-      <Header
-        extendRootHeader={
+      <Navbar
+        extendRootNavbar={
           router.asPath == "/"
-            ? "xl:bg-transparent bg-black hidden"
+            ? "fixed top-0 left-0 bg-violet-900"
             : "border-b-4"
         }
       />

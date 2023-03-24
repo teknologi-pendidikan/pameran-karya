@@ -2,21 +2,21 @@
 import Link from "next/link";
 import LogoPameran from "@components/atoms/logo-pameran";
 
-type HeaderProps = {
-  posRootHeader?: string;
-  extendRootHeader?: string;
+type NavbarProps = {
+  posRootNavbar?: string;
+  extendRootNavbar?: string;
 };
 
-function Header(header: HeaderProps) {
+function Navbar(Navbar: NavbarProps) {
   return (
     <nav
-      className={`${header.extendRootHeader} z-10 flex flex-col items-center py-4 w-full font-PlusJakartaSans `}
+      className={`${Navbar.extendRootNavbar} z-10 flex flex-row items-center py-1 w-full font-PlusJakartaSans px-12 mx-auto`}
     >
       <Link href="/">
         <h1 className="hidden">Pameran Karya Teknologi Pendidikan 2023</h1>
-        <LogoPameran />
+        <LogoPameran width={200} height={75} />
       </Link>
-      <div className="mb-4 hidden 2xl:block space-x-8">
+      <div className="px-8 hidden 2xl:block space-x-8 items-center">
         <Link
           href="/tentang"
           className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"
@@ -46,4 +46,4 @@ function Header(header: HeaderProps) {
   );
 }
 
-export default Header;
+export default Navbar;

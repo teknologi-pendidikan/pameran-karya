@@ -2,7 +2,6 @@
 
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
-import Header from "@/components/organisms/Header";
 import Image from "next/image";
 
 type Frontcontent = {
@@ -93,7 +92,6 @@ export default function Partisipan({ partisipan }) {
       <Head>
         <title>Partisipan Pameran</title>
       </Head>
-      <Header position="fixed" />
       <main className="container mx-auto px-4 max-w-screen-2xl space-y-24 mb-24 ">
         <div className="space-y-5 bg-blue-300 px-6 py-16 md:px-12 md:py-24 rounded-lg border-4 border-gray-800 flex flex-row space-x-8">
           <Image

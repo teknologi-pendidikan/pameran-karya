@@ -18,9 +18,9 @@ export default function MainPanelButtonShortHalf(
       className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
     >
       <ButtonShortHalf />
-      <div id="konten-weekly" className="absolute top-0 left-0 px-8 py-2">
-        <p className="text-2xl text-blue-800 font-bold">{props.title}</p>
-        <p className="text-2xl font-bold text-blue-800 hover:text-blue-600 pt-2">
+      <div id="konten-weekly" className="absolute top-0 left-0 px-6 py-2">
+        <p className="text-2xl pt-3 text-blue-100 font-bold">{props.title}</p>
+        <p className="text-2xl font-bold text-blue-100 hover:text-blue-200 pt-2">
           {props.desc}
         </p>
       </div>

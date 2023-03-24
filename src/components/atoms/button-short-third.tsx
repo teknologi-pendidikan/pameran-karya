@@ -7,20 +7,14 @@ const ButtonShortThird = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path fill="url(#a)" d="M1 1h199v84H1z" />
-    <path stroke="#043B47" strokeWidth={6} d="M1 1h199v84H1z" />
+    <g clipPath="url(#clip0_641_22)">
+      <path d="M1 1H200V85H1V1Z" fill="#270E4D" />
+      <path d="M1 1H200V85H1V1Z" stroke="#4C1D95" strokeWidth={8} />
+    </g>
     <defs>
-      <linearGradient
-        id="a"
-        x1={0}
-        y1={86}
-        x2={148.689}
-        y2={61.533}
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset={0.448} stopColor="#A6E3F0" />
-        <stop offset={1} stopColor="#fff" />
-      </linearGradient>
+      <clipPath id="clip0_641_22">
+        <rect width={201} height={86} rx={4} fill="white" />
+      </clipPath>
     </defs>
   </svg>
 );

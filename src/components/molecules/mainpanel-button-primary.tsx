@@ -22,12 +22,12 @@ export default function MainPanelButtonPrimary(
       <ButtonPrimary />
       <div id="konten-pengumuman" className="absolute top-0 left-0 px-4">
         <div>
-          <p className="text-4xl font-bold text-white pt-2">
+          <p className="text-3xl font-bold text-blue-100 pt-5 pl-2">
             <FontAwesomeIcon icon={faInfoCircle} className="fa-sm" />{" "}
             {props.title}
           </p>
         </div>
-        <p className="text-2xl font-bold text-blue-800 hover:text-blue-600 pt-2">
+        <p className="text-2xl font-bold text-blue-100 hover:text-blue-200 pt-2">
           {props.desc}
         </p>
       </div>

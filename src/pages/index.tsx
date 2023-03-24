@@ -9,6 +9,10 @@ import ImageBG from "../../public/bg-pik.png";
 import { GetStaticProps } from "next";
 import JenisKarya from "@/components/organisms/JenisKarya";
 import PlayerSelector from "@/components/organisms/PlayerSelector";
+import GeneralInformation from "@/components/organisms/GeneralInformation";
+
+import fs from "fs";
+import matter from "gray-matter";
 
 type Frontcontent = {
   id: string;
@@ -17,7 +21,7 @@ type Frontcontent = {
   link: string;
 };
 
-export default function Home({ content }) {
+export default function Home({ content, posts }) {
   return (
     <>
       <Head>
@@ -50,6 +54,7 @@ export default function Home({ content }) {
           className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 mb-24 text-white"
         >
           <About />
+          <GeneralInformation listpost={posts} />
           <JenisKarya />
           <PlayerSelector />
         </div>
@@ -84,9 +89,22 @@ export const getStaticProps: GetStaticProps<{
       }
     });
 
+  const files = fs.readdirSync("posts");
+  const posts = files.map((fileName) => {
+    const slug = fileName.replace(".md", "");
+    const readFile = fs.readFileSync(`posts/${fileName}`, "utf-8");
+    const { data: frontmatter } = matter(readFile);
+
+    return {
+      slug,
+      frontmatter,
+    };
+  });
+
   return {
     props: {
       content,
+      posts,
     },
   };
 };

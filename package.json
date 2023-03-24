@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
     "test:e2e": "playwright test",
     "tsc": "tsc"
   },
@@ -17,6 +19,7 @@
     "@types/node": "18.14.6",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "D": "^1.0.0",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "next": "13.2.3",
@@ -41,7 +44,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.0.3",
     "postcss": "^8.4.21",
-    "prettier": "^2.8.4",
+    "prettier": "^2.8.6",
     "tailwindcss": "^3.2.7"
   },
   "config": {

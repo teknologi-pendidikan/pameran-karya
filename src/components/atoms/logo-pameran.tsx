@@ -5,14 +5,16 @@ interface Props {
   colorKarya?: string;
   colorTEP?: string;
   clasName?: string;
+  width?: number;
+  height?: number;
 }
 
 import * as React from "react";
 export default function LogoPameran(styles: Props): JSX.Element {
   return (
     <svg
-      width={350}
-      height={100}
+      width={styles.width}
+      height={styles.height}
       viewBox="0 0 350 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

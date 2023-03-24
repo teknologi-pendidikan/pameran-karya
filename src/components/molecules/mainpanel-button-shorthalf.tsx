@@ -1,12 +1,12 @@
 import Link from "next/link";
 import ButtonShortHalf from "@components/atoms/button-short-half";
 
-interface MainPanelButtonShortHalfProps {
-  link?: any;
+type MainPanelButtonShortHalfProps = {
+  link: string;
   id: string;
   title: string;
   desc: string;
-}
+};
 
 export default function MainPanelButtonShortHalf(
   props: MainPanelButtonShortHalfProps,

@@ -1,22 +1,21 @@
-// @ts-nocheck
-
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths } from "next";
 import Head from "next/head";
 import Image from "next/image";
 
-type Frontcontent = {
+type contentData = {
+  [x: string]: any;
   uuid: string;
+  nim: string;
   name: string;
-  nim: number;
-  angkatan: number;
-  jumlah_karya: number;
+  angkatan: string;
+  jumlah_karya: string;
   image: string;
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/peserta?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
 
-  let content = [];
+  const content: contentData[] = [];
   await fetch(SHEETS_ENDPOINT)
     .then((response) => response.json())
     .then((json) => {
@@ -48,11 +47,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async (context: { params: { nim: any } }) => {
   const id = context.params.nim;
   const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/peserta?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
 
-  let content = [];
+  const content: contentData[] = [];
   await fetch(SHEETS_ENDPOINT)
     .then((response) => response.json())
     .then((json) => {
@@ -86,27 +85,27 @@ export const getStaticProps = async (context) => {
   };
 };
 
-export default function Partisipan({ partisipan }) {
+export default function Partisipan(partisipan: contentData) {
   return (
     <>
       <Head>
         <title>Partisipan Pameran</title>
       </Head>
-      <main className="container mx-auto px-4 max-w-screen-2xl space-y-24 mb-24 ">
+      <main className="container mx-auto max-w-screen-2xl space-y-24 mb-24 ">
         <div className="space-y-5 bg-blue-300 px-6 py-16 md:px-12 md:py-24 rounded-lg border-4 border-gray-800 flex flex-row space-x-8">
           <Image
             className="w-32 h-32 md:w-44 md:h-44 rounded-full object-cover"
-            src={partisipan[0].image}
-            alt={partisipan[0].name}
+            src={partisipan.partisipan[0].image}
+            alt={partisipan.partisipan[0].name}
             width={200}
             height={200}
           />
           <div>
             <h1 className="text-5xl md:text-7xl font-bold">
-              {partisipan[0].name}
+              {partisipan.partisipan[0].name}
             </h1>
             <p className="text-lg md:text-xl text-gray-800">
-              {partisipan[0].nim}
+              {partisipan.partisipan[0].nim}
             </p>
           </div>
         </div>

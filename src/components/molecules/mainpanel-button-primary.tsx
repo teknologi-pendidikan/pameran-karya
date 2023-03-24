@@ -3,12 +3,12 @@ import ButtonPrimary from "@components/atoms/button-primary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
-interface MainPanelButtonPrimaryProps {
-  link?: any;
+type MainPanelButtonPrimaryProps = {
+  link: string;
   id: string;
   title: string;
   desc: string;
-}
+};
 
 export default function MainPanelButtonPrimary(
   props: MainPanelButtonPrimaryProps,

@@ -1,8 +1,6 @@
-// @ts-nocheck
-/* eslint-disable @next/next/no-img-element */
-
 import Router from "next/router";
 
+// @ts-expect-error
 const CallUpdateContentAPI = async (event) => {
   event.preventDefault();
   const reason: string = event.target.reason.value;
@@ -13,7 +11,7 @@ const CallUpdateContentAPI = async (event) => {
     return;
   }
 
-  const res = await fetch(
+  await fetch(
     `https://api.netlify.com/build_hooks/640edb1876710f35d5103388?trigger_title=${key}::${reason}`,
     {
       method: "POST",
@@ -23,7 +21,7 @@ const CallUpdateContentAPI = async (event) => {
   alert(
     `CONTENT UPDATE TRIGGERED:: REASON: ${reason}, KEY: ${key}, MODE: redeploy-build, STATUS: true, Created At: ${Date.now}`,
   );
-  Router.reload(window.location.pathname);
+  Router.reload();
 };
 
 export default function UpdateContent() {
@@ -34,6 +32,7 @@ export default function UpdateContent() {
           <h1 className="text-3xl font-bold text-center text-gray-900">
             Web Content Updater (on-demand build system)
           </h1>
+          {/* @ts-ignore */}
           <img
             src="https://api.netlify.com/api/v1/badges/36d476bb-2534-404b-8af7-e93112e165eb/deploy-status"
             alt="Build Status"

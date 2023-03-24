@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps<{
 }> = async () => {
   const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/descinfo?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
 
-  let content = [];
+  const content = [];
   await fetch(SHEETS_ENDPOINT)
     .then((response) => response.json())
     .then((json) => {

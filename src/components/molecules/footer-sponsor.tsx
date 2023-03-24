@@ -1,5 +1,4 @@
 import Link from "next/link";
-import LogoPameran from "@components/atoms/logo-pameran";
 import LogoTEPUM from "@components/atoms/logo-tepum";
 import LogoDPTSI from "../atoms/logo-dptsi";
 import LogoEdtech from "../atoms/logo-edtech";

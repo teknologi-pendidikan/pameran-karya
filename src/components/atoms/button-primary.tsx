@@ -1,7 +1,6 @@
-// @ts-nocheck
-interface Props {
+type Props = {
   classname?: string;
-}
+};
 
 import * as React from "react";
 export default function ButtonPrimary(styles: Props): JSX.Element {
@@ -12,7 +11,7 @@ export default function ButtonPrimary(styles: Props): JSX.Element {
       viewBox="0 0 574 167"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={styles}
+      className={styles.classname}
     >
       <rect x={3.5} y={3.5} width={567} height={160} rx={6.5} fill="#270E4D" />
       <rect

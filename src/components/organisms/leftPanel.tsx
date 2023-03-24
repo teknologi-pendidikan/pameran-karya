@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import MainPanelButtonPrimary from "@components/molecules/mainpanel-button-primary";
 import MainPanelButtonShortHalf from "@components/molecules/mainpanel-button-shorthalf";
 import MainPanelButtonSmall from "@components/molecules/mainmenu-button-small";

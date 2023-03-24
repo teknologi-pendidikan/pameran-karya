@@ -1,10 +1,10 @@
-// @ts-nocheck
-import { NextApiRequest, NextApiResponse } from "next";
-require("dotenv").config();
+// @ts-nocheck @ts-ignore
+import { NextApiResponse } from "next";
+import * as dotenv from "dotenv";
+import fetch from "cross-fetch";
+dotenv.config();
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const fetch = require("cross-fetch");
-
+export default function handler(res: NextApiResponse) {
   const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/peserta?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
 
   fetch(SHEETS_ENDPOINT)

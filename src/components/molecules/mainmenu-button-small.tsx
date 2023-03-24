@@ -1,12 +1,12 @@
 import Link from "next/link";
 import ButtonShortThird from "@components/atoms/button-short-third";
 
-interface MainPanelButtonSmallProps {
-  link: any;
+type MainPanelButtonSmallProps = {
+  link: string;
   id?: string;
   title: string;
   desc?: string;
-}
+};
 
 export default function MainPanelButtonSmall(
   props: MainPanelButtonSmallProps,

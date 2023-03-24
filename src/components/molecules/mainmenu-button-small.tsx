@@ -2,9 +2,9 @@ import Link from "next/link";
 import ButtonShortThird from "@components/atoms/button-short-third";
 
 interface MainPanelButtonSmallProps {
-  link?: any;
+  link: any;
   id?: string;
-  title?: string;
+  title: string;
   desc?: string;
 }
 
@@ -16,6 +16,7 @@ export default function MainPanelButtonSmall(
       href={props.link}
       className=" hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 "
     >
+      <p className="sr-only">{props.title}</p>
       <ButtonShortThird />
     </Link>
   );

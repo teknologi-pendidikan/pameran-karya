@@ -19,7 +19,7 @@ export default function MainPanelButtonShortHalf(
     >
       <ButtonShortHalf />
       <div id="konten-weekly" className="absolute top-0 left-0 px-8 py-2">
-        <h2 className="text-2xl text-blue-800 font-bold">{props.title}</h2>
+        <p className="text-2xl text-blue-800 font-bold">{props.title}</p>
         <p className="text-2xl font-bold text-blue-800 hover:text-blue-600 pt-2">
           {props.desc}
         </p>

@@ -38,7 +38,7 @@ function Navbar(Navbar: NavbarProps) {
     >
       <nav
         id="navbar"
-        className="flex flex-row items-center justify-between space-x-1 container"
+        className="flex flex-row items-center justify-between space-x-1 container px-4"
       >
         <Link href="/">
           <h1 className="hidden">Pameran Karya Teknologi Pendidikan 2023</h1>
@@ -50,7 +50,7 @@ function Navbar(Navbar: NavbarProps) {
             colorTEP={Navbar.colorLogo}
           />
         </Link>
-        <div className="hidden 2xl:block space-x-8 items-center">
+        <div className="block space-x-8 items-center">
           {NAVLINK.map((link) => (
             <Link
               key={link.link}

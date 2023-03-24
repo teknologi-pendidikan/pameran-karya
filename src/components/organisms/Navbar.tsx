@@ -32,7 +32,7 @@ const NAVLINK = [
 
 function Navbar(Navbar: NavbarProps) {
   return (
-    <div
+    <header
       id="navbar-wrapper"
       className={`w-full ${Navbar.extendRootNavbar} z-10 flex justify-center`}
     >
@@ -62,7 +62,7 @@ function Navbar(Navbar: NavbarProps) {
           ))}
         </div>
       </nav>
-    </div>
+    </header>
   );
 }
 

@@ -37,7 +37,7 @@ export default function Home({ content, posts }) {
           priority
           quality={50}
         />
-        <header
+        <div
           id="mainmenu"
           className="relative flex items-center justify-center h-screen mb-12 overflow-hidden"
         >
@@ -48,7 +48,7 @@ export default function Home({ content, posts }) {
             <LeftPanel content={content} />
             <RightPanel content={content} />
           </div>
-        </header>
+        </div>
         <div
           id="main-content"
           className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 mb-24 text-white"

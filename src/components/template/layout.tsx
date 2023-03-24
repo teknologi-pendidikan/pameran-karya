@@ -11,7 +11,11 @@ export default function Layout({ children: children }: LayoutProps) {
   return (
     <>
       <Header
-        extendRootHeader={router.asPath == "/" ? "xl:bg-transparent bg-black hidden" : "border-b-4"}
+        extendRootHeader={
+          router.asPath == "/"
+            ? "xl:bg-transparent bg-black hidden"
+            : "border-b-4"
+        }
       />
       {children}
       <Footer />

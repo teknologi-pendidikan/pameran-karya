@@ -9,7 +9,7 @@ interface MainPanelButtonShortHalfProps {
 }
 
 export default function MainPanelButtonShortHalf(
-  props: MainPanelButtonShortHalfProps
+  props: MainPanelButtonShortHalfProps,
 ): JSX.Element {
   return (
     <Link

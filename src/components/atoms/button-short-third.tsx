@@ -10,7 +10,7 @@ const ButtonShortThird = () => (
     <path fill="url(#a)" d="M1 1h199v84H1z" />
     <path stroke="#043B47" strokeWidth={6} d="M1 1h199v84H1z" />
     <defs>
-    <linearGradient
+      <linearGradient
         id="a"
         x1={0}
         y1={86}

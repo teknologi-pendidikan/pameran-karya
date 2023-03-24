@@ -9,7 +9,7 @@ interface MainPanelButtonSmallProps {
 }
 
 export default function MainPanelButtonSmall(
-  props: MainPanelButtonSmallProps
+  props: MainPanelButtonSmallProps,
 ): JSX.Element {
   return (
     <Link

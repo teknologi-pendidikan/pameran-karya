@@ -9,7 +9,7 @@ interface ProfileCardProps {
 }
 
 export default function ProfileCard(
-  profileInfo: ProfileCardProps
+  profileInfo: ProfileCardProps,
 ): JSX.Element {
   return (
     <div

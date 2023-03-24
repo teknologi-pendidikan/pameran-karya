@@ -11,7 +11,7 @@ interface MainPanelButtonPrimaryProps {
 }
 
 export default function MainPanelButtonPrimary(
-  props: MainPanelButtonPrimaryProps
+  props: MainPanelButtonPrimaryProps,
 ): JSX.Element {
   return (
     <Link

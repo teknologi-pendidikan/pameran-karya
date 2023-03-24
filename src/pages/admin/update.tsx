@@ -1,7 +1,7 @@
 // @ts-nocheck
 /* eslint-disable @next/next/no-img-element */
 
-import Router from 'next/router'
+import Router from "next/router";
 
 const CallUpdateContentAPI = async (event) => {
   event.preventDefault();
@@ -17,11 +17,11 @@ const CallUpdateContentAPI = async (event) => {
     `https://api.netlify.com/build_hooks/640edb1876710f35d5103388?trigger_title=${key}::${reason}`,
     {
       method: "POST",
-    }
+    },
   );
 
   alert(
-    `CONTENT UPDATE TRIGGERED:: REASON: ${reason}, KEY: ${key}, MODE: redeploy-build, STATUS: true, Created At: ${Date.now}`
+    `CONTENT UPDATE TRIGGERED:: REASON: ${reason}, KEY: ${key}, MODE: redeploy-build, STATUS: true, Created At: ${Date.now}`,
   );
   Router.reload(window.location.pathname);
 };

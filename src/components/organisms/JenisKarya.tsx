@@ -5,7 +5,7 @@ import SectionTitle from "@components/atoms/section-title";
 export default function JenisKarya() {
   return (
     <section className="container mx-auto mt-28" id="kategori-karya">
-        <SectionTitle title="Kategori Karya Pameran" />
+      <SectionTitle title="Kategori Karya Pameran" />
       <div className="flex flex-row items-center justify-center space-x-4">
         <Image
           src={FrameChara}

@@ -2,10 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 require("dotenv").config();
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const fetch = require("cross-fetch");
 
   const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/peserta?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
@@ -31,7 +28,6 @@ export default function handler(
       return res.status(200).end();
     });
 }
-
 
 export const config = {
   api: {

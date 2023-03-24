@@ -3,8 +3,8 @@ import Link from "next/link";
 import LogoPameran from "@components/atoms/logo-pameran";
 
 type NavbarProps = {
-  posRootNavbar?: string;
-  extendRootNavbar?: string;
+  colorLogo: string;
+  extendRootNavbar: string;
 };
 
 const NAVLINK = [
@@ -42,14 +42,20 @@ function Navbar(Navbar: NavbarProps) {
       >
         <Link href="/">
           <h1 className="hidden">Pameran Karya Teknologi Pendidikan 2023</h1>
-          <LogoPameran width={200} height={75} />
+          <LogoPameran
+            width={200}
+            height={75}
+            colorKarya={Navbar.colorLogo}
+            colorPameran={Navbar.colorLogo}
+            colorTEP={Navbar.colorLogo}
+          />
         </Link>
         <div className="hidden 2xl:block space-x-8 items-center">
           {NAVLINK.map((link) => (
             <Link
               key={link.link}
               href={link.link}
-              className="text-base font-medium text-white hover:text-gray-200 hover:underline underline-offset-4"
+              className="font-medium hover:underline underline-offset-4"
             >
               {link.name}
             </Link>

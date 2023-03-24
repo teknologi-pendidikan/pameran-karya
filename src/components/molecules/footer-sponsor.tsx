@@ -19,6 +19,9 @@ export default function FooterSponsor() {
               fill="#fff"
               className="hover:scale-125 transition ease-in-out duration-500"
             />
+            <p className="sr-only">
+              Teknologi Pendidikan Universitas Negeri Malang
+            </p>
           </Link>
           <Link href="https://dptsi.edtech.or.id">
             <LogoDPTSI
@@ -27,6 +30,10 @@ export default function FooterSponsor() {
               fill="#fff"
               className="hover:scale-125 transition ease-in-out duration-500"
             />
+
+            <p className="sr-only">
+              Direktorat Pengembangan Teknologi dan Sistem Informasi EDTECH-ID
+            </p>
           </Link>
           <Link href="https://teknologipendidikan.or.id">
             <LogoEdtech
@@ -35,6 +42,8 @@ export default function FooterSponsor() {
               fill="#fff"
               className="hover:scale-125 transition ease-in-out duration-500"
             />
+
+            <p className="sr-only">Tim Teknologi Pendidikan ID (EDTECH-ID)</p>
           </Link>
         </div>
       </div>

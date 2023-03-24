@@ -5,12 +5,10 @@ module.exports = {
     extend: {
       fontFamily: {
         PlusJakartaSans: ['"Plus Jakarta Sans"', "sans-serif"],
-        'display': ['"Plus Jakarta Sans"', "sans-serif"],
-        'body': ['"Plus Jakarta Sans"', "sans-serif"],
+        display: ['"Plus Jakarta Sans"', "sans-serif"],
+        body: ['"Plus Jakarta Sans"', "sans-serif"],
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/forms"),
-  ],
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
 };

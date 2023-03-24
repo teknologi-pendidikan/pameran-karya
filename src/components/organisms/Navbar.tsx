@@ -10,7 +10,7 @@ type NavbarProps = {
 const NAVLINK = [
   {
     name: "Tentang",
-    link: "/tentang",
+    link: "/post/tentang-pamerankarya",
   },
   {
     name: "Partisipan",
@@ -21,12 +21,8 @@ const NAVLINK = [
     link: "/karya",
   },
   {
-    name: "Panduan",
-    link: "/panduan",
-  },
-  {
-    name: "Butuh bantuan?",
-    link: "/bantuan",
+    name: "Pedoman Pengunjung",
+    link: "/post/pedoman-pengunjung",
   },
 ];
 

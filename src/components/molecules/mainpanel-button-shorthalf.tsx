@@ -13,7 +13,7 @@ export default function MainPanelButtonShortHalf(
 ): JSX.Element {
   return (
     <Link
-      href="/about"
+      href={props.link}
       id={props.id}
       className="relative hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
     >

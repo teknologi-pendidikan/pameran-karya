@@ -1,6 +1,6 @@
 import SectionTitle from "@components/atoms/section-title";
-import Player_1 from "../../../public/frame-chara-selector.png";
-import Player_2 from "../../../public/frame-chara-selector-2.png";
+import Player_1 from "../../../public/frame-chara-selector.webp";
+import Player_2 from "../../../public/frame-chara-selector-2.webp";
 import Image from "next/image";
 
 export default function PlayerSelector() {

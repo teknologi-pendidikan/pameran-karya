@@ -1,4 +1,4 @@
-import FrameChara from "../../../public/frame-chara.png";
+import FrameChara from "../../../public/frame-chara.webp";
 import SectionTitle from "@components/atoms/section-title";
 import JenisKaryaCard from "@components/molecules/JenisKaryaCards";
 

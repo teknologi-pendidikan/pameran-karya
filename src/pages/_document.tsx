@@ -6,7 +6,7 @@ const webdata = {
   name: "Pameran Karya Teknologi Pendidikan 2023",
   description:
     "Pameran Karya Teknologi Pendidikan 2023 merupakan proyek mahasiswa departemen Teknologi Pendidikan Universitas Negeri Malang dalam memperkenalkan produk dan hasil pengembangan dari keilmuan prodi Teknologi Pendidikan",
-  image: "https://pamerankarya.teknologipendidikan.or.id/opengraph.jpg",
+  image: "https://pamerankarya.teknologipendidikan.or.id/opengraph.webp",
   eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
   eventStatus: "https://schema.org/EventScheduled",
   startDate: "2023-05-25T18:02:00.000+07:00",
@@ -84,7 +84,7 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="https://pamerankarya.teknologipendidikan.or.id/opengraph.jpg"
+          content="https://pamerankarya.teknologipendidikan.or.id/opengraph.webp"
         ></meta>
         <link rel="manifest" href="/manifest.json" />
 

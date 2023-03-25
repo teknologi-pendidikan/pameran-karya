@@ -31,6 +31,7 @@ specifiers:
   lint-staged: ^13.2.0
   markdown-it: ^13.0.1
   next: 13.2.3
+  next-safe: ^3.4.1
   postcss: ^8.4.21
   prettier: ^2.8.6
   react: 18.2.0
@@ -51,6 +52,7 @@ dependencies:
   gray-matter: 4.0.3
   markdown-it: 13.0.1
   next: 13.2.3_biqbaboplfbrettd7655fr4n2y
+  next-safe: 3.4.1_next@13.2.3
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-player: 2.12.0_react@18.2.0
@@ -3236,6 +3238,14 @@ packages:
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  /next-safe/3.4.1_next@13.2.3:
+    resolution: {integrity: sha512-GOam3DYMHUIKwxHeqVg9pkuYFhvtUeivHexdbL3lg0mjibsnIB3NOD81dKDgaeX+cReWbugdCtWYllzXmmpE+Q==}
+    peerDependencies:
+      next: ^9.5.0 || ^10.2.1 || ^11.1.0 || ^12.1.0 || ^13.0.0
+    dependencies:
+      next: 13.2.3_biqbaboplfbrettd7655fr4n2y
+    dev: false
 
   /next/13.2.3_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-nKFJC6upCPN7DWRx4+0S/1PIOT7vNlCT157w9AzbXEgKy6zkiPKEt5YyRUsRZkmpEqBVrGgOqNfwecTociyg+w==}

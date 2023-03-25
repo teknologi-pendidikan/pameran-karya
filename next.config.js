@@ -1,9 +1,6 @@
-const ContentSecurityPolicy = `
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval';
-  style-src 'self' 'unsafe-inline';
-  font-src 'self' ;  
-`;
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const nextSafe = require("next-safe");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -23,39 +20,28 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/(.)*",
-        headers: [
-          {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
+        source: "/:path*",
+        headers: nextSafe({
+          isDev: false,
+          contentSecurityPolicy: {
+            "base-uri": "'none'",
+            "child-src": "'none'",
+            "connect-src": "'self' webpack://* https: data:",
+            "default-src": "'self'",
+            "font-src": "'self'",
+            "form-action": "'self'",
+            "frame-ancestors": "'none'",
+            "frame-src": "'none'",
+            "img-src": "'self'",
+            "manifest-src": "'self'",
+            "media-src": "'self'",
+            "object-src": "'none'",
+            "prefetch-src": "'self'",
+            "script-src": "'self' 'unsafe-eval'",
+            "style-src": "'self' 'unsafe-inline'",
+            "worker-src": "'self' blob:",
           },
-          {
-            key: "X-Frame-Options",
-            value: "SAMEORIGIN",
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin",
-          },
-          {
-            key: "Permissions-Policy",
-            value:
-              "camera=(), microphone=(), geolocation=(), interest-cohort=()",
-          },
-          {
-            key: "Content-Security-Policy",
-            value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim(),
-          },
-          { key: "X-DNS-Prefetch-Control", value: "on" },
-          { key: "X-Download-Options", value: "noopen" },
-          { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
-          { key: "X-EdtechID-App", value: "Pameran Karya Digital 2023" },
-          { key: "X-EdtechID-Unit", value: "DPTSI-UM-2023" },
-        ],
+        }),
       },
     ];
   },

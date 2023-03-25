@@ -25,6 +25,7 @@
     "gray-matter": "^4.0.3",
     "markdown-it": "^13.0.1",
     "next": "13.2.3",
+    "next-safe": "^3.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-player": "^2.12.0",

@@ -8,7 +8,7 @@ type PostCardProps = {
   image: string;
 };
 
-export default function PostCard({ link, title, desc, image }: PostCardProps) {
+export default function PostCard({ link, title, image }: PostCardProps) {
   console.log(title);
   return (
     <div className="border border-gray-200 m-2 rounded-xl shadow-lg overflow-hidden flex flex-col transition ease-in-out duration-500 hover:scale-110">

@@ -2,6 +2,7 @@
 
 ![Pameran Karya Teknologi Pendidikan 2023](/docs/header.jpg)
 [⚡ Kunjungi Pameran](https://pamerankarya.teknologipendidikan.or.id)
+[![CodeFactor](https://www.codefactor.io/repository/github/teknologi-pendidikan/pameran-karya/badge)](https://www.codefactor.io/repository/github/teknologi-pendidikan/pameran-karya) [![CodeQL](https://github.com/teknologi-pendidikan/pameran-karya/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/teknologi-pendidikan/pameran-karya/actions/workflows/github-code-scanning/codeql) [![ESLint](https://github.com/teknologi-pendidikan/pameran-karya/actions/workflows/eslint.yml/badge.svg)](https://github.com/teknologi-pendidikan/pameran-karya/actions/workflows/eslint.yml) [![CI](https://github.com/teknologi-pendidikan/pameran-karya/actions/workflows/test.yml/badge.svg)](https://github.com/teknologi-pendidikan/pameran-karya/actions/workflows/test.yml) [![Netlify Status](https://api.netlify.com/api/v1/badges/36d476bb-2534-404b-8af7-e93112e165eb/deploy-status)](https://app.netlify.com/sites/pameran-karya/deploys)
 
 ## Tentang
 

@@ -49,6 +49,11 @@ jobs:
           path: "."
           key: ${{ github.sha }}
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v3.6.0
         with:
@@ -72,6 +77,11 @@ jobs:
         with:
           path: "."
           key: ${{ github.sha }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
 
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v3.6.0

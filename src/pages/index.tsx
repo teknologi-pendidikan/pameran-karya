@@ -4,7 +4,8 @@ import LeftPanel from "@/components/organisms/leftPanel";
 import RightPanel from "@/components/organisms/RightPanel";
 import About from "@/components/organisms/About";
 import Image from "next/image";
-import ImageBG from "../../public/bg-pik.webp";
+import ImageBG from "@/public/bg-pik.webp";
+import ImaageMainmenuBG from "@/public/bg-mainmenu.webp";
 
 import { GetStaticProps } from "next";
 import JenisKarya from "@/components/organisms/JenisKarya";
@@ -33,12 +34,13 @@ export default function Home({ content, posts }) {
         className="bg-white xl:bg-transparent relative"
         aria-label="Pameran Karya Teknologi Pendidikan 2023"
       >
+        <Image src={ImaageMainmenuBG} alt="" className="absolute top-0 -z-20" />
         <Image
           src={ImageBG}
           alt=""
           className="absolute top-0 -z-10"
           priority
-          quality={50}
+          quality={100}
         />
         <section
           aria-label="mainmenu"

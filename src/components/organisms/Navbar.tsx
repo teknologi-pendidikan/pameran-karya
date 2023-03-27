@@ -36,7 +36,7 @@ function Navbar(Navbar: NavbarProps) {
         id="navbar"
         className="flex flex-row items-center justify-between space-x-1 container px-4"
       >
-        <Link href="/">
+        <Link aria-label="Halaman Utama Pameran Karya" href="/">
           <h1 className="hidden">Pameran Karya Teknologi Pendidikan 2023</h1>
           <LogoPameran
             width={200}

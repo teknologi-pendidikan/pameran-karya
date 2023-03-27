@@ -7,9 +7,9 @@ export default function FooterSponsor() {
   return (
     <div className="flex flex-col md:flex-row items-center md:justify-end">
       <div className="flex flex-col mt-10 h-full">
-        <p className="text-white text-xl font-semibold text-center md:text-right">
+        <span className="text-white text-xl font-semibold text-center md:text-right">
           Didukung oleh:
-        </p>
+        </span>
         <div className="flex flex-col md:flex-row items-center md:items-end justify-center md:justify-end md:space-x-6">
           <Link href="http://tep.fip.um.ac.id">
             <LogoTEPUM
@@ -34,7 +34,7 @@ export default function FooterSponsor() {
               Direktorat Pengembangan Teknologi dan Sistem Informasi EDTECH-ID
             </p>
           </Link>
-          <Link href="https://teknologipendidikan.or.id">
+          <Link href="https://teknologipendidikan.or.id" tabIndex={-1}>
             <LogoEdtech
               height={80}
               width={190}

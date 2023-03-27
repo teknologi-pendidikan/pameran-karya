@@ -14,7 +14,8 @@ export default function MainPanelButtonSmall(
   return (
     <Link
       href={props.link}
-      className=" hover:border-red-500 hover:scale-110 grow-animation focus:scale-105 "
+      className=" hover:border-red-500 hover:scale-110 grow-animation focus:scale-105"
+      tabIndex={-1}
     >
       <p className="sr-only">{props.title}</p>
       <ButtonShortThird />

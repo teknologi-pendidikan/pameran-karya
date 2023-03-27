@@ -13,7 +13,7 @@ export default function Layout({ children: children }: LayoutProps) {
       <Navbar
         extendRootNavbar={
           router.asPath == "/"
-            ? "lg:fixed top-0 left-0 bg-violet-900 text-white"
+            ? "lg:fixed top-0 left-0 text-white bg-theme-blue-accent"
             : "border-b-4 text-black"
         }
         colorLogo={router.asPath == "/" ? "#fff" : "#000"}

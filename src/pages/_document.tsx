@@ -87,6 +87,7 @@ export default function Document() {
           content="https://pamerankarya.teknologipendidikan.or.id/opengraph.webp"
         ></meta>
         <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#3284FF" />
 
         {/* JSON-LD Structured Data */}
         <script

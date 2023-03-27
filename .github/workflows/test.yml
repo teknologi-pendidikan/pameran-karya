@@ -62,8 +62,6 @@ jobs:
 
       - name: Lint files
         run: pnpm run lint
-        env:
-          CI: true
 
   type-check:
     if: github.repository == 'teknologi-pendidikan/pameran-karya'
@@ -91,8 +89,6 @@ jobs:
 
       - name: Perform type checking
         run: pnpm run tsc
-        env:
-          CI: true
 
 #   test:
 #     name: Unit and integration tests

@@ -1,9 +1,19 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const nextSafe = require("next-safe");
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  scope: "/",
+  sw: "sw.js",
+  buildExcludes: [/\.next/, /node_modules/],
+  cacheStartUrl: false,
+  dynamicStartUrl: false,
+  reloadOnOnline: true,
+});
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withPWA({
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -45,6 +55,6 @@ const nextConfig = {
       },
     ];
   },
-};
+});
 
 module.exports = nextConfig;

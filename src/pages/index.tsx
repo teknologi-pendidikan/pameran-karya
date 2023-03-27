@@ -29,15 +29,19 @@ export default function Home({ content, posts }) {
           Pameran Karya Teknologi Pendidikan 2023 - Universitas Negeri Malang
         </title>
       </Head>
-      <main className="bg-white xl:bg-transparent relative">
+      <main
+        className="bg-white xl:bg-transparent relative"
+        aria-label="Pameran Karya Teknologi Pendidikan 2023"
+      >
         <Image
           src={ImageBG}
-          alt="bgpik"
+          alt=""
           className="absolute top-0 -z-10"
           priority
           quality={50}
         />
-        <div
+        <section
+          aria-label="mainmenu"
           id="mainmenu"
           className="relative flex items-center justify-center h-screen mb-12 overflow-hidden"
         >
@@ -48,7 +52,7 @@ export default function Home({ content, posts }) {
             <LeftPanel content={content} />
             <RightPanel content={content} />
           </div>
-        </div>
+        </section>
         <div
           id="main-content"
           className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 mb-24 text-white"

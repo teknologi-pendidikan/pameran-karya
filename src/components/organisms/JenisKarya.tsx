@@ -31,7 +31,11 @@ const jeniskarya = [
 
 export default function JenisKarya() {
   return (
-    <section className="container mx-auto mt-28" id="kategori-karya">
+    <section
+      className="container mx-auto mt-28"
+      id="kategori-karya"
+      aria-label="Kategori karya yang dipamerkan"
+    >
       <SectionTitle title="Kategori Karya Pameran" />
       <div className="flex flex-row items-center justify-center space-x-4">
         {jeniskarya.map((item) => (

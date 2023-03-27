@@ -5,7 +5,11 @@ const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 export default function About() {
   return (
-    <section className="space-y-24 my-40" id="tentang">
+    <section
+      className="space-y-24 my-40"
+      id="tentang"
+      aria-label="Tentang Pameran Karya TEP 2023"
+    >
       <div className="space-y-8">
         <div className="space-y-3">
           <h2 className="text-4xl text-grey-700 font-display font-semibold text-center">

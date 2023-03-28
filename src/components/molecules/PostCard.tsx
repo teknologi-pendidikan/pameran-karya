@@ -11,10 +11,10 @@ type PostCardProps = {
 export default function PostCard({ link, title, image }: PostCardProps) {
   console.log(title);
   return (
-    <div className="border border-gray-200 m-2 rounded-xl shadow-lg overflow-hidden flex flex-col transition ease-in-out duration-500 hover:scale-110">
+    <div className="border border-theme-flower rounded-md shadow-lg overflow-hidden flex flex-col transition ease-in-out duration-500 hover:scale-110">
       <Link href={`/post/${link}`}>
         <Image width={500} height={300} alt={title} src={`/${image}`} />
-        <h1 className="p-4">{title}</h1>
+        <h2 className="">{title}</h2>
       </Link>
     </div>
   );

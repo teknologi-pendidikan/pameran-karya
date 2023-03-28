@@ -4,8 +4,8 @@ import LeftPanel from "@/components/organisms/leftPanel";
 import RightPanel from "@/components/organisms/RightPanel";
 import About from "@/components/organisms/About";
 import Image from "next/image";
-import ImageBG from "@/public/bg-pik.webp";
-import ImaageMainmenuBG from "@/public/bg-mainmenu.webp";
+import ImageBG from "@/public/assets/bg-fullpage.webp";
+import ImaageMainmenuBG from "@/public/assets/bg-mainmenu.webp";
 
 import { GetStaticProps } from "next";
 import JenisKarya from "@/components/organisms/JenisKarya";

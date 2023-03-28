@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Informasi from "@/public/placeholder.webp";
+import Informasi from "@/public/assets/placeholder.webp";
 import Link from "next/link";
 
 type Props = {

@@ -1,6 +1,6 @@
 import SectionTitle from "@components/atoms/section-title";
-import Player_1 from "../../../public/frame-chara-selector.webp";
-import Player_2 from "../../../public/frame-chara-selector-2.webp";
+import Player_1 from "@/public/assets/img-jeniskarya.webp";
+import Player_2 from "@/public/assets/img-jeniskarya.webp";
 import Image from "next/image";
 import Slider from "react-slick";
 

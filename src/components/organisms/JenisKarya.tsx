@@ -1,4 +1,4 @@
-import FrameChara from "../../../public/frame-chara.webp";
+import FrameChara from "@/public/assets/img-jeniskarya.webp";
 import SectionTitle from "@components/atoms/section-title";
 import JenisKaryaCard from "@components/molecules/JenisKaryaCards";
 import Slider from "react-slick";

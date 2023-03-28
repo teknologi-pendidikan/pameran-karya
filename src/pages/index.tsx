@@ -31,14 +31,14 @@ export default function Home({ content, posts }) {
         </title>
       </Head>
       <main
-        className="bg-white xl:bg-transparent relative"
+        className="bg-theme-blue-accent xl:bg-transparent relative"
         aria-label="Pameran Karya Teknologi Pendidikan 2023"
       >
         <Image src={ImaageMainmenuBG} alt="" className="absolute top-0 -z-20" />
         <Image
           src={ImageBG}
           alt=""
-          className="absolute top-0 -z-10"
+          className="absolute top-0 -z-10 min-h-screen"
           priority
           quality={100}
         />
@@ -49,7 +49,7 @@ export default function Home({ content, posts }) {
         >
           <div
             id="panel-mainmenu"
-            className="flex flex-col xl:flex-row justify-center items-center space-x-[50rem] xl:w-full px-16 scale-[0.6] xl:scale-[0.6] 2xl:scale-[0.85] space-y-4 xl:mt-40 2xl:mt-80"
+            className="flex flex-col xl:flex-row justify-center items-center xl:space-x-[50rem] xl:w-full px-16 scale-[0.6] xl:scale-[0.6] 2xl:scale-[0.85] space-y-4 xl:mt-40 2xl:mt-80"
           >
             <LeftPanel content={content} />
             <RightPanel content={content} />
@@ -57,12 +57,12 @@ export default function Home({ content, posts }) {
         </section>
         <div
           id="main-content"
-          className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 mb-24 text-white"
+          className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 pb-24 text-white"
         >
           <About />
           <GeneralInformation listpost={posts} />
-          <JenisKarya />
           <PlayerSelector />
+          <JenisKarya />
         </div>
       </main>
     </>

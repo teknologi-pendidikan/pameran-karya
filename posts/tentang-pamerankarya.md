@@ -1,7 +1,7 @@
 ---
-title: "Tentang Pameran Karya Teknologi Pendidikan 2023"
+title: "Tentang Pameran Karya TEP UM"
 desc: "Kenal lebih dekat dengan Pameran Karya Teknologi Pendidikan 2023. Apa saja yang akan dipamerkan? Bagaimana cara mengirimkan karya?"
-image: "placeholder.png"
+image: "assets/placeholder.webp"
 ---
 
 ## Gambaran Umum

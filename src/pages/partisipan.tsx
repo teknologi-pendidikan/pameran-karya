@@ -15,7 +15,6 @@ type Frontcontent = {
 };
 
 export default function Partisipan({ partisipan }) {
-  console.log(partisipan);
   return (
     <>
       <Head>

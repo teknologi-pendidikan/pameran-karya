@@ -16,6 +16,7 @@ export default function NextJsImageGallery({
           sizes={sizes}
           className={className}
           onClick={onClick}
+          quality={75}
         />
       </div>
     </div>

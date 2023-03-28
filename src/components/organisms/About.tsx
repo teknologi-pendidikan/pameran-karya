@@ -25,7 +25,7 @@ export default function About() {
                 href="https://pamerankarya.teknologipendidikan.or.id/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-blue-700 hover:text-blue-900 hover:underline font-semibold"
+                className="text-theme-flower hover:text-theme-flower hover:underline font-semibold"
               >
                 Pameran karya mahasiswa teknologi pendidikan Universitas Negeri
                 Malang 2023{" "}

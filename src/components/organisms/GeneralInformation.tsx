@@ -31,7 +31,7 @@ export default function GeneralInformation({ listpost }: Props) {
             <div
               id={post.slug}
               key={post.slug}
-              className="border border-gray-200 m-2 rounded-md shadow-lg overflow-hidden flex flex-col transition ease-in-out duration-500 hover:scale-110 bg-theme-blue-dark text-theme-white"
+              className="border border-theme-flower m-2 rounded-md shadow-lg overflow-hidden flex flex-col transition ease-in-out duration-500 hover:scale-110 bg-theme-blue-dark text-theme-white hover:shadow-theme-flower hover:shadow-2xl"
             >
               <Link href={`/post/${post.slug}`}>
                 <Image
@@ -41,7 +41,7 @@ export default function GeneralInformation({ listpost }: Props) {
                   src={`/${post.frontmatter.image}`}
                   className="hidden xl:block"
                 />
-                <p className="p-4 font-semibold text-center">
+                <p className="py-2 px-1 font-semibold text-center">
                   {post.frontmatter.title}
                 </p>
               </Link>

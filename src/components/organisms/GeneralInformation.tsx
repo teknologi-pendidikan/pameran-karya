@@ -26,12 +26,12 @@ export default function GeneralInformation({ listpost }: Props) {
           </h2>
         </div>
         <Image src={Informasi} alt="informasi" />
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-1 xl:grid-cols-3">
           {listpost.map((post) => (
             <div
               id={post.slug}
               key={post.slug}
-              className="border border-gray-200 m-2 rounded-xl shadow-lg overflow-hidden flex flex-col transition ease-in-out duration-500 hover:scale-110"
+              className="border border-gray-200 m-2 rounded-md shadow-lg overflow-hidden flex flex-col transition ease-in-out duration-500 hover:scale-110 bg-theme-blue-dark text-theme-white"
             >
               <Link href={`/post/${post.slug}`}>
                 <Image
@@ -39,6 +39,7 @@ export default function GeneralInformation({ listpost }: Props) {
                   height={300}
                   alt={post.frontmatter.title}
                   src={`/${post.frontmatter.image}`}
+                  className="hidden xl:block"
                 />
                 <p className="p-4 font-semibold text-center">
                   {post.frontmatter.title}

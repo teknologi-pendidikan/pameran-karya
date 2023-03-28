@@ -10,6 +10,7 @@ const withPWA = require("next-pwa")({
   cacheStartUrl: false,
   dynamicStartUrl: false,
   reloadOnOnline: true,
+  disable: true,
 });
 
 /** @type {import('next').NextConfig} */
@@ -24,6 +25,10 @@ const nextConfig = withPWA({
       {
         protocol: "https",
         hostname: "api.um.ac.id",
+      },
+      {
+        protocol: "https",
+        hostname: "is3.cloudhost.id",
       },
     ],
   },
@@ -42,7 +47,8 @@ const nextConfig = withPWA({
             "form-action": "'self'",
             "frame-ancestors": "'none'",
             "frame-src": "'none' https://www.youtube.com/",
-            "img-src": "'self'",
+            "img-src":
+              "'self' https://is3.cloudhost.id/teknologipendidikan/objectstorage-pamerankarya/",
             "manifest-src": "'self'",
             "media-src": "'self'",
             "object-src": "'none'",

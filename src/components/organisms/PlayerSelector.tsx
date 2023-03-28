@@ -3,6 +3,8 @@ import Player_1 from "@/public/assets/img-jeniskarya.webp";
 import Player_2 from "@/public/assets/img-jeniskarya.webp";
 import Image from "next/image";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function PlayerSelector() {
   const sliderSetting = {

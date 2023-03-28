@@ -56,7 +56,7 @@ export default function About() {
               <ReactPlayer
                 width="100%"
                 url="https://www.youtube.com/watch?v=EZ_DPwBU4h8"
-                light={<img src="/placeholder.webp" alt="hero" />}
+                light={<img src="/assets/placeholder.webp" alt="hero" />}
               />
             </div>
           </div>

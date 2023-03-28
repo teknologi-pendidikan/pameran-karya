@@ -46,7 +46,7 @@ function Navbar(Navbar: NavbarProps) {
             colorTEP={Navbar.colorLogo}
           />
         </Link>
-        <div className="block space-x-8 items-center">
+        <div className="hidden md:block space-x-8 items-center">
           {NAVLINK.map((link) => (
             <Link
               key={link.link}

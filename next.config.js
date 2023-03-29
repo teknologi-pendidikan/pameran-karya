@@ -1,20 +1,30 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-
+// This file sets a custom webpack configuration to use your Next.js app
+// with Sentry.
+// https://nextjs.org/docs/api-reference/next.config.js/introduction
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+const { withSentryConfig } = require("@sentry/nextjs");
 const nextSafe = require("next-safe");
-const withPWA = require("next-pwa")({
-  dest: "public",
-  register: true,
-  scope: "/",
-  sw: "sw.js",
-  buildExcludes: [/\.next/, /node_modules/],
-  cacheStartUrl: false,
-  dynamicStartUrl: false,
-  reloadOnOnline: true,
-  disable: true,
+const withPlugins = require("next-compose-plugins");
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: "true",
 });
 
+// NextPWA Config
+// const withPWA = require("next-pwa")({
+//   dest: "public",
+//   register: true,
+//   scope: "/",
+//   sw: "sw.js",
+//   buildExcludes: [/\.next/, /node_modules/],
+//   cacheStartUrl: false,
+//   dynamicStartUrl: false,
+//   reloadOnOnline: true,
+//   disable: true,
+// });
+
 /** @type {import('next').NextConfig} */
-const nextConfig = withPWA({
+const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -61,6 +71,18 @@ const nextConfig = withPWA({
       },
     ];
   },
-});
+};
 
-module.exports = nextConfig;
+module.exports = withPlugins(
+  [
+    // [withPWA],
+    [withBundleAnalyzer],
+  ],
+  nextConfig,
+);
+
+module.exports = withSentryConfig(
+  module.exports,
+  { silent: true },
+  { hideSourcemaps: true },
+);

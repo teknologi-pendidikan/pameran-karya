@@ -43,3 +43,8 @@ next-env.d.ts
 .swc
 sw*.js*
 workbox-*
+# Sentry
+.sentryclirc
+
+# Sentry
+next.config.original.js

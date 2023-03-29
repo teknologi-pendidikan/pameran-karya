@@ -7,7 +7,7 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const nextSafe = require("next-safe");
 const withPlugins = require("next-compose-plugins");
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: "true",
+  enabled: process.env.ANALYZE === "true",
 });
 
 // NextPWA Config
@@ -63,9 +63,11 @@ const nextConfig = {
             "media-src": "'self'",
             "object-src": "'none'",
             "prefetch-src": "'self'",
-            "script-src": "'self' 'unsafe-eval' https://www.youtube.com/ ",
+            "script-src":
+              "'self' 'unsafe-eval' 'unsafe-inline' https://www.youtube.com/ https://www.googletagmanager.com/gtag/js 'sha256-wzRmNN3+4L3v3ZHovwiO9F+QFCmvsqZ8zZ05lCRcmOY='",
             "style-src": "'self' 'unsafe-inline'",
             "worker-src": "'self' blob:",
+            "report-uri": "https://dptsi.edtech.or.id",
           },
         }),
       },

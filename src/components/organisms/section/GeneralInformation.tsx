@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Informasi from "@/public/assets/placeholder.webp";
 import Link from "next/link";
+import SectionLayout from "@/components/template/section-layout";
 
 type Props = {
   listpost: {
@@ -14,17 +15,12 @@ type Props = {
 
 export default function GeneralInformation({ listpost }: Props) {
   return (
-    <section
-      className="space-y-24 my-40"
+    <SectionLayout
       id="informasi-pengumuman"
-      aria-label="Informasi & Pengumuman terkait Pameran Karya"
+      ariaLabel="Informasi & Pengumuman terkait Pameran Karya"
+      title="Informasi & Pengumuman"
     >
       <div className="space-y-8 flex flex-col items-center justify-center">
-        <div className="space-y-3">
-          <h2 className="text-4xl text-grey-700 font-display font-semibold text-center">
-            Informasi & Pengumuman
-          </h2>
-        </div>
         <Image src={Informasi} alt="informasi" />
         <div className="grid grid-cols-1 xl:grid-cols-3">
           {listpost.map((post) => (
@@ -49,6 +45,6 @@ export default function GeneralInformation({ listpost }: Props) {
           ))}
         </div>
       </div>
-    </section>
+    </SectionLayout>
   );
 }

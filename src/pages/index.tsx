@@ -2,15 +2,15 @@
 import Head from "next/head";
 import LeftPanel from "@/components/organisms/leftPanel";
 import RightPanel from "@/components/organisms/RightPanel";
-import About from "@/components/organisms/About";
+import About from "@/components/organisms/section/About";
 import Image from "next/image";
 import ImageBG from "@/public/assets/bg-fullpage.webp";
 import ImaageMainmenuBG from "@/public/assets/bg-mainmenu.webp";
 
 import { GetStaticProps } from "next";
-import JenisKarya from "@/components/organisms/JenisKarya";
-import PlayerSelector from "@/components/organisms/PlayerSelector";
-import GeneralInformation from "@/components/organisms/GeneralInformation";
+import JenisKarya from "@/components/organisms/section/JenisKarya";
+import PlayerSelector from "@/components/organisms/section/PlayerSelector";
+import GeneralInformation from "@/components/organisms/section/GeneralInformation";
 
 import fs from "fs";
 import matter from "gray-matter";
@@ -57,7 +57,7 @@ export default function Home({ content, posts }) {
         </section>
         <div
           id="main-content"
-          className="container mx-auto px-4 lg:max-w-screen-3xl space-y-24 pb-24 text-white"
+          className="container mx-auto flex flex-col space-y-12 items-start justify-start px-4 lg:max-w-screen-3xl pb-12 mb-12 text-white"
         >
           <About />
           <GeneralInformation listpost={posts} />

@@ -1,5 +1,5 @@
 import FrameChara from "@/public/assets/img-jeniskarya.webp";
-import SectionTitle from "@components/atoms/section-title";
+import SectionLayout from "@/components/template/section-layout";
 import JenisKaryaCard from "@components/molecules/JenisKaryaCards";
 import Slider from "react-slick";
 
@@ -41,12 +41,11 @@ export default function JenisKarya() {
     cssEase: "linear",
   };
   return (
-    <section
-      className="container mx-auto mt-28"
+    <SectionLayout
       id="kategori-karya"
-      aria-label="Kategori karya yang dipamerkan"
+      ariaLabel="Kategori karya yang dipamerkan"
+      title="Kategori Karya"
     >
-      <SectionTitle title="Kategori Karya Pameran" />
       <div
         id="karyacard-desktop"
         className="hidden lg:flex flex-row items-center justify-center space-x-4"
@@ -60,8 +59,8 @@ export default function JenisKarya() {
           />
         ))}
       </div>
-      <div id="karyacard-mobile">
-        <Slider {...sliderSetting} className="flex xl:hidden">
+      <div id="container-karyacard-mobile" className="flex xl:hidden">
+        <Slider {...sliderSetting}>
           {jeniskarya.map((item) => (
             <JenisKaryaCard
               key={item.id}
@@ -72,6 +71,6 @@ export default function JenisKarya() {
           ))}
         </Slider>
       </div>
-    </section>
+    </SectionLayout>
   );
 }

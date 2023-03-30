@@ -5,7 +5,10 @@ import FooterSponsor from "../molecules/footer-sponsor";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-black min-h-min pb-10" aria-label="">
+    <footer
+      className="relative w-full bg-black min-h-min h-screen pb-10"
+      aria-label=""
+    >
       <div className="mx-auto container px-4">
         <div className="flex-row">
           <div className="flex flex-col justify-between md:flex-row md:items-center pt-10 md:pt-16">

@@ -35,7 +35,11 @@ export default function Partisipan({ partisipan }) {
         <div className="space-y-14">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
             {partisipan.map((item) => (
-              <Link key={item.uuid} href={`/partisipan/${item.nim}`}>
+              <Link
+                key={item.uuid}
+                href={`/partisipan/${item.nim}`}
+                className="flex"
+              >
                 <ProfileCard
                   key={item.uuid}
                   uuid={item.uuid}

@@ -49,12 +49,12 @@ export default function PostPage({
   content: string;
 }) {
   return (
-    <main className="container mx-auto px-32 mt-16 mb-24">
+    <main className="container mx-auto p-4 xl:px-32 mt-2 xl:mt-16 mb-24">
       <Head>
         <title>{frontmatter.title}</title>
         <meta name="description" content={frontmatter.desc} />
       </Head>
-      <article className="prose prose-xl max-w-none">
+      <article className="prose xl:prose-xl max-w-none">
         <h1>{frontmatter.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: md().render(content) }} />
       </article>

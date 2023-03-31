@@ -45,7 +45,7 @@ export default function Home({ content, posts }) {
         <section
           aria-label="mainmenu"
           id="mainmenu"
-          className="relative flex items-center justify-center h-screen mb-12 overflow-hidden"
+          className="relative flex items-center justify-center h-screen mb-32 overflow-hidden"
         >
           <div
             id="panel-mainmenu"

@@ -60,19 +60,20 @@ export default function Partisipan({ partisipan }) {
 export const getStaticProps: GetStaticProps<{
   content: Frontcontent[];
 }> = async () => {
-  const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/peserta?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
+  const SHEETS = `master-peserta`;
+  const DATA_ENDPOINT = `${process.env.SPREADSHEET_ENDPOINT}/${SHEETS}?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
 
   const content = [];
-  await fetch(SHEETS_ENDPOINT)
+  await fetch(DATA_ENDPOINT)
     .then((response) => response.json())
     .then((json) => {
       const data = json.values;
       const uuid = data[0];
-      const nim = data[1];
-      const nama = data[2];
-      const angkatan = data[3];
-      const jumlah_karya = data[4];
-      const image = data[5];
+      const nim = data[3];
+      const nama = data[1];
+      const angkatan = data[4];
+      const jumlah_karya = data[5];
+      const image = data[6];
 
       for (let i = 1; i < data[0].length; i += 1) {
         const item = {

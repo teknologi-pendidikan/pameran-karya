@@ -70,19 +70,20 @@ export default function Gallery({ photos }) {
 export const getStaticProps: GetStaticProps<{
   photos: Photo[];
 }> = async () => {
-  const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/karya-2d?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
+  const SHEETS = "karya-2d";
+  const DATA_ENDPOINT = `${process.env.SPREADSHEET_ENDPOINT}/${SHEETS}?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
 
   const photos = [];
-  await fetch(SHEETS_ENDPOINT)
+  await fetch(DATA_ENDPOINT)
     .then((response) => response.json())
     .then((json) => {
       const data = json.values;
       const uuid_karya = data[0];
-      const uuid_peserta = data[1];
-      const judul_karya = data[2];
-      const width = data[3];
-      const height = data[4];
-      const src = data[5];
+      const uuid_peserta = data[2];
+      const judul_karya = data[3];
+      const width = data[5];
+      const height = data[6];
+      const src = data[7];
 
       for (let i = 1; i < data[0].length; i += 1) {
         const item = {

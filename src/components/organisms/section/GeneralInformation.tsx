@@ -22,8 +22,8 @@ export default function GeneralInformation({ listpost }: Props) {
     >
       <div className="space-y-8 flex flex-col items-center justify-center">
         <Image src={Informasi} alt="informasi" />
-        <div className="grid grid-cols-1 xl:grid-cols-3">
-          {listpost.map((post) => (
+        <div className="flex flex-row justify-around items-center w-full">
+          {listpost.slice(0, 3).map((post) => (
             <div
               id={post.slug}
               key={post.slug}

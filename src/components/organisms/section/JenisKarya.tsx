@@ -6,27 +6,39 @@ import Slider from "react-slick";
 const jeniskarya = [
   {
     id: 1,
-    title: "Aplikasi",
+    title: "Media E-Book & Modul Ajar",
     image: FrameChara,
-    link: "/karya/aplikasi",
+    link: "/karya/dokumenpembelajaran",
   },
   {
     id: 2,
-    title: "Game",
+    title: "Media 2D",
     image: FrameChara,
-    link: "/karya/game",
+    link: "/karya/2d",
   },
   {
     id: 3,
-    title: "VR/AR",
+    title: "Media 3D",
     image: FrameChara,
-    link: "/karya/vr",
+    link: "/karya/3d",
   },
   {
     id: 4,
-    title: "Website",
+    title: "Video & Animasi Pembelajaran",
     image: FrameChara,
-    link: "/karya/website",
+    link: "/karya/videopembelajaran",
+  },
+  {
+    id: 5,
+    title: "Media Presentasi",
+    image: FrameChara,
+    link: "/karya/presentasi",
+  },
+  {
+    id: 6,
+    title: "Multimedia Interaktif",
+    image: FrameChara,
+    link: "/karya/mutimediainteraktif",
   },
 ];
 

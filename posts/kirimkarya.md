@@ -1,5 +1,5 @@
 ---
-title: "[PENGUMUMAN] Pengiriman Karya Pameran Teknologi Pendidikan 2023"
+title: "Pengiriman Karya Pameran Teknologi Pendidikan 2023"
 desc: "Informasi & Jadwal Pengiriman Karya Pameran Teknologi Pendidikan 2023"
 image: "assets/placeholder.webp"
 ---

@@ -3,7 +3,7 @@
 const nextSafe = require("next-safe");
 const withPlugins = require("next-compose-plugins");
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: "true",
+  enabled: process.env.ANALYZE === "true",
 });
 
 // NextPWA Config

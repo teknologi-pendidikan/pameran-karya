@@ -72,10 +72,11 @@ export default function Home({ content, posts }) {
 export const getStaticProps: GetStaticProps<{
   content: Frontcontent[];
 }> = async () => {
-  const SHEETS_ENDPOINT = `https://sheets.googleapis.com/v4/spreadsheets/1BDDtfwkzrbBoSAsm3EY1R8njzVTW-M-gi2zqL0m92mI/values/descinfo?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
+  const SHEETS = `master-descinfo`;
+  const DATA_ENDPOINT = `${process.env.SPREADSHEET_ENDPOINT}/${SHEETS}?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
 
   const content = [];
-  await fetch(SHEETS_ENDPOINT)
+  await fetch(DATA_ENDPOINT)
     .then((response) => response.json())
     .then((json) => {
       const data = json.values;

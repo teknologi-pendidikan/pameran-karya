@@ -10,7 +10,7 @@ export default function FooterMainevent() {
         <div>
           <Link
             className="button inline-flex items-center justify-center focus:outline-none focus-visible:ring transition duration-150 decoration-current hover:decoration-white/0 active:decoration-current disabled:hover:decoration-current md:text-lg text-white hover:text-white active:text-white focus-visible:ring-discolored-400 font-medium text-sm lg:text-base"
-            href="/coming-soon"
+            href="/comingsoon"
           >
             Pameran Digital{" "}
           </Link>
@@ -18,7 +18,7 @@ export default function FooterMainevent() {
         <div>
           <Link
             className="button inline-flex items-center justify-center focus:outline-none focus-visible:ring transition duration-150 decoration-current hover:decoration-white/0 active:decoration-current disabled:hover:decoration-current md:text-lg text-white hover:text-white active:text-white focus-visible:ring-discolored-400 font-medium text-sm lg:text-base"
-            href="/coming-soon"
+            href="/comingsoon"
           >
             Pameran Fisik{" "}
           </Link>
@@ -26,7 +26,7 @@ export default function FooterMainevent() {
         <div>
           <Link
             className="button inline-flex items-center justify-center focus:outline-none focus-visible:ring transition duration-150 decoration-current hover:decoration-white/0 active:decoration-current disabled:hover:decoration-current md:text-lg text-white hover:text-white active:text-white focus-visible:ring-discolored-400 font-medium text-sm lg:text-base"
-            href="/coming-soon"
+            href="/comingsoon"
           >
             Grand Launching{" "}
           </Link>

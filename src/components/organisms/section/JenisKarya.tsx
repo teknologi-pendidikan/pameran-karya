@@ -1,4 +1,9 @@
-import FrameChara from "@/public/assets/img-jeniskarya.webp";
+import frame2D from "@/public/assets/Kategorisasi_2D.png";
+import frame3D from "@/public/assets/Kategorisasi_3D.png";
+import frameEbook from "@/public/assets/Kategorisasi_Ebook.png";
+import frameMI from "@/public/assets/Kategorisasi_MI.png";
+import framePresentasi from "@/public/assets/Kategorisasi_PPT.png";
+import frameVideo from "@/public/assets/Kategorisasi_VidNimasi.png";
 import SectionLayout from "@/components/template/section-layout";
 import JenisKaryaCard from "@components/molecules/JenisKaryaCards";
 import Slider from "react-slick";
@@ -9,38 +14,38 @@ const jeniskarya = [
   {
     id: 1,
     title: "Media E-Book & Modul Ajar",
-    image: FrameChara,
+    image: frameEbook,
     link: "/karya/dokumenpembelajaran",
   },
   {
     id: 2,
     title: "Media 2D",
-    image: FrameChara,
+    image: frame2D,
     link: "/karya/2d",
   },
   {
     id: 3,
     title: "Media 3D",
-    image: FrameChara,
-    link: "/karya/3d",
+    image: frame3D,
+    link: "/comingsoon",
   },
   {
     id: 4,
     title: "Video & Animasi Pembelajaran",
-    image: FrameChara,
+    image: frameVideo,
     link: "/karya/videopembelajaran",
   },
   {
     id: 5,
     title: "Media Presentasi",
-    image: FrameChara,
-    link: "/karya/presentasi",
+    image: framePresentasi,
+    link: "/comingsoon",
   },
   {
     id: 6,
     title: "Multimedia Interaktif",
-    image: FrameChara,
-    link: "/karya/mutimediainteraktif",
+    image: frameMI,
+    link: "/comingsoon",
   },
 ];
 

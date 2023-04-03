@@ -3,6 +3,7 @@ import fs from "fs";
 import matter from "gray-matter";
 import md from "markdown-it";
 import Head from "next/head";
+import Image from "next/image";
 
 type slugtype = {
   params: {
@@ -14,7 +15,7 @@ type frontmattertype = {
   title: string;
   date: string;
   desc: string;
-  cover_image: string;
+  image: string;
 };
 
 export async function getStaticPaths() {
@@ -55,6 +56,13 @@ export default function PostPage({
         <meta name="description" content={frontmatter.desc} />
       </Head>
       <article className="prose xl:prose-xl max-w-none">
+        <Image
+          src={`/${frontmatter.image}`}
+          width={600}
+          height={400}
+          alt=""
+          className="w-full"
+        />
         <h1>{frontmatter.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: md().render(content) }} />
       </article>

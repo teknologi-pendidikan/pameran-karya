@@ -14,6 +14,7 @@ export default function JenisKaryaCard(props: JenisKaryaCardProps) {
       className="transition ease-in-out duration-500 saturate-50 hover:scale-110 hover:saturate-100"
     >
       <Image src={props.image} alt={props.title} quality={50} />
+      <h3 className="text-center text-lg">{props.title}</h3>
     </Link>
   );
 }

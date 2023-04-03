@@ -35,14 +35,12 @@ const LeftPanel: NextPage<LeftPanelProps> = ({ content }) => {
             />
             <div className="flex flex-col justify-between">
               <MainPanelButtonSmall
-                link={"https://pamerankarya.teknologipendidikan.or.id/bantuan"}
-                title="Bantuan"
+                link={content[2].link}
+                title={content[2].title}
               />
               <MainPanelButtonSmall
-                link={
-                  "https://pamerankarya.teknologipendidikan.or.id/timpameran"
-                }
-                title="Tim Pameran"
+                link={content[3].link}
+                title={content[3].title}
               />
             </div>
           </div>

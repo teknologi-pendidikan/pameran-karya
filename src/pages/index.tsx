@@ -6,6 +6,7 @@ import About from "@/components/organisms/section/About";
 import Image from "next/image";
 import ImageBG from "@/public/assets/bg-fullpage.webp";
 import ImaageMainmenuBG from "@/public/assets/bg-mainmenu.webp";
+import divider from "@/public/assets/divider.png";
 
 import { GetStaticProps } from "next";
 import JenisKarya from "@/components/organisms/section/JenisKarya";
@@ -60,8 +61,10 @@ export default function Home({ content, posts }) {
           className="container mx-auto flex flex-col space-y-12 items-start justify-start px-4 lg:max-w-screen-3xl pb-12 mb-12 text-white"
         >
           <About />
+          <Image src={divider} alt="" height={50} className="w-full" />
           <GeneralInformation listpost={posts} />
-          <PlayerSelector />
+          {/* <PlayerSelector /> */}
+          <Image src={divider} alt="" height={50} className="w-full" />
           <JenisKarya />
         </div>
       </main>

@@ -2,6 +2,8 @@ import FrameChara from "@/public/assets/img-jeniskarya.webp";
 import SectionLayout from "@/components/template/section-layout";
 import JenisKaryaCard from "@components/molecules/JenisKaryaCards";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const jeniskarya = [
   {

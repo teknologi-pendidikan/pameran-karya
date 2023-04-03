@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Informasi from "@/public/assets/placeholder.webp";
+import Informasi from "@/public/assets/informasi.webp";
 import Link from "next/link";
 import SectionLayout from "@/components/template/section-layout";
 

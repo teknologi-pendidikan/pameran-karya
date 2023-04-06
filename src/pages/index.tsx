@@ -58,7 +58,7 @@ export default function Home({ content, posts }) {
         </section>
         <div
           id="main-content"
-          className="container mx-auto flex flex-col space-y-12 items-start justify-start px-4 lg:max-w-screen-3xl pb-12 mb-12 text-white"
+          className="container mx-auto flex flex-col space-y-12 items-start justify-start px-4 lg:max-w-screen-3xl pb-24 text-white"
         >
           <About />
           <Image src={divider} alt="" height={50} className="w-full" />

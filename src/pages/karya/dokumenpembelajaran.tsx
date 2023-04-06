@@ -24,7 +24,7 @@ export default function DokumenPembelajaran({ content }: dataKarya) {
       ariaLabel="Karya Dokumen & Ebook Pembelajaran"
       title="Karya Dokumen & Ebook Pembelajaran"
     >
-      <div className="grid grid-cols-5 gap-8 pb-24">
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-8 pb-24 px-4">
         {content.map((item) => (
           <Link
             className="flex flex-col space-y-2 items-start justify-start transition ease-in-out duration-500 hover:scale-110"

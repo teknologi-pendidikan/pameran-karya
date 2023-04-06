@@ -51,13 +51,14 @@ const jeniskarya = [
 
 export default function JenisKarya() {
   const sliderSetting = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: false,
     cssEase: "linear",
+    arrows: false,
   };
   return (
     <SectionLayout
@@ -78,7 +79,7 @@ export default function JenisKarya() {
           />
         ))}
       </div>
-      <div id="container-karyacard-mobile" className="flex xl:hidden">
+      <div id="container-karyacard-mobile" className="xl:hidden">
         <Slider {...sliderSetting}>
           {jeniskarya.map((item) => (
             <JenisKaryaCard

@@ -25,7 +25,7 @@ export default function KaryaVideo({ content }: dataKarya) {
       ariaLabel="Karya Video Pembelajaran"
       title="Karya Video Pembelajaran"
     >
-      <div className="grid grid-cols-3 gap-8 pb-24">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 pb-24 px-4">
         {content.map((item) => (
           <div
             className="flex flex-col space-y-2 items-start justify-start"

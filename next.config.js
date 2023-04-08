@@ -52,7 +52,8 @@ const nextConfig = {
             "font-src": "'self'",
             "form-action": "'self'",
             "frame-ancestors": "'none'",
-            "frame-src": "'none' https://www.youtube.com/",
+            "frame-src":
+              "'none' https://www.youtube.com/ https://docs.google.com/",
             "img-src":
               "'self' https://is3.cloudhost.id/teknologipendidikan/objectstorage-pamerankarya/",
             "manifest-src": "'self'",

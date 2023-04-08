@@ -39,7 +39,7 @@ const jeniskarya = [
     id: 5,
     title: "Media Presentasi",
     image: framePresentasi,
-    link: "/comingsoon",
+    link: "/karya/presentasi",
   },
   {
     id: 6,

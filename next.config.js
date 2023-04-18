@@ -36,6 +36,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "is3.cloudhost.id",
       },
+      {
+        protocol: "https",
+        hostname: "**.google.com",
+      },
     ],
   },
   async headers() {
@@ -55,7 +59,7 @@ const nextConfig = {
             "frame-src":
               "'none' https://www.youtube.com/ https://docs.google.com/",
             "img-src":
-              "'self' https://is3.cloudhost.id/teknologipendidikan/objectstorage-pamerankarya/",
+              "'self' https://is3.cloudhost.id/teknologipendidikan/objectstorage-pamerankarya/ https://drive.google.com https://*.googleusercontent.com",
             "manifest-src": "'self'",
             "media-src": "'self'",
             "object-src": "'none'",

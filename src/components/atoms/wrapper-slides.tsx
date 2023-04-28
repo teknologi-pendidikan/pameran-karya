@@ -56,7 +56,7 @@ const constructUrl = (
 // Regex for extracting presentation id
 // eslint-disable-next-line @typescript-eslint/no-inferrable-types
 const regex: RegExp = new RegExp(
-  `(((https|http):\/\/|)docs\.google\.com\/presentation\/d\/)(.+?(?=(\/.+|\/|$)))`,
+  `(((https|http):\\/\\/|)drive\\.google\\.com\\/open\\?id=)(.+?(?=(\\/.+|\\/|$)))`,
 );
 
 // Extracts the slide id from the share-able url

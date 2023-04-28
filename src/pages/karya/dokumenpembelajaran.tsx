@@ -43,7 +43,7 @@ export default function DokumenPembelajaran({ content }: dataKarya) {
             </div>
             <div className="flex flex-col justify-between w-full">
               <h2 className="text-xl font-bold">{item.judul_karya}</h2>
-              <p className="text-base">{item.deskripsi_karya}</p>
+              <p className="text-base line-clamp-5">{item.deskripsi_karya}</p>
               <p className="text-sm pt-2">
                 Dikembangkan oleh:{" "}
                 <span className="font-semibold"> {item.peserta}</span>
@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps = async () => {
       const width = data[5];
       const height = data[6];
       const src_obj = data[7];
-      const src_cover = data[8];
+      const src_cover = data[9];
 
       for (let i = 1; i < data[0].length; i++) {
         const item = {

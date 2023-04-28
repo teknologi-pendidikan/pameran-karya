@@ -1,10 +1,9 @@
 // @ts-nocheck
 import SectionLayout from "@/components/template/section-layout";
-import dynamic from "next/dynamic";
-import React from "react";
 import { GetStaticProps } from "next";
-
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 type dataKarya = {
   uuid_karya: string;
@@ -18,34 +17,29 @@ type dataKarya = {
   src_cover: string;
 };
 
-export default function KaryaVideo({ content }: dataKarya) {
+export default function Multimedia({ content }: dataKarya) {
   return (
     <SectionLayout
-      id="karya-videopembelajaran"
-      ariaLabel="Karya Video Pembelajaran"
-      title="Karya Video Pembelajaran"
+      id="karya-dokumen-pembelajaran"
+      ariaLabel="Karya Multimedia Pembelajaran"
+      title="Karya Multimedia Pembelajaran"
     >
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 pb-24 px-4">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 pb-24 px-4">
         {content.map((item) => (
-          <div
-            className="flex flex-col space-y-2 items-start justify-start"
+          <Link
+            className="flex flex-col space-y-2 items-start justify-start transition ease-in-out duration-500 hover:scale-110"
             key={item.uuid_karya}
+            href={item.src_obj}
           >
-            <ReactPlayer
-              width="100%"
-              height={400}
-              url={item.src_obj}
-              //   light={item.image}
-            />
             <div className="flex flex-col justify-between w-full">
               <h2 className="text-xl font-bold">{item.judul_karya}</h2>
-              <p className="text-base line-clamp-3">{item.deskripsi_karya}</p>
-              <p className="text-base pt-2">
+              <p className="text-base line-clamp-5">{item.deskripsi_karya}</p>
+              <p className="text-sm pt-2">
                 Dikembangkan oleh:{" "}
                 <span className="font-semibold"> {item.peserta}</span>
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </SectionLayout>
@@ -53,7 +47,7 @@ export default function KaryaVideo({ content }: dataKarya) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const SHEETS = "karya-video";
+  const SHEETS = "karya-multimedia";
   const DATA_ENDPOINT = `${process.env.SPREADSHEET_ENDPOINT}/${SHEETS}?key=${process.env.GAPI_SPREADSHEETS}&majorDimension=COLUMNS`;
 
   const content = [];

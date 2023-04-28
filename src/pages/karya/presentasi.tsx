@@ -38,7 +38,7 @@ export default function KaryaPresentasi({ content }: dataKarya) {
             />
             <div className="flex flex-col justify-between w-full">
               <h2 className="text-xl font-bold">{item.judul_karya}</h2>
-              <p className="text-base">{item.deskripsi_karya}</p>
+              <p className="text-base line-clamp-3">{item.deskripsi_karya}</p>
               <p className="text-base pt-2">
                 Dikembangkan oleh:{" "}
                 <span className="font-semibold"> {item.peserta}</span>

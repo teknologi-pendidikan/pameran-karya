@@ -1,4 +1,6 @@
+import Image from "next/image";
 import JenisKarya from "@/components/organisms/section/JenisKarya";
+import informasiFungsiMedia from "@/public/assets/informasi-fungsimedia.webp";
 
 export default function IndexKarya() {
   return (
@@ -7,6 +9,7 @@ export default function IndexKarya() {
       <h1 className="text-5xl md:text-7xl font-bold">
         Kenal lebih dekat dengan karya-karya yang dipamerkan.
       </h1>
+      <Image src={informasiFungsiMedia} alt="informasi fungsi media" />
     </div>
   );
 }

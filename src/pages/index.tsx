@@ -10,7 +10,7 @@ import divider from "@/public/assets/divider.png";
 
 import { GetStaticProps } from "next";
 import JenisKarya from "@/components/organisms/section/JenisKarya";
-import PlayerSelector from "@/components/organisms/section/PlayerSelector";
+import informasiFungsiMedia from "@/public/assets/informasi-fungsimedia.webp";
 import GeneralInformation from "@/components/organisms/section/GeneralInformation";
 
 import fs from "fs";
@@ -66,6 +66,7 @@ export default function Home({ content, posts }) {
           {/* <PlayerSelector /> */}
           <Image src={divider} alt="" height={50} className="w-full" />
           <JenisKarya />
+          <Image src={informasiFungsiMedia} alt="informasi fungsi media" />
         </div>
       </main>
     </>

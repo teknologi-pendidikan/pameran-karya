@@ -12,6 +12,7 @@ type Frontcontent = {
   angkatan: number;
   jumlah_karya: number;
   image: string;
+  role: string;
 };
 
 export default function Partisipan({ partisipan }) {
@@ -35,20 +36,16 @@ export default function Partisipan({ partisipan }) {
         <div className="space-y-14">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
             {partisipan.map((item) => (
-              <Link
+              <ProfileCard
                 key={item.uuid}
-                href={`/partisipan/${item.nim}`}
-                className="flex"
-              >
-                <ProfileCard
-                  key={item.uuid}
-                  uuid={item.uuid}
-                  name={item.name}
-                  title={item.nim}
-                  image={item.image}
-                  description={item.jumlah_karya}
-                />
-              </Link>
+                uuid={item.uuid}
+                name={item.name}
+                title={item.nim}
+                image={item.image}
+                description={item.jumlah_karya}
+                role={item.role}
+                totalKarya={item.jumlah_karya}
+              />
             ))}
           </div>
         </div>
@@ -74,6 +71,7 @@ export const getStaticProps: GetStaticProps<{
       const angkatan = data[4];
       const jumlah_karya = data[5];
       const image = data[6];
+      const role = data[7];
 
       for (let i = 1; i < data[0].length; i += 1) {
         const item = {
@@ -83,6 +81,7 @@ export const getStaticProps: GetStaticProps<{
           angkatan: angkatan[i],
           jumlah_karya: jumlah_karya[i],
           image: image[i],
+          role: role[i],
         };
         content.push(item);
       }

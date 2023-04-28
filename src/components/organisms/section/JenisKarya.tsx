@@ -23,12 +23,12 @@ const jeniskarya = [
     image: frame2D,
     link: "/karya/2d",
   },
-  {
-    id: 3,
-    title: "Media 3D",
-    image: frame3D,
-    link: "/comingsoon",
-  },
+  // {
+  //   id: 3,
+  //   title: "Media 3D",
+  //   image: frame3D,
+  //   link: "/comingsoon",
+  // },
   {
     id: 4,
     title: "Video & Animasi Pembelajaran",
@@ -45,7 +45,13 @@ const jeniskarya = [
     id: 6,
     title: "Multimedia Interaktif",
     image: frameMI,
-    link: "/comingsoon",
+    link: "/karya/multimedia",
+  },
+  {
+    id: 7,
+    title: "Situs Web Pembelajaran",
+    image: frameMI,
+    link: "/karya/situsweb",
   },
 ];
 

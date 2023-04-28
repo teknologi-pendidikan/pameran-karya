@@ -13,6 +13,11 @@ import JenisKarya from "@/components/organisms/section/JenisKarya";
 import informasiFungsiMedia from "@/public/assets/informasi-fungsimedia.webp";
 import GeneralInformation from "@/components/organisms/section/GeneralInformation";
 
+const ImagesBGTimeCollection = {
+  bgDay: require("@/public/assets/bg-pagi.webp"),
+  bgNig: require("@/public/assets/bg-malam.webp"),
+};
+
 import fs from "fs";
 import matter from "gray-matter";
 
@@ -24,6 +29,14 @@ type Frontcontent = {
 };
 
 export default function Home({ content, posts }) {
+  const time = new Date().getHours();
+  console.log(time);
+
+  const backgroundImage =
+    time >= 6 && time < 18
+      ? ImagesBGTimeCollection.bgDay
+      : ImagesBGTimeCollection.bgNig;
+
   return (
     <>
       <Head>
@@ -35,7 +48,7 @@ export default function Home({ content, posts }) {
         className="bg-theme-blue-accent xl:bg-transparent relative"
         aria-label="Pameran Karya Teknologi Pendidikan 2023"
       >
-        <Image src={ImaageMainmenuBG} alt="" className="absolute top-0 -z-20" />
+        <Image src={backgroundImage} alt="" className="absolute top-0 -z-20" />
         <Image
           src={ImageBG}
           alt=""

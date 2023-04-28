@@ -71,6 +71,7 @@ export default function JenisKarya() {
       id="kategori-karya"
       ariaLabel="Kategori karya yang dipamerkan"
       title="Kategori Karya"
+      clasName="h-screen"
     >
       <div
         id="karyacard-desktop"

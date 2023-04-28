@@ -6,6 +6,8 @@ import About from "@/components/organisms/section/About";
 import Image from "next/image";
 import ImageBG from "@/public/assets/bg-fullpage.webp";
 import ImaageMainmenuBG from "@/public/assets/bg-mainmenu.webp";
+import ImageProudly from "@/public/assets/proudlypresent.webp";
+import ImageTEPFestiva from "@/public/assets/tepfestiva.webp";
 import divider from "@/public/assets/divider.png";
 
 import { GetStaticProps } from "next";
@@ -73,13 +75,18 @@ export default function Home({ content, posts }) {
           id="main-content"
           className="container mx-auto flex flex-col space-y-12 items-start justify-start px-4 lg:max-w-screen-3xl pb-24 text-white"
         >
+          <div className=" flex justify-center items-center h-screen">
+            <Image src={ImageProudly} alt="Mempersembahkan" />
+          </div>
           <About />
           <Image src={divider} alt="" height={50} className="w-full" />
           <GeneralInformation listpost={posts} />
           {/* <PlayerSelector /> */}
           <Image src={divider} alt="" height={50} className="w-full" />
           <JenisKarya />
+          <Image src={divider} alt="" height={50} className="w-full" />
           <Image src={informasiFungsiMedia} alt="informasi fungsi media" />
+          <Image src={ImageTEPFestiva} alt="TEP Festiva" className="py-8" />
         </div>
       </main>
     </>

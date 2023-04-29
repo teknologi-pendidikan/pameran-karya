@@ -14,13 +14,13 @@ import "slick-carousel/slick/slick-theme.css";
 const jeniskarya = [
   {
     id: 1,
-    title: "Media E-Book & Modul Ajar",
+    title: "E-Book & Modul Ajar",
     image: frameEbook,
     link: "/karya/dokumenpembelajaran",
   },
   {
     id: 2,
-    title: "Media 2D",
+    title: "Poster & Citra 2D",
     image: frame2D,
     link: "/karya/2d",
   },
@@ -32,13 +32,13 @@ const jeniskarya = [
   // },
   {
     id: 4,
-    title: "Video & Animasi Pembelajaran",
+    title: "Video Pembelajaran",
     image: frameVideo,
     link: "/karya/videopembelajaran",
   },
   {
     id: 5,
-    title: "Media Presentasi",
+    title: "Presentasi / PPT",
     image: framePresentasi,
     link: "/karya/presentasi",
   },
@@ -50,7 +50,7 @@ const jeniskarya = [
   },
   {
     id: 7,
-    title: "Situs Web Pembelajaran",
+    title: "Web Pembelajaran",
     image: frameWebsite,
     link: "/karya/situsweb",
   },

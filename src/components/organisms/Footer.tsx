@@ -6,7 +6,7 @@ import FooterSponsor from "../molecules/footer-sponsor";
 export default function Footer() {
   return (
     <footer
-      className="relative w-full bg-black min-h-min h-screen pb-10"
+      className="relative w-full bg-black min-h-screen h-full pb-4 pt-14"
       aria-label=""
     >
       <div className="mx-auto container px-4">

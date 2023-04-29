@@ -22,12 +22,12 @@ export default function GeneralInformation({ listpost }: Props) {
     >
       <div className="space-y-8 flex flex-col items-center justify-center">
         <Image src={Informasi} alt="informasi" />
-        <div className="flex flex-row justify-around items-center w-full">
+        <div className="flex flex-col lg:flex-row justify-around items-center w-full">
           {listpost.slice(0, 3).map((post) => (
             <div
               id={post.slug}
               key={post.slug}
-              className="border border-theme-flower m-2 rounded-md shadow-lg overflow-hidden flex flex-col transition ease-in-out duration-500 hover:scale-110 bg-theme-blue-dark text-theme-white hover:shadow-theme-flower hover:shadow-2xl"
+              className="w-full border border-theme-flower m-2 rounded-md shadow-lg overflow-hidden flex flex-col transition ease-in-out duration-500 hover:scale-110 bg-theme-blue-dark text-theme-white hover:shadow-theme-flower hover:shadow-2xl"
             >
               <Link href={`/post/${post.slug}`}>
                 <Image

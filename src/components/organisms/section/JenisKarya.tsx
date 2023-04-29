@@ -4,6 +4,7 @@ import frameEbook from "@/public/assets/Kategorisasi_Ebook.png";
 import frameMI from "@/public/assets/Kategorisasi_MI.png";
 import framePresentasi from "@/public/assets/Kategorisasi_PPT.png";
 import frameVideo from "@/public/assets/Kategorisasi_VidNimasi.png";
+import frameWebsite from "@/public/assets/Kategorisasi_Website.png";
 import SectionLayout from "@/components/template/section-layout";
 import JenisKaryaCard from "@components/molecules/JenisKaryaCards";
 import Slider from "react-slick";
@@ -50,7 +51,7 @@ const jeniskarya = [
   {
     id: 7,
     title: "Situs Web Pembelajaran",
-    image: frameMI,
+    image: frameWebsite,
     link: "/karya/situsweb",
   },
 ];

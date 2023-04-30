@@ -24,6 +24,27 @@ export default function Multimedia({ content }: dataKarya) {
       ariaLabel="Karya Multimedia Pembelajaran"
       title="Karya Multimedia Pembelajaran"
     >
+      <div className="space-y-2 bg-red-300 px-6 py-4 mb-6 rounded-lg border-4 border-gray-800">
+        <p className="text-3xl font-bold">Perhatian!</p>
+        <p className="text-lg text-gray-800">
+          <b>
+            Multimedia Interaktif pada halaman ini merupakan program aplikasi
+            komputer/smartphone yang didistribusikan dalam bentuk executable/apk
+          </b>
+          . Anda mungkin akan menerima peringatan bahwa file tersebut tidak aman
+          / tidak dikenal. Beberapa aplikasi bahkan tidak dapat ditemukan karena
+          pemindai keamanan Google for Education telah memblokirnya. Jika Anda
+          merasa ragu atau tidak yakin, jangan ragu untuk menghubungi kami
+          melalui email:{" "}
+          <a
+            className="text-blue-500 hover:underline"
+            href="mailto:timpamerandigital@teknologipendidikan.or.id"
+          >
+            timpamerandigital@teknologipendidikan.or.id
+          </a>{" "}
+          / batalkan unduhan yang sedang berlangsung.
+        </p>
+      </div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 pb-24 px-4">
         {content.map((item) => (
           <Link

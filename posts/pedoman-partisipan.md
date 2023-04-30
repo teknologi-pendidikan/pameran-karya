@@ -16,10 +16,10 @@ image: "assets/post/bukupedoman.webp"
 
 1. Partisipan Merupakan Mahasiswa atau Dosen Teknologi Pendidikan UM
 2. Partisipan wajib menyubmit karyanya SESUAI dengan Kategori Media Pembelajaran
-3. **SEMUA** Media yang tersubmit harus bersifat OpenSource (Boleh digunakan oleh siapapun secara bebas & Gratis)
+3. **SEMUA** Media yang dikumpulkan harus bersifat OpenSource (Boleh digunakan oleh siapapun secara bebas & Gratis)
 4. Partisipan yang hendak menyubmit karya harus memastikan bahwa karyanya BOLEH digunakan oleh Siapa saja secara Bebas & Gratis (Bersifat OpenSource)
 5. Partisipan dapat menyubmit karya melalui Link berikut [https://bit.ly/Input_PKTP2023](https://bit.ly/Input_PKTP2023)
-6. Maksimum jumlah Karya yang dapat disubmit oleh masing-masing partisipan adalah 3 karya
+6. Maksimum jumlah Karya yang dapat dikumpulkan oleh masing-masing partisipan adalah 3 karya
 
 ## Kategori Media Pembelajaran
 

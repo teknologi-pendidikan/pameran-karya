@@ -68,6 +68,9 @@ export default function Gallery({ photos }) {
         close={() => setIndex(-1)}
         slides={photosData}
         plugins={[Captions]}
+        captions={{
+          descriptionMaxLines: 5,
+        }}
       />
     </div>
   );

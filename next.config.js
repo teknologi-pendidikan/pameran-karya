@@ -65,7 +65,7 @@ const nextConfig = {
             "object-src": "'none'",
             "prefetch-src": "'self'",
             "script-src":
-              "'self' 'unsafe-eval' 'unsafe-inline' https://www.youtube.com/ https://www.googletagmanager.com/gtag/js 'sha256-wzRmNN3+4L3v3ZHovwiO9F+QFCmvsqZ8zZ05lCRcmOY='",
+              "'self' 'unsafe-eval' 'unsafe-inline' https://www.youtube.com/ https://www.googletagmanager.com/gtag/js https://netlify-rum.netlify.app/ 'sha256-wzRmNN3+4L3v3ZHovwiO9F+QFCmvsqZ8zZ05lCRcmOY='",
             "style-src": "'self' 'unsafe-inline'",
             "worker-src": "'self' blob:",
             "report-uri": "https://dptsi.edtech.or.id",

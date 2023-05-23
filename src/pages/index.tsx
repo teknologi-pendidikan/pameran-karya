@@ -78,7 +78,7 @@ export default function Home({ content, posts }) {
           <div className=" flex justify-center items-center lg:h-screen">
             <Image src={ImageProudly} alt="Mempersembahkan" />
           </div>
-          <About />
+         
           <Image src={divider} alt="" height={50} className="w-full" />
           <GeneralInformation listpost={posts} />
           <Image src={divider} alt="" height={50} className="w-full" />

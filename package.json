@@ -35,7 +35,7 @@
     "react-photo-album": "^2.0.3",
     "react-player": "^2.12.0",
     "react-slick": "^0.29.0",
-    "sharp": "^0.32.0",
+    "sharp": "^0.32.6",
     "slick-carousel": "^1.8.1",
     "swr": "^2.1.0",
     "three": "^0.150.1",

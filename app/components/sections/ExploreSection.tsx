@@ -11,13 +11,13 @@ export default function ExploreSection() {
         </div>
 
         {/* Area 1 - Explore Category */}
-        <div className="w-full mx-auto mt-12">
-          <div className="flex flex-row gap-6 h-[500px] overflow-x-auto scrollbar-hide mx-auto pb-4">
+        <div className="w-full mx-auto mt-12 flex justify-center">
+          <div className="flex flex-row gap-6 h-125 overflow-x-auto scrollbar-hide pb-4 px-4">
             {exploreItems.map((item, index) => (
               <Link
                 href={item.link}
                 key={item.id}
-                className="min-w-[350px] h-full rounded-2xl overflow-hidden relative group cursor-pointer transform transition-all duration-500 hover:scale-105 hover:shadow-2xl shadow-lg"
+                className="min-w-[300px] h-full rounded-2xl overflow-hidden relative group cursor-pointer transform transition-all duration-500 hover:scale-105 hover:shadow-2xl shadow-lg flex-shrink-0"
                 style={{
                   animationDelay: `${index * 100}ms`,
                 }}

@@ -17,8 +17,8 @@ export default function InstagramFollow({
   link = "https://instagram.com/pamerankarya",
 }: InstagramFollowProps) {
   return (
-    <section className="container mx-auto px-4 my-4 py-8">
-      <div className="max-w-7xl mx-auto rounded-2xl overflow-hidden relative group cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
+    <section className="container mx-auto px-4 my-4 py-4 md:py-8">
+      <div className="max-w-7xl mx-auto rounded-xl md:rounded-2xl overflow-hidden relative group cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
         {/* Background Image */}
         <img
           src={image}
@@ -32,13 +32,13 @@ export default function InstagramFollow({
         {/* Content */}
         <Link
           href={link}
-          className="relative z-10 flex flex-row items-center min-h-[200px] p-8 block"
+          className="relative z-10 flex flex-col md:flex-row items-center min-h-[160px] md:min-h-[200px] p-6 md:p-8 block"
         >
           {/* Instagram Icon */}
-          <div className="flex-shrink-0 mr-8">
-            <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
+          <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-8">
+            <div className="w-16 md:w-20 h-16 md:h-20 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
               <svg
-                className="w-10 h-10 text-white"
+                className="w-8 md:w-10 h-8 md:h-10 text-white"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -48,14 +48,14 @@ export default function InstagramFollow({
           </div>
 
           {/* Text Content */}
-          <div className="flex-grow text-white">
-            <h1 className="text-4xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">
+          <div className="flex-grow text-white text-center md:text-left">
+            <h1 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 group-hover:translate-x-0 md:group-hover:translate-x-2 transition-transform duration-300">
               {title}
             </h1>
-            <p className="text-lg mb-6 opacity-90 group-hover:opacity-100 transition-all duration-300">
+            <p className="text-base md:text-lg mb-4 md:mb-6 opacity-90 group-hover:opacity-100 transition-all duration-300">
               {description}
             </p>
-            <div className="flex items-center space-x-2 text-white/80 group-hover:text-white transition-colors duration-300">
+            <div className="flex items-center justify-center md:justify-start space-x-2 text-white/80 group-hover:text-white transition-colors duration-300">
               <span className="text-sm font-medium">{handle}</span>
               <svg
                 className="w-4 h-4"

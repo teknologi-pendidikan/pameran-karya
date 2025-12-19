@@ -23,63 +23,63 @@ interface StudentPhotographyProps {
 const defaultPhotos: PhotoItem[] = [
   {
     id: "1",
-    title: "Urban Solitude",
-    category: "Portrait",
+    title: "Learning Center TEP",
+    category: "Education",
     categoryColor: "bg-purple-600",
-    image: "/placeholder-4x6.png",
-    studentName: "Sarah Putri",
-    university: "Universitas Brawijaya",
-    studentAvatar: "/placeholder-4x6.png",
+    image: "/placeholder-16x9.jpg",
+    studentName: "Rengga Prakoso Nugroho",
+    university: "Universitas Negeri Malang",
+    studentAvatar: "/placeholder-16x9.jpg",
   },
   {
     id: "2",
-    title: "Mountain Reflection",
-    category: "Landscape",
-    categoryColor: "bg-green-600",
+    title: "Learning Center TEP",
+    category: "Education",
+    categoryColor: "bg-purple-600",
     image: "/placeholder-16x9.jpg",
-    studentName: "Andi Wijaya",
+    studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
-    studentAvatar: "/placeholder-4x6.png",
+    studentAvatar: "/placeholder-16x9.jpg",
   },
   {
     id: "3",
-    title: "Color Symphony",
-    category: "Abstract",
-    categoryColor: "bg-orange-600",
-    image: "/placeholder-4x6.png",
-    studentName: "Maya Chen",
-    university: "UIN Malang",
-    studentAvatar: "/placeholder-4x6.png",
+    title: "Learning Center TEP",
+    category: "Education",
+    categoryColor: "bg-purple-600",
+    image: "/placeholder-16x9.jpg",
+    studentName: "Rengga Prakoso Nugroho",
+    university: "Universitas Negeri Malang",
+    studentAvatar: "/placeholder-16x9.jpg",
   },
   {
     id: "4",
-    title: "City Life",
-    category: "Street",
-    categoryColor: "bg-blue-600",
-    image: "/placeholder-4x6.png",
-    studentName: "Reza Pratama",
-    university: "Universitas Brawijaya",
-    studentAvatar: "/placeholder-4x6.png",
+    title: "Learning Center TEP",
+    category: "Education",
+    categoryColor: "bg-purple-600",
+    image: "/placeholder-16x9.jpg",
+    studentName: "Rengga Prakoso Nugroho",
+    university: "Universitas Negeri Malang",
+    studentAvatar: "/placeholder-16x9.jpg",
   },
   {
     id: "5",
-    title: "Sunset Horizon",
-    category: "Nature",
-    categoryColor: "bg-teal-600",
+    title: "Learning Center TEP",
+    category: "Education",
+    categoryColor: "bg-purple-600",
     image: "/placeholder-16x9.jpg",
-    studentName: "Indira Sari",
+    studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
-    studentAvatar: "/placeholder-4x6.png",
+    studentAvatar: "/placeholder-16x9.jpg",
   },
   {
     id: "6",
-    title: "Morning Dew",
-    category: "Macro",
-    categoryColor: "bg-pink-600",
-    image: "/placeholder-4x6.png",
-    studentName: "Dewa Putra",
-    university: "UIN Malang",
-    studentAvatar: "/placeholder-4x6.png",
+    title: "Learning Center TEP",
+    category: "Education",
+    categoryColor: "bg-purple-600",
+    image: "/placeholder-16x9.jpg",
+    studentName: "Rengga Prakoso Nugroho",
+    university: "Universitas Negeri Malang",
+    studentAvatar: "/placeholder-16x9.jpg",
   },
 ];
 
@@ -104,31 +104,31 @@ export default function StudentPhotography({
 
   const getHeightClasses = (index: number) => {
     const heightClasses = [
-      "h-96 lg:h-[600px]", // Photo 1
-      "h-64", // Photo 2
-      "h-64", // Photo 3
-      "h-96 lg:h-[500px]", // Photo 4
-      "h-48", // Photo 5
-      "h-64", // Photo 6
+      "h-64 md:h-96 lg:h-[600px]", // Photo 1
+      "h-48 md:h-64", // Photo 2
+      "h-48 md:h-64", // Photo 3
+      "h-64 md:h-96 lg:h-[500px]", // Photo 4
+      "h-40 md:h-48", // Photo 5
+      "h-48 md:h-64", // Photo 6
     ];
-    return heightClasses[index] || "h-64";
+    return heightClasses[index] || "h-48 md:h-64";
   };
 
   return (
     <section className="container mx-auto px-4 my-16">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-purple-800 to-indigo-900 bg-clip-text text-transparent">
+        {/* <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-gray-900 via-purple-800 to-indigo-900 bg-clip-text text-transparent px-4">
             {title}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
             {description}
           </p>
-        </div>
+        </div> */}
 
         {/* Photography Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 auto-rows-auto px-4 md:px-0">
           {photos.map((photo, index) => (
             <div
               key={photo.id}
@@ -145,7 +145,7 @@ export default function StudentPhotography({
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 lg:p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                   <div className="mb-2">
                     <span
                       className={`px-3 py-1 ${photo.categoryColor} rounded-full text-xs font-medium`}
@@ -200,10 +200,10 @@ export default function StudentPhotography({
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-16">
+        {/* <div className="text-center mt-12 md:mt-16 px-4">
           <Link
             href={ctaLink}
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 space-x-3"
+            className="inline-flex items-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 space-x-2 md:space-x-3"
           >
             <span>{ctaText}</span>
             <svg
@@ -220,7 +220,7 @@ export default function StudentPhotography({
               />
             </svg>
           </Link>
-        </div>
+        </div> */}
       </div>
     </section>
   );

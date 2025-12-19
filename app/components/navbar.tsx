@@ -9,37 +9,77 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import LogoPameran from "@/app/assets/logo_pameran";
+import { navItems } from "@/assets/data/navigation.data";
 
 import Link from "next/link";
 
-const navItems = [
-  { title: "Beranda", href: "/" },
-  { title: "Whitepaper", href: "/whitepaper" },
-  { title: "Direktori Eksibitor", href: "/person" },
-];
-
 export default function Navbar() {
   return (
-    <div className=" g-base-100 shadow-sm">
+    <div className="bg-base-100 shadow-sm sticky top-0 z-50">
       <div className="navbar bg-base-100 max-w-7xl mx-auto px-4">
-        <div className="flex-1">
-          <Link href="/" className="btn btn-ghost text-xl">
+        {/* Mobile menu button */}
+        <div className="navbar-start">
+          <div className="dropdown lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-base font-medium">
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Logo - centered on mobile */}
+          <Link href="/" className="btn btn-ghost text-xl lg:flex">
             <LogoPameran
-              className="h-8 w-auto"
-              style={{ height: "auto", width: "128px" }}
+              className="h-6 lg:h-8 w-auto"
+              style={{ height: "auto", width: "96px", maxWidth: "128px" }}
               fillcolorbottom="black"
               fillcolortop="black"
             />
           </Link>
         </div>
-        <div className="flex-none">
+
+        {/* Desktop menu */}
+        <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href}>{item.title}</Link>
+                <Link
+                  href={item.href}
+                  className="text-base font-medium hover:bg-primary hover:text-primary-content transition-colors duration-200"
+                >
+                  {item.title}
+                </Link>
               </li>
             ))}
           </ul>
+        </div>
+
+        {/* Mobile menu spacer */}
+        <div className="navbar-end lg:hidden">
+          {/* This keeps the logo centered on mobile */}
         </div>
       </div>
     </div>

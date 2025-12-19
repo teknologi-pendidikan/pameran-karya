@@ -1,7 +1,7 @@
 export const exploreItems = [
   {
     id: 1,
-    title: "Category 1",
+    title: "Buku digital",
     description: "desc",
     link: "#",
     type: "online exhibition",
@@ -9,7 +9,7 @@ export const exploreItems = [
   },
   {
     id: 2,
-    title: "Category 1",
+    title: "Video pembelajaran",
     description: "desc",
     link: "#",
     type: "online exhibition",
@@ -17,7 +17,7 @@ export const exploreItems = [
   },
   {
     id: 3,
-    title: "Category 1",
+    title: "Multimedia interaktif",
     description: "desc",
     link: "#",
     type: "online exhibition",
@@ -25,7 +25,7 @@ export const exploreItems = [
   },
   {
     id: 4,
-    title: "Category 1",
+    title: "Riset pendidikan",
     description: "desc",
     link: "#",
     type: "online exhibition",

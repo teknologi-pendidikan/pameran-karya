@@ -19,7 +19,7 @@ interface Person {
 }
 
 export const metadata = {
-  title: "Direktori Person - Pameran Karya Teknologi Pendidikan",
+  title: "Direktori Eksibitor - Pameran Karya Teknologi Pendidikan",
   description:
     "Jelajahi profil dan karya para mahasiswa Teknologi Pendidikan Indonesia yang berpartisipasi dalam Pameran Karya.",
 };
@@ -31,25 +31,21 @@ export default async function PersonDirectoryPage() {
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
   );
 
-  // Fetch all persons with their works count
-  const { data: persons, error } = await supabase
+  // Fetch all persons with their works count in a single efficient query
+  const { data: personsWithCounts, error } = await supabase
     .from("person")
-    .select("*")
+    .select(
+      `
+      *,
+      work_person(count)
+    `
+    )
     .order("name", { ascending: true });
 
-  // Fetch works count for each person using the work_person junction table
-  let personsWithCounts = persons;
-  if (persons) {
-    personsWithCounts = await Promise.all(
-      persons.map(async (person) => {
-        const { count } = await supabase
-          .from("work_person")
-          .select("*", { count: "exact", head: true })
-          .eq("person_id", person.person_id);
-        return { ...person, works_count: count || 0 };
-      })
-    );
-  }
+  // Transform the data to include works_count
+  const persons = personsWithCounts?.map((person) => ({
+    ...person,
+  }));
 
   if (error) {
     console.error("Error fetching persons:", error);
@@ -65,7 +61,7 @@ export default async function PersonDirectoryPage() {
     );
   }
 
-  if (!personsWithCounts || personsWithCounts.length === 0) {
+  if (!persons || persons.length === 0) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
@@ -81,30 +77,25 @@ export default async function PersonDirectoryPage() {
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-6">Direktori Person</h1>
+          <h1 className="text-5xl font-bold mb-6">Direktori Eksibitor</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Temui para mahasiswa Teknologi Pendidikan dari seluruh Indonesia
             yang berpartisipasi dalam Pameran Karya. Jelajahi profil dan
             karya-karya inovatif mereka dalam bidang teknologi pendidikan.
           </p>
-          <div className="mt-6">
-            <Badge variant="outline" className="text-lg px-4 py-2">
-              {personsWithCounts.length} Person Terdaftar
-            </Badge>
-          </div>
         </div>
 
         {/* Statistics Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 text-center">
             <div className="text-3xl font-bold text-blue-600 mb-2">
-              {personsWithCounts.length}
+              {persons.length}
             </div>
             <div className="text-blue-800 font-medium">Total Person</div>
           </div>
           <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 text-center">
             <div className="text-3xl font-bold text-green-600 mb-2">
-              {personsWithCounts.reduce(
+              {persons.reduce(
                 (sum, person) => sum + (person.works_count || 0),
                 0
               )}
@@ -114,24 +105,46 @@ export default async function PersonDirectoryPage() {
           <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 text-center">
             <div className="text-3xl font-bold text-purple-600 mb-2">
               {
-                personsWithCounts.filter(
+                persons.filter(
                   (person) => (person.works_count || 0) > 0
                 ).length
               }
             </div>
             <div className="text-purple-800 font-medium">Person Aktif</div>
           </div>
-        </div>
+        </div> */}
 
         {/* Person Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {personsWithCounts.map((person) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {persons.map((person) => (
             <Link
               key={person.person_id}
               href={`/person/${person.slug}`}
-              className="group block transition-transform hover:scale-105"
+              className="group block transition-transform hover:scale-105 hover:border-rose-100 border border-transparent shadow-sm rounded-lg overflow-hidden"
             >
-              <Card className="h-full hover:shadow-xl transition-shadow duration-300">
+              <div className="card card-side bg-base-100 shadow-sm w-full">
+                <figure>
+                  <img
+                    src={person.image || "/placeholder-4x6.png"}
+                    alt={person.name}
+                    className="h-48 w-auto"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title">{person.name}</h2>
+                  <p>{person.bio}</p>
+                  <div className="flex flex-col gap-2">
+                    {/* <div className="badge badge-secondary">
+                      {person.works_count || 0} Karya
+                    </div> */}
+                    <div className="badge badge-outline text-xs">
+                      {person.affiliation}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* <Card className="h-full hover:shadow-xl transition-shadow duration-300">
                 <CardHeader className="pb-4 pt-6">
                   <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
                     {person.name}
@@ -160,7 +173,7 @@ export default async function PersonDirectoryPage() {
                     </Badge>
                   </div>
                 </CardContent>
-              </Card>
+              </Card> */}
             </Link>
           ))}
         </div>

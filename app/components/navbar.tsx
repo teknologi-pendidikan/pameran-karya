@@ -15,6 +15,7 @@ import Link from "next/link";
 const navItems = [
   { title: "Beranda", href: "/" },
   { title: "Whitepaper", href: "/whitepaper" },
+  { title: "Direktori Eksibitor", href: "/person" },
 ];
 
 export default function Navbar() {

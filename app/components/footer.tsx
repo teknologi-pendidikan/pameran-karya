@@ -24,14 +24,14 @@ export default function Footer() {
         </nav>
       </footer>
       <footer className=" container mx-auto max-w-7xl footer text-base-content border-base-300 border-t px-10 py-4">
-        <aside className="grid-flow-col items-center">
+        <aside className="grid-flow-row lg:grid-col items-center">
           <LogoPameran
             className="h-10 w-auto"
             style={{ height: "auto", width: "256px" }}
             fillcolorbottom="black"
             fillcolortop="black"
           />
-          <p className="mx-4 text-sm">
+          <p className="mx-0 lg:mx-4 text-sm">
             by Teknologi Pendidikan ID
             <br />& Ikatan Mahasiswa Teknologi Pendidikan Indonesia
           </p>

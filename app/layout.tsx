@@ -7,7 +7,6 @@ import Footer from "./components/footer";
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "700"],
-  variable: "--font-plus-jakarta-sans",
 });
 
 export const metadata: Metadata = {
@@ -29,10 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={plusJakartaSans.variable}>
-      <body
-        className={`${plusJakartaSans.variable} ${plusJakartaSans.variable} antialiased`}
-      >
+    <html lang="id" className={plusJakartaSans.className}>
+      <body className={`${plusJakartaSans.className} antialiased`}>
         <Navbar />
         {children}
         <Footer />

@@ -1,0 +1,227 @@
+/* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
+
+interface PhotoItem {
+  id: string;
+  title: string;
+  category: string;
+  categoryColor: string;
+  image: string;
+  studentName: string;
+  university: string;
+  studentAvatar?: string;
+}
+
+interface StudentPhotographyProps {
+  title?: string;
+  description?: string;
+  photos?: PhotoItem[];
+  ctaLink?: string;
+  ctaText?: string;
+}
+
+const defaultPhotos: PhotoItem[] = [
+  {
+    id: "1",
+    title: "Urban Solitude",
+    category: "Portrait",
+    categoryColor: "bg-purple-600",
+    image: "/placeholder-4x6.png",
+    studentName: "Sarah Putri",
+    university: "Universitas Brawijaya",
+    studentAvatar: "/placeholder-4x6.png",
+  },
+  {
+    id: "2",
+    title: "Mountain Reflection",
+    category: "Landscape",
+    categoryColor: "bg-green-600",
+    image: "/placeholder-16x9.jpg",
+    studentName: "Andi Wijaya",
+    university: "Universitas Negeri Malang",
+    studentAvatar: "/placeholder-4x6.png",
+  },
+  {
+    id: "3",
+    title: "Color Symphony",
+    category: "Abstract",
+    categoryColor: "bg-orange-600",
+    image: "/placeholder-4x6.png",
+    studentName: "Maya Chen",
+    university: "UIN Malang",
+    studentAvatar: "/placeholder-4x6.png",
+  },
+  {
+    id: "4",
+    title: "City Life",
+    category: "Street",
+    categoryColor: "bg-blue-600",
+    image: "/placeholder-4x6.png",
+    studentName: "Reza Pratama",
+    university: "Universitas Brawijaya",
+    studentAvatar: "/placeholder-4x6.png",
+  },
+  {
+    id: "5",
+    title: "Sunset Horizon",
+    category: "Nature",
+    categoryColor: "bg-teal-600",
+    image: "/placeholder-16x9.jpg",
+    studentName: "Indira Sari",
+    university: "Universitas Negeri Malang",
+    studentAvatar: "/placeholder-4x6.png",
+  },
+  {
+    id: "6",
+    title: "Morning Dew",
+    category: "Macro",
+    categoryColor: "bg-pink-600",
+    image: "/placeholder-4x6.png",
+    studentName: "Dewa Putra",
+    university: "UIN Malang",
+    studentAvatar: "/placeholder-4x6.png",
+  },
+];
+
+export default function StudentPhotography({
+  title = "Student Photography Showcase",
+  description = "Discover the creative vision of our talented students through their captivating photography work, showcasing diverse perspectives and innovative techniques.",
+  photos = defaultPhotos,
+  ctaLink = "/photography",
+  ctaText = "View All Photography",
+}: StudentPhotographyProps) {
+  const getGridClasses = (index: number) => {
+    const gridClasses = [
+      "md:col-span-2 lg:row-span-2", // Photo 1 - Large
+      "lg:col-span-2", // Photo 2 - Medium Landscape
+      "", // Photo 3 - Square
+      "lg:row-span-2", // Photo 4 - Tall Portrait
+      "md:col-span-2", // Photo 5 - Wide Panoramic
+      "", // Photo 6 - Small Square
+    ];
+    return gridClasses[index] || "";
+  };
+
+  const getHeightClasses = (index: number) => {
+    const heightClasses = [
+      "h-96 lg:h-[600px]", // Photo 1
+      "h-64", // Photo 2
+      "h-64", // Photo 3
+      "h-96 lg:h-[500px]", // Photo 4
+      "h-48", // Photo 5
+      "h-64", // Photo 6
+    ];
+    return heightClasses[index] || "h-64";
+  };
+
+  return (
+    <section className="container mx-auto px-4 my-16">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-purple-800 to-indigo-900 bg-clip-text text-transparent">
+            {title}
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            {description}
+          </p>
+        </div>
+
+        {/* Photography Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-auto">
+          {photos.map((photo, index) => (
+            <div
+              key={photo.id}
+              className={`${getGridClasses(index)} group cursor-pointer`}
+            >
+              <div
+                className={`relative ${getHeightClasses(
+                  index
+                )} rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform transition-all duration-500 hover:scale-[1.02]`}
+              >
+                <img
+                  src={photo.image}
+                  alt={photo.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <div className="mb-2">
+                    <span
+                      className={`px-3 py-1 ${photo.categoryColor} rounded-full text-xs font-medium`}
+                    >
+                      {photo.category}
+                    </span>
+                  </div>
+                  <h3
+                    className={`font-bold mb-2 ${
+                      index === 0
+                        ? "text-2xl"
+                        : index === 1 || index === 3
+                        ? "text-xl"
+                        : "text-lg"
+                    }`}
+                  >
+                    {photo.title}
+                  </h3>
+                  <div
+                    className={`flex items-center ${
+                      index === 2 || index === 5 ? "space-x-2" : "space-x-3"
+                    }`}
+                  >
+                    <img
+                      src={photo.studentAvatar || "/placeholder-4x6.png"}
+                      alt={photo.studentName}
+                      className={`rounded-full object-cover ${
+                        index === 2 || index === 5 ? "w-6 h-6" : "w-8 h-8"
+                      }`}
+                    />
+                    <div>
+                      <p
+                        className={`font-medium ${
+                          index === 2 || index === 5 ? "text-sm" : ""
+                        }`}
+                      >
+                        {photo.studentName}
+                      </p>
+                      <p
+                        className={`text-white/80 ${
+                          index === 2 || index === 5 ? "text-xs" : "text-sm"
+                        }`}
+                      >
+                        {photo.university}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center mt-16">
+          <Link
+            href={ctaLink}
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 space-x-3"
+          >
+            <span>{ctaText}</span>
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}

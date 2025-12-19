@@ -1,5 +1,5 @@
 import Whitepaper from "@/assets/whitepaper.mdx";
-import LogoPameran from "@/app/assets/logo_pameran";
+import LogoPameran from "@/assets/logo_pameran";
 
 export default function Page() {
   return (

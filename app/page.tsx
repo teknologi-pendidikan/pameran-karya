@@ -1,8 +1,8 @@
-import ConferenceSection from "@/app/components/sections/ConferenceSection";
-import ExploreSection from "@/app/components/sections/ExploreSection";
-import FeaturedUniversity from "@/app/components/sections/FeaturedUniversity";
-import StudentPhotography from "@/app/components/sections/StudentPhotography";
-import InstagramFollow from "@/app/components/sections/InstagramFollow";
+import ConferenceSection from "@/components/sections/ConferenceSection";
+import ExploreSection from "@/components/sections/ExploreSection";
+import FeaturedUniversity from "@/components/sections/FeaturedUniversity";
+import StudentPhotography from "@/components/sections/StudentPhotography";
+import InstagramFollow from "@/components/sections/InstagramFollow";
 
 export default function Page() {
   return (

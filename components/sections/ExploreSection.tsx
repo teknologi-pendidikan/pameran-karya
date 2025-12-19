@@ -8,6 +8,10 @@ export default function ExploreSection() {
       <div className="container mx-auto px-4 my-8 py-8 flex flex-col items-center">
         <div className="text-center max-w-3xl">
           <h1 className="text-5xl mb-4">Explore and Discover</h1>
+          <p className="text-lg text-gray-600">
+            Jelajahi berbagai kategori dan temukan karya terbaik dari para
+            mahasiswa Teknologi Pendidikan di seluruh Indonesia.
+          </p>
         </div>
 
         {/* Area 1 - Explore Category */}
@@ -80,6 +84,15 @@ export default function ExploreSection() {
               </Link>
             ))}
           </div>
+        </div>
+
+        <div className="mt-12 text-center max-w-2xl">
+          <Link
+            href="/work"
+            className="inline-block text-blue-600 font-semibold hover:underline"
+          >
+            Lihat Semua Karya &rarr;
+          </Link>
         </div>
       </div>
     </section>

@@ -1,16 +1,49 @@
 import { notFound } from "next/navigation";
 import { createClient as createClientStatic } from "@supabase/supabase-js";
 import { getYouTubeEmbedUrl } from "@/lib/youtubeEmbed";
+import Image from "next/image";
+import Link from "next/link";
 
-interface Person {
+interface PersonData {
+  person: PersonWithWorks;
+  works: Work[];
+}
+
+interface PersonWithWorks {
   id: string;
   name: string;
   slug: string;
   bio?: string;
   image?: string;
   created_at: string;
+  work_person?: WorkPersonRelation[];
   [key: string]: unknown;
 }
+
+interface WorkPersonRelation {
+  work: WorkWithAssets;
+  contribution_role?: string;
+  ordering?: number;
+}
+
+interface WorkWithAssets {
+  work_id: string;
+  title: string;
+  slug: string;
+  abstract?: string;
+  created_at: string;
+  asset?: Asset[];
+}
+
+// Shared Supabase client for build-time operations
+const getSupabaseClient = () =>
+  createClientStatic(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+  );
+
+// Cache for person data to avoid duplicate queries
+const personDataCache = new Map<string, PersonData>();
 
 interface Asset {
   asset_id: string;
@@ -38,34 +71,105 @@ interface PageProps {
   }>;
 }
 
-export default async function PersonPage({ params }: PageProps) {
-  // For static generation, use direct Supabase client without cookies
-  const supabase = createClientStatic(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-  );
-  const { slug } = await params;
+async function getPersonData(slug: string) {
+  // Check cache first
+  if (personDataCache.has(slug)) {
+    return personDataCache.get(slug);
+  }
 
-  // Fetch person data based on slug
-  const { data: person, error } = await supabase
+  const supabase = getSupabaseClient();
+
+  // Fetch person with works and assets in a single optimized query
+  const { data: personWithWorks, error } = await supabase
     .from("person")
-    .select("*")
+    .select(
+      `
+      *,
+      work_person(
+        work(
+          work_id,
+          title,
+          slug,
+          abstract,
+          created_at,
+          asset(
+            asset_id,
+            type,
+            file_url,
+            thumbnail_url,
+            license,
+            created_at
+          )
+        ),
+        contribution_role,
+        ordering
+      )
+    `
+    )
     .eq("slug", slug)
+    .order("ordering", { referencedTable: "work_person" })
     .single();
 
-  if (error || !person) {
+  if (error || !personWithWorks) {
+    console.error("Error fetching person data:", error);
+
+    // Try fallback query - just get the person without works
+    const { data: personOnly, error: personError } = await supabase
+      .from("person")
+      .select("*")
+      .eq("slug", slug)
+      .single();
+
+    if (personError || !personOnly) {
+      console.error("Error fetching person fallback:", personError);
+      return null;
+    }
+
+    // Return person with empty works array
+    const result = {
+      person: personOnly,
+      works: [],
+    };
+
+    personDataCache.set(slug, result);
+    return result;
+  }
+
+  // Transform the data structure for easier rendering
+  const works =
+    (personWithWorks as PersonWithWorks).work_person?.map(
+      (wp: WorkPersonRelation) => ({
+        work_id: wp.work.work_id,
+        title: wp.work.title,
+        slug: wp.work.slug,
+        abstract: wp.work.abstract,
+        contribution_role: wp.contribution_role,
+        ordering: wp.ordering,
+        work_created_at: wp.work.created_at,
+        assets: wp.work.asset || [],
+      })
+    ) || [];
+
+  const result = {
+    person: personWithWorks,
+    works,
+  };
+
+  // Cache the result
+  personDataCache.set(slug, result);
+  return result;
+}
+
+export default async function PersonPage({ params }: PageProps) {
+  const { slug } = await params;
+
+  const data = await getPersonData(slug);
+
+  if (!data) {
     notFound();
   }
 
-  // Fetch works with assets by person
-  const { data: works, error: worksError } = await supabase.rpc(
-    "get_works_with_assets_by_person",
-    { p_person_id: person.id, p_slug: slug }
-  );
-
-  if (worksError) {
-    console.error("Error fetching works:", worksError);
-  }
+  const { person, works } = data;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -74,9 +178,11 @@ export default async function PersonPage({ params }: PageProps) {
         <div className="mb-8">
           {person.image && (
             <div className="mb-6">
-              <img
+              <Image
                 src={person.image}
                 alt={person.name}
+                width={192}
+                height={192}
                 className="w-48 h-48 rounded-full object-cover mx-auto"
               />
             </div>
@@ -96,10 +202,11 @@ export default async function PersonPage({ params }: PageProps) {
           <div className="mb-8">
             <h2 className="text-3xl font-semibold mb-6">Works</h2>
             <div className="space-y-8">
-              {works.map((work: Work, workIndex: number) => (
-                <div
+              {works.map((work: Work) => (
+                <Link
+                  href={`/work/${work.slug}`}
                   key={work.work_id}
-                  className="card bg-base-100 w-1/2 shadow-md"
+                  className="card bg-base-100 w-1/2 shadow-md hover:shadow-lg transition-shadow block hover:border-rose-100 border border-transparent"
                 >
                   <div className="card-body">
                     {/* Work Header */}
@@ -145,13 +252,15 @@ export default async function PersonPage({ params }: PageProps) {
                                   allowFullScreen
                                 />
                               ) : (
-                                <img
+                                <Image
                                   src={
                                     asset.thumbnail_url || asset.file_url || ""
                                   }
                                   alt={`${work.title} - Asset ${
                                     assetIndex + 1
                                   }`}
+                                  width={400}
+                                  height={192}
                                   className="w-full h-full object-cover"
                                 />
                               )}
@@ -180,7 +289,7 @@ export default async function PersonPage({ params }: PageProps) {
                       </div>
                     )}
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -190,50 +299,57 @@ export default async function PersonPage({ params }: PageProps) {
   );
 }
 
+// Cache for static params to avoid duplicate queries
+let staticParamsCache: { slug: string }[] | null = null;
+
 // Generate static params for all person slugs
 export async function generateStaticParams() {
-  // For static generation, use direct Supabase client without cookies
-  const supabase = createClientStatic(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-  );
+  if (staticParamsCache) {
+    return staticParamsCache;
+  }
 
-  const { data: persons } = await supabase.from("person").select("slug");
+  const supabase = getSupabaseClient();
+  const { data: persons } = await supabase
+    .from("person")
+    .select("slug")
+    .order("slug");
 
   if (!persons) {
     return [];
   }
 
-  return persons.map((person) => ({
+  staticParamsCache = persons.map((person) => ({
     slug: person.slug,
   }));
+
+  return staticParamsCache;
 }
 
-// Generate metadata for SEO
+// Generate metadata for SEO using cached data
 export async function generateMetadata({ params }: PageProps) {
-  // For static generation, use direct Supabase client without cookies
-  const supabase = createClientStatic(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-  );
   const { slug } = await params;
 
-  const { data: person } = await supabase
-    .from("person")
-    .select("name, bio")
-    .eq("slug", slug)
-    .single();
+  const data = await getPersonData(slug);
 
-  if (!person) {
+  if (!data) {
     return {
       title: "Person Not Found",
     };
   }
 
+  const { person } = data;
+
   return {
-    title: ` ${person.name} - Pameran Karya Teknologi Pendidikan`,
+    title: `${person.name} - Pameran Karya Teknologi Pendidikan`,
     description: person.bio
       ? person.bio.slice(0, 160)
       : `Learn more about ${person.name}`,
+    openGraph: {
+      title: `${person.name} - Pameran Karya Teknologi Pendidikan`,
+      description: person.bio
+        ? person.bio.slice(0, 160)
+        : `Learn more about ${person.name}`,
+      images: person.image ? [{ url: person.image }] : [],
+    },
   };
 }

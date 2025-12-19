@@ -8,7 +8,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import LogoPameran from "@/app/assets/logo_pameran";
+import LogoPameran from "@/assets/logo_pameran";
 import { navItems } from "@/assets/data/navigation.data";
 
 import Link from "next/link";

@@ -1,21 +1,22 @@
 import { createClient as createClientStatic } from "@supabase/supabase-js";
 import Link from "next/link";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+
+// Shared Supabase client for build-time operations
+const getSupabaseClient = () =>
+  createClientStatic(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+  );
 
 interface Person {
   person_id: string;
   name: string;
   slug: string;
   bio?: string;
+  image?: string;
   affiliation?: string;
   works_count?: number;
+  tag?: string;
 }
 
 export const metadata = {
@@ -25,11 +26,7 @@ export const metadata = {
 };
 
 export default async function PersonDirectoryPage() {
-  // For static generation, use direct Supabase client without cookies
-  const supabase = createClientStatic(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-  );
+  const supabase = getSupabaseClient();
 
   // Fetch all persons with their works count in a single efficient query
   const { data: personsWithCounts, error } = await supabase
@@ -41,11 +38,6 @@ export default async function PersonDirectoryPage() {
     `
     )
     .order("name", { ascending: true });
-
-  // Transform the data to include works_count
-  const persons = personsWithCounts?.map((person) => ({
-    ...person,
-  }));
 
   if (error) {
     console.error("Error fetching persons:", error);
@@ -61,6 +53,16 @@ export default async function PersonDirectoryPage() {
     );
   }
 
+  // Transform the data to include works_count
+  const persons =
+    personsWithCounts?.map((person) => ({
+      ...person,
+    })) || [];
+
+  return <PersonDirectoryContent persons={persons} />;
+}
+
+function PersonDirectoryContent({ persons }: { persons: Person[] }) {
   if (!persons || persons.length === 0) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -85,35 +87,6 @@ export default async function PersonDirectoryPage() {
           </p>
         </div>
 
-        {/* Statistics Section */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">
-              {persons.length}
-            </div>
-            <div className="text-blue-800 font-medium">Total Person</div>
-          </div>
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
-              {persons.reduce(
-                (sum, person) => sum + (person.works_count || 0),
-                0
-              )}
-            </div>
-            <div className="text-green-800 font-medium">Total Karya</div>
-          </div>
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-purple-600 mb-2">
-              {
-                persons.filter(
-                  (person) => (person.works_count || 0) > 0
-                ).length
-              }
-            </div>
-            <div className="text-purple-800 font-medium">Person Aktif</div>
-          </div>
-        </div> */}
-
         {/* Person Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {persons.map((person) => (
@@ -127,6 +100,8 @@ export default async function PersonDirectoryPage() {
                   <img
                     src={person.image || "/placeholder-4x6.png"}
                     alt={person.name}
+                    width={192}
+                    height={192}
                     className="h-48 w-auto"
                   />
                 </figure>
@@ -140,46 +115,32 @@ export default async function PersonDirectoryPage() {
                     <div className="badge badge-outline text-xs">
                       {person.affiliation}
                     </div>
+                    {person.tag && (
+                      <div
+                        className={`badge badge-outline text-xs
+                        ${
+                          person.tag === "Committee"
+                            ? "bg-red-600 text-white"
+                            : person.tag === "Operations"
+                            ? "bg-blue-500 text-white"
+                            : person.tag === "Volunteer"
+                            ? "bg-green-600 text-white"
+                            : "badge-gray"
+                        }
+                      }`}
+                      >
+                        {person.tag}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-
-              {/* <Card className="h-full hover:shadow-xl transition-shadow duration-300">
-                <CardHeader className="pb-4 pt-6">
-                  <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
-                    {person.name}
-                  </CardTitle>
-                  {person.affiliation && (
-                    <CardDescription className="text-xs text-blue-600 font-medium mb-2">
-                      {person.affiliation}
-                    </CardDescription>
-                  )}
-                  {person.bio && (
-                    <CardDescription className="line-clamp-3 text-sm leading-relaxed">
-                      {person.bio}
-                    </CardDescription>
-                  )}
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="flex justify-center">
-                    <Badge
-                      variant={
-                        person.works_count && person.works_count > 0
-                          ? "default"
-                          : "secondary"
-                      }
-                    >
-                      {person.works_count || 0} Karya
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card> */}
             </Link>
           ))}
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl p-8">
+        <div className="text-center mt-16 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-2xl p-8">
           <h2 className="text-3xl font-bold mb-4">
             Bergabung dengan Pameran Karya
           </h2>

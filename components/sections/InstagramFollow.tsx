@@ -12,9 +12,9 @@ interface InstagramFollowProps {
 export default function InstagramFollow({
   title = "Follow Us on Instagram",
   description = "Stay updated with our latest news, behind-the-scenes content, and connect with our community.",
-  handle = "@pamerankarya",
+  handle = "@pamerankaryatep",
   image = "/placeholder-16x9.jpg",
-  link = "https://instagram.com/pamerankarya",
+  link = "https://instagram.com/pamerankaryatep",
 }: InstagramFollowProps) {
   return (
     <section className="container mx-auto px-4 my-4 py-4 md:py-8">

@@ -1,5 +1,3 @@
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { createClient as createClientStatic } from "@supabase/supabase-js";
 import { getYouTubeEmbedUrl } from "@/lib/youtubeEmbed";

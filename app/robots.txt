@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://pamerankarya.teknologipendidikan.or.id/sitemap.xml

@@ -1,7 +1,8 @@
 export const navItems = [
   { title: "Beranda", href: "/" },
-  { title: "Whitepaper", href: "/whitepaper" },
   { title: "Jelajah karya", href: "/explore" },
+  { title: "Rilisan", href: "/blog" },
   { title: "Eksibitor", href: "/person" },
   { title: "Konferensi", href: "/conference" },
+  { title: "Whitepaper", href: "/whitepaper" },
 ];

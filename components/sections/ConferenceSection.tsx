@@ -18,7 +18,7 @@ export default function ConferenceSection({
   title = "Konferensi Teknologi Pendidikan 2025",
   subtitle = "Bergabunglah dengan para ahli dan mahasiswa",
   buttonText = "Daftar Sekarang",
-  buttonLink = "#",
+  buttonLink = "/conference",
   overlayOpacity = 50,
   textPosition = "left",
   contentAlignment = "end",

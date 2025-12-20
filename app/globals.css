@@ -6,7 +6,7 @@
   themes: light --default;
 }
 
-/* Prose styling for blog content */
+/* Prose styling for blog content
 .prose {
   @apply text-gray-900 leading-relaxed;
 }
@@ -58,4 +58,4 @@
 
 .prose a {
   @apply text-blue-600 hover:text-blue-800 underline;
-}
+} */

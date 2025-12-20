@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { getBlogPostBySlug, getAllBlogSlugs } from "@/lib/blog";
+import MarkdownContent from "@/components/MarkdownContent";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -52,19 +52,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <article className="container mx-auto px-4 py-8 max-w-4xl">
-      {/* Navigation */}
-      <div className="mb-6">
-        <Link
-          href="/blog"
-          className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-        >
-          ← Kembali ke Blog
-        </Link>
-      </div>
+    <article className="">
+      <header className="flex bg-gray-200 w-full pt-16 pb-12 mb-8">
+        <div className="max-w-7xl container mx-auto px-4 lg:px-0">
+          <h1 className="text-3xl lg:text-5xl mb-4">{post.title}</h1>
+          <p id="tldr" className="text-md lg:max-w-3/6">
+            {post.description}
+          </p>
+          <p itemProp="author" className="text-sm mt-4">
+            Diterbitkan oleh:{" "}
+            <span className="font-semibold">{post.author}</span>
+          </p>
+        </div>
+      </header>
 
-      {/* Header */}
-      <header className="mb-8">
+      {/* <header className="mb-8">
         <div className="aspect-video rounded-xl overflow-hidden mb-6">
           <img
             src={post.image}
@@ -101,23 +103,79 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <p className="text-xl text-gray-700 leading-relaxed">
           {post.description}
         </p>
-      </header>
+      </header> */}
 
       {/* Content */}
-      <div className="prose prose-lg max-w-none">
-        <div
-          dangerouslySetInnerHTML={{
-            __html: post.content
-              .replace(/\n/g, "<br/>")
-              .replace(/## (.*)/g, "<h2>$1</h2>")
-              .replace(/# (.*)/g, "<h1>$1</h1>")
-              .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-              .replace(/\*(.*?)\*/g, "<em>$1</em>"),
-          }}
-        />
+      <div className="max-w-7xl mx-auto px-4 lg:px-0 pb-16">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Article Content - 3/4 width */}
+          <div className="lg:w-3/4">
+            <div className="prose prose-lg prose-slate max-w-none">
+              <MarkdownContent content={post.content} />
+            </div>
+          </div>
+
+          {/* Sidebar - 1/4 width */}
+          <aside className="lg:w-1/4">
+            <div className="sticky top-8 space-y-6">
+              {/* Featured Image */}
+              {post.image && (
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Featured Image
+                  </h3>
+                  <div className="aspect-video rounded-lg overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Article Info */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Metadata artikel
+                </h3>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div>
+                    <span className="font-medium">Diterbitkan pada:</span>{" "}
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </div>
+                  <div>
+                    <span className="font-medium">Penulis:</span> {post.author}
+                  </div>
+                </div>
+              </div>
+
+              {/* Tags */}
+              {post.tags && post.tags.length > 0 && (
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold text-gray-900">Tag</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </aside>
+        </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer
       <footer className="mt-12 pt-8 border-t border-gray-200">
         <Link
           href="/blog"
@@ -125,7 +183,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         >
           ← Lihat artikel lainnya
         </Link>
-      </footer>
+      </footer> */}
     </article>
   );
 }

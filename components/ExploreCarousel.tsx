@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ExploreItem {
   id: number;
@@ -18,7 +18,29 @@ interface ExploreCarouselProps {
 
 export default function ExploreCarousel({ items }: ExploreCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerView = 3;
+  const [itemsPerView, setItemsPerView] = useState(1);
+
+  // Set initial value and listen for resize
+  useEffect(() => {
+    const updateItemsPerView = () => {
+      if (typeof window !== "undefined") {
+        if (window.innerWidth >= 1024) {
+          setItemsPerView(3); // lg and above
+        } else if (window.innerWidth >= 640) {
+          setItemsPerView(2); // sm to lg
+        } else {
+          setItemsPerView(1); // mobile
+        }
+      }
+    };
+
+    updateItemsPerView();
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", updateItemsPerView);
+      return () => window.removeEventListener("resize", updateItemsPerView);
+    }
+  }, []);
+
   const maxIndex = Math.max(0, items.length - itemsPerView);
 
   const goToPrevious = () => {
@@ -33,10 +55,12 @@ export default function ExploreCarousel({ items }: ExploreCarouselProps) {
     <div className="relative w-full">
       <div className="overflow-hidden">
         <div
-          className="flex gap-6 transition-transform duration-300"
+          className="flex gap-3 sm:gap-4 lg:gap-6 transition-transform duration-300"
           style={{
             transform: `translateX(-${
-              currentIndex * (100 / itemsPerView + 2)
+              currentIndex *
+              (100 / itemsPerView +
+                (itemsPerView === 1 ? 0 : itemsPerView === 2 ? 1 : 2))
             }%)`,
           }}
         >
@@ -44,7 +68,7 @@ export default function ExploreCarousel({ items }: ExploreCarouselProps) {
             <Link
               key={item.id}
               href={item.link}
-              className="group relative block flex-none w-[calc(100%/3-16px)] aspect-video rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              className="group relative block flex-none w-full sm:w-[calc(100%/2-8px)] lg:w-[calc(100%/3-16px)] aspect-video rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               <img
                 src="/placeholder-16x9.jpg"

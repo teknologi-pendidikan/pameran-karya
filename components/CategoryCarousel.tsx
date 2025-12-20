@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface CategoryItem {
   id: number;
@@ -18,7 +18,29 @@ interface CategoryCarouselProps {
 
 export default function CategoryCarousel({ items }: CategoryCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerView = 4;
+  const [itemsPerView, setItemsPerView] = useState(2);
+
+  // Set initial value and listen for resize
+  useEffect(() => {
+    const updateItemsPerView = () => {
+      if (typeof window !== "undefined") {
+        if (window.innerWidth >= 1024) {
+          setItemsPerView(4); // lg and above
+        } else if (window.innerWidth >= 640) {
+          setItemsPerView(3); // sm to lg
+        } else {
+          setItemsPerView(2); // mobile
+        }
+      }
+    };
+
+    updateItemsPerView();
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", updateItemsPerView);
+      return () => window.removeEventListener("resize", updateItemsPerView);
+    }
+  }, []);
+
   const maxIndex = Math.max(0, items.length - itemsPerView);
 
   const goToPrevious = () => {
@@ -33,17 +55,19 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
     <div className="relative w-full">
       <div className="overflow-hidden">
         <div
-          className="flex gap-4 transition-transform duration-300"
+          className="flex gap-2 sm:gap-3 lg:gap-4 transition-transform duration-300"
           style={{
             transform: `translateX(-${
-              currentIndex * (100 / itemsPerView + 1.5)
+              currentIndex *
+              (100 / itemsPerView +
+                (itemsPerView === 2 ? 1 : itemsPerView === 3 ? 1.2 : 1.5))
             }%)`,
           }}
         >
           {items.map((item) => (
             <div
               key={item.id}
-              className="group flex-none w-[calc(100%/4-12px)] transition-all duration-300"
+              className="group flex-none w-[calc(100%/2-4px)] sm:w-[calc(100%/3-8px)] lg:w-[calc(100%/4-12px)] transition-all duration-300"
             >
               <Link href={item.link} className="block">
                 <div className="aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 mb-3">

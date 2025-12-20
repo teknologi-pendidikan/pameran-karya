@@ -13,7 +13,7 @@ export default function InstagramFollow({
   title = "Follow Us on Instagram",
   description = "Stay updated with our latest news, behind-the-scenes content, and connect with our community.",
   handle = "@pamerankaryatep",
-  image = "/placeholder-16x9.jpg",
+  image = "/placeholder-foto-praktikum-16x9.webp",
   link = "https://instagram.com/pamerankaryatep",
 }: InstagramFollowProps) {
   return (

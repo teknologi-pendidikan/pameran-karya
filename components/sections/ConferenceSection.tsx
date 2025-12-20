@@ -13,7 +13,7 @@ interface ConferenceSectionProps {
 
 export default function ConferenceSection({
   id = "conference",
-  imageSrc = "/placeholder-16x9.jpg",
+  imageSrc = "/placeholder-foto-praktikum-16x9.webp",
   imageAlt = "Conference Banner",
   title = "Konferensi Teknologi Pendidikan 2025",
   subtitle = "Bergabunglah dengan para ahli dan mahasiswa",

@@ -1,8 +1,10 @@
 import { MetadataRoute } from "next";
 import { getAllBlogPosts } from "@/lib/blog";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://pamerankarya.netlify.app"; // Update this to your actual domain
+  const baseUrl = "https://pamerankarya.teknologipendidikan.or.id"; // Update this to your actual domain
 
   // Get all blog posts dynamically
   const blogPosts = getAllBlogPosts();

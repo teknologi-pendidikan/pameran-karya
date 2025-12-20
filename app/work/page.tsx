@@ -155,7 +155,7 @@ export default async function WorkDirectoryPage() {
 
         {/* Works Grid */}
         {works.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {works.map((work) => (
               <Link
                 key={work.work_id}
@@ -175,7 +175,7 @@ export default async function WorkDirectoryPage() {
                       alt={work.title}
                       width={400}
                       height={192}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 aspect-video"
                     />
                   ) : (
                     <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -187,7 +187,7 @@ export default async function WorkDirectoryPage() {
                   )}
                 </figure>
 
-                <div className="card-body p-6">
+                <div className="card-body p-4">
                   {/* Title and Date */}
                   <div className="mb-3">
                     <h2 className="card-title text-lg group-hover:text-blue-600 transition-colors line-clamp-2">
@@ -241,7 +241,7 @@ export default async function WorkDirectoryPage() {
                       {work.asset_count || 0}{" "}
                       {work.asset_count === 1 ? "asset" : "assets"}
                     </div>
-                    <div className="btn btn-primary btn-sm">View Details →</div>
+                    <div className="btn btn-link btn-sm">View Details →</div>
                   </div>
                 </div>
               </Link>

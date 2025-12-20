@@ -1,13 +1,3 @@
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
 import LogoPameran from "@/assets/logo_pameran";
 import { navItems } from "@/assets/data/navigation.data";
 
@@ -16,7 +6,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <div className="bg-base-100 shadow-sm sticky top-0 z-50">
-      <div className="navbar bg-base-100 max-w-7xl mx-auto px-4">
+      <div className="navbar bg-base-100 mx-auto px-4">
         {/* Mobile menu button */}
         <div className="navbar-start">
           <div className="dropdown lg:hidden">
@@ -63,12 +53,12 @@ export default function Navbar() {
 
         {/* Desktop menu */}
         <div className="navbar-end hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 py-1">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-base font-medium hover:bg-primary hover:text-primary-content transition-colors duration-200"
+                  className="text-md text-gray-900 font-medium hover:bg-primary hover:text-primary-content transition-colors duration-200"
                 >
                   {item.title}
                 </Link>

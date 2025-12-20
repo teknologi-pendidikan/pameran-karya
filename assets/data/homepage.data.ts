@@ -32,3 +32,46 @@ export const exploreItems = [
     image: "/placeholder-4x6.png",
   },
 ];
+
+export const categoryItems = [
+  {
+    id: 1,
+    title: "Teknologi",
+    description: "Inovasi dan perkembangan teknologi terbaru",
+    link: "#",
+    type: "category",
+    image: "/placeholder-1x1.png",
+  },
+  {
+    id: 2,
+    title: "Pendidikan",
+    description: "Metode dan sistem pembelajaran modern",
+    link: "#",
+    type: "category",
+    image: "/placeholder-1x1.png",
+  },
+  {
+    id: 3,
+    title: "Seni & Budaya",
+    description: "Warisan dan ekspresi seni budaya",
+    link: "#",
+    type: "category",
+    image: "/placeholder-1x1.png",
+  },
+  {
+    id: 4,
+    title: "Sains",
+    description: "Penelitian dan penemuan ilmiah",
+    link: "#",
+    type: "category",
+    image: "/placeholder-1x1.png",
+  },
+  {
+    id: 5,
+    title: "Lingkungan",
+    description: "Konservasi dan keberlanjutan lingkungan",
+    link: "#",
+    type: "category",
+    image: "/placeholder-1x1.png",
+  },
+];

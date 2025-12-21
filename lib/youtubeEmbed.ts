@@ -1,17 +1,22 @@
-// Function to convert YouTube URL to embed URL
-export function getYouTubeEmbedUrl(url: string): string {
+// Function to extract YouTube video ID from URL
+export function getYouTubeVideoId(url: string): string | null {
   // Handle youtube.com/watch?v= format
   const watchMatch = url.match(/(?:youtube\.com\/watch\?v=)([\w-]+)/);
   if (watchMatch) {
-    return `https://www.youtube.com/embed/${watchMatch[1]}`;
+    return watchMatch[1];
   }
 
   // Handle youtu.be/ format
   const shortMatch = url.match(/(?:youtu\.be\/)([\w-]+)/);
   if (shortMatch) {
-    return `https://www.youtube.com/embed/${shortMatch[1]}`;
+    return shortMatch[1];
   }
 
-  // If already in embed format or other format, return as is
-  return url;
+  // Handle embed format
+  const embedMatch = url.match(/(?:youtube\.com\/embed\/)([\w-]+)/);
+  if (embedMatch) {
+    return embedMatch[1];
+  }
+
+  return null;
 }

@@ -1,8 +1,9 @@
-import { getYouTubeEmbedUrl } from "@/lib/youtubeEmbed";
+import { YouTubeEmbed } from "@next/third-parties/google";
+import { getYouTubeVideoId } from "@/lib/youtubeEmbed";
 import { conferenceData, sessions } from "@/assets/data/conference.data";
 
 export default function ConferencePage() {
-  const embedUrl = getYouTubeEmbedUrl(conferenceData.livestreamUrl);
+  const videoId = getYouTubeVideoId(conferenceData.livestreamUrl);
 
   return (
     <div>
@@ -35,12 +36,18 @@ export default function ConferencePage() {
                 <h2 className="text-lg font-semibold">Live Stream</h2>
               </div>
               <div className="aspect-video">
-                <iframe
-                  src={embedUrl}
-                  title="Conference Livestream"
-                  className="w-full h-full"
-                  allowFullScreen
-                />
+                {videoId ? (
+                  <YouTubeEmbed
+                    videoid={videoId}
+                    height={480}
+                    width={854}
+                    params="controls=1&rel=0"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <p className="text-gray-500">Video not available</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

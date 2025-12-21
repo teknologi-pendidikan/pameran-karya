@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient as createClientStatic } from "@supabase/supabase-js";
-import { getYouTubeEmbedUrl } from "@/lib/youtubeEmbed";
+import { YouTubeEmbed } from "@next/third-parties/google";
+import { getYouTubeVideoId } from "@/lib/youtubeEmbed";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -69,7 +70,7 @@ interface PageProps {
 const getSupabaseClient = () =>
   createClientStatic(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
   );
 
 // Cache for work data to avoid duplicate queries
@@ -108,7 +109,7 @@ async function getWorkData(slug: string) {
         contribution_role,
         ordering
       )
-    `,
+    `
     )
     .eq("slug", slug)
     .order("ordering", { referencedTable: "work_person" })
@@ -137,7 +138,7 @@ async function getWorkData(slug: string) {
     work: workWithDetails as WorkWithDetails,
     assets,
     contributors: contributors.sort(
-      (a: Contributor, b: Contributor) => (a.ordering || 0) - (b.ordering || 0),
+      (a: Contributor, b: Contributor) => (a.ordering || 0) - (b.ordering || 0)
     ),
   };
 
@@ -267,14 +268,22 @@ export default async function WorkPage({ params }: PageProps) {
                 >
                   <figure className="h-64">
                     {asset.type === "video" && asset.file_url ? (
-                      <iframe
-                        src={getYouTubeEmbedUrl(asset.file_url)}
-                        title={`${work.title} - Asset ${index + 1}`}
-                        className="w-full h-full"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                      />
+                      (() => {
+                        const videoId = getYouTubeVideoId(asset.file_url);
+                        console.log("Extracted video ID:", videoId);
+                        return videoId ? (
+                          <YouTubeEmbed
+                            videoid={videoId}
+                            height={256}
+                            width={400}
+                            params="controls=1&rel=0"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <p className="text-gray-500">Video not available</p>
+                          </div>
+                        );
+                      })()
                     ) : (
                       <Image
                         src={

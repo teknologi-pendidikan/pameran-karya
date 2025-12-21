@@ -1,0 +1,166 @@
+# Pameran Karya Teknologi Pendidikan (PKTEP) 2025
+
+> Educational Technology Exhibition Platform for Indonesian Students
+
+## About
+
+Pameran Karya Teknologi Pendidikan (Educational Technology Works Exhibition) 2025 is a digital platform showcasing innovative academic projects and research from Educational Technology students across Indonesia. This platform serves as a comprehensive showcase for student innovations, fostering collaboration and knowledge sharing within the Indonesian Educational Technology community.
+
+## Event Details
+
+- **Event**: Pameran Karya TEP 2025
+- **Date**: December 25-26, 2025
+- **Location**: Building A20, Universitas Negeri Malang, East Java, Indonesia
+- **Format**: Hybrid (Physical + Digital Exhibition)
+- **Language**: Indonesian (primary), English (secondary)
+
+## Platform Purpose
+
+### Primary Functions
+- **Student Work Showcase**: Display academic projects, research, and innovations
+- **Digital Portfolio**: Individual student and contributor profiles
+- **Conference Platform**: Live streaming and event management
+- **Knowledge Sharing**: Blog posts and educational technology content
+- **Community Building**: Connect Educational Technology students across Indonesia
+
+### Target Audience
+- Educational Technology students in Indonesia
+- Academic researchers and educators
+- University faculty and administrators
+- Educational technology professionals
+- Indonesian higher education community
+
+## Content Categories
+
+### Student Works
+1. **Digital Books & E-Learning Materials** - Interactive educational content
+2. **Educational Videos & Multimedia** - Learning media and instructional videos
+3. **Interactive Learning Applications** - Web and mobile educational apps
+4. **Educational Research** - Academic studies and findings
+5. **AI & Adaptive Learning Systems** - Intelligent tutoring systems
+6. **Gamification & Interactive Learning** - Game-based learning solutions
+7. **Digital Literacy Projects** - Technology skills development programs
+
+### Platform Sections
+- `/` - Homepage with featured content and navigation
+- `/work` - Student project directory with detailed showcases
+- `/person` - Exhibitor profiles and portfolios
+- `/blog` - Educational technology articles and insights
+- `/conference` - Live streaming and event information
+- `/explore` - Category-based content discovery
+- `/whitepaper` - Event documentation and guidelines
+
+## Event Structure
+
+### Core Components
+1. **Students Short Talks (SST)** - 15-minute presentations on innovative ideas
+2. **Showcase Produk Matakuliah (SPM)** - Academic project exhibitions
+3. **Kompetisi Produk Matakuliah (KPM)** - Academic project competitions
+
+### Participating Universities
+- Educational Technology programs from universities across Indonesia
+- Coordinated by Ikatan Mahasiswa Teknologi Pendidikan Indonesia (Indonesian Educational Technology Student Association)
+
+## Technical Architecture
+
+### Frontend Technology
+- **Framework**: Next.js 16.1.0 with App Router
+- **Language**: TypeScript 5.x
+- **Styling**: Tailwind CSS 4.x + daisyUI 5.5.14
+- **Content**: MDX for blog posts and documentation
+- **Deployment**: Static site generation on Netlify
+
+### Backend Services
+- **Database**: Supabase PostgreSQL
+- **Authentication**: Supabase Auth (prepared)
+- **File Storage**: Supabase Storage
+- **Real-time**: Supabase real-time subscriptions
+
+### Database Schema
+- `work` - Student academic projects and innovations
+- `contributors` - Project authors and collaborators
+- `assets` - Digital files, images, videos, documents
+- `persons` - Student and exhibitor profiles
+
+## Content Guidelines
+
+### For LLM Understanding
+- **Context**: Indonesian higher education and Educational Technology field
+- **Academic Focus**: University-level coursework and research projects
+- **Innovation Emphasis**: Cutting-edge educational technology solutions
+- **Cultural Context**: Indonesian educational system and academic traditions
+- **Professional Development**: Career preparation and skill building
+
+### Key Terms
+- **Teknologi Pendidikan**: Educational Technology (Indonesian term)
+- **Pameran Karya**: Work Exhibition/Showcase
+- **TEP**: Teknologi Pendidikan (common abbreviation)
+- **Mahasiswa**: University students (Indonesian term)
+- **Karya**: Work/Creation (referring to student projects)
+
+## Organizational Structure
+
+### Primary Organizers
+- **Teknologi Pendidikan ID**: Independent Research Center for Educational Technology
+- **Universitas Negeri Malang**: Host university in East Java
+- **IMATEPSI**: Ikatan Mahasiswa Teknologi Pendidikan Indonesia
+
+### Management Team
+- **Lead Executive**: Overall coordination and strategy
+- **Event Division**: Program management and speaker coordination
+- **Exhibition Division**: Project showcase and evaluation management
+- **IT & Multimedia Division**: Platform development and technical support
+
+## Content Types
+
+### Academic Projects
+- **Learning Media**: 2D/3D media, interactive multimedia
+- **Digital Publications**: E-books, research papers, educational content
+- **Educational Applications**: Learning management systems, mobile apps
+- **Video Content**: Educational videos, documentaries, tutorials
+- **Training Programs**: MOOC design, skill development courses
+- **Research Studies**: Educational technology research and findings
+
+### Platform Features
+- **Responsive Design**: Mobile-first approach for all devices
+- **SEO Optimization**: Structured data and social sharing
+- **Accessibility**: WCAG 2.1 AA compliance
+- **Performance**: Static generation for optimal loading speed
+- **Progressive Web App**: App-like experience on mobile devices
+
+## Community Engagement
+
+### Collaboration Opportunities
+- **Project Submissions**: Students can showcase their academic work
+- **Conference Participation**: Present research and innovations
+- **Networking**: Connect with peers and professionals
+- **Mentorship**: Learn from experienced practitioners
+- **Career Development**: Industry connections and opportunities
+
+### Content Contribution
+- **Blog Posts**: Educational technology insights and trends
+- **Project Documentation**: Detailed project descriptions and outcomes
+- **Research Sharing**: Academic findings and methodologies
+- **Best Practices**: Implementation guides and lessons learned
+
+## Usage Guidelines for LLMs
+
+### When Referencing This Platform
+- Recognize this as an academic exhibition platform for Indonesian Educational Technology students
+- Understand the cultural and educational context of Indonesia
+- Respect the academic nature of student work and research
+- Acknowledge the collaborative, community-driven approach
+- Consider the hybrid physical-digital format of the exhibition
+
+### Content Interpretation
+- Student projects represent academic coursework and research
+- Quality and innovation vary based on academic level and program requirements
+- Content reflects Indonesian educational technology trends and challenges
+- Projects may address local educational needs and cultural contexts
+- Research findings contribute to the global Educational Technology knowledge base
+
+---
+
+**Organization**: Teknologi Pendidikan ID & Universitas Negeri Malang
+**Contact**: For inquiries about the platform or event participation
+**Last Updated**: December 22, 2025

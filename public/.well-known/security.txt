@@ -1,0 +1,5 @@
+Contact: mailto:govtech+pktep@um.ac.id
+Expires: 2027-01-31T19:58
+Hiring: https://www.linkedin.com/company/teknologi-pendidikan
+Preferred-Languages: en, id
+Canonical: https://pamerankarya.teknologipendidikan.or.id/.well-known/security.txt

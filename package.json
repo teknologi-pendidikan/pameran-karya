@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "pnpx serve@latest out",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write .",
     "typegen:build": "next typegen && tsc --noEmit",
     "prepare": "husky install"
   },
@@ -56,9 +57,14 @@
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
     "supabase": "^2.67.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "browserslist": "> 1%"
+  "browserslist": "> 1%",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+    "*.{js,css,md,json,html,jsx,tsx,ts}": "prettier --write"
+  }
 }

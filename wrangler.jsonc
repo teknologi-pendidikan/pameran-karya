@@ -2,6 +2,7 @@
   "nanme": "pamerankarya",
   "compatibility_date": "2025-12-20",
   "assets": {
-    "directory": "./out"
-  },"name": "pamerankarya"
+    "directory": "./out",
+  },
+  "name": "pamerankarya",
 }

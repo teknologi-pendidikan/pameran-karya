@@ -69,7 +69,7 @@ interface PageProps {
 const getSupabaseClient = () =>
   createClientStatic(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
   );
 
 // Cache for work data to avoid duplicate queries
@@ -108,7 +108,7 @@ async function getWorkData(slug: string) {
         contribution_role,
         ordering
       )
-    `
+    `,
     )
     .eq("slug", slug)
     .order("ordering", { referencedTable: "work_person" })
@@ -137,7 +137,7 @@ async function getWorkData(slug: string) {
     work: workWithDetails as WorkWithDetails,
     assets,
     contributors: contributors.sort(
-      (a: Contributor, b: Contributor) => (a.ordering || 0) - (b.ordering || 0)
+      (a: Contributor, b: Contributor) => (a.ordering || 0) - (b.ordering || 0),
     ),
   };
 

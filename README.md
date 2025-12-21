@@ -184,12 +184,12 @@ We welcome contributions from the Educational Technology community! Please read 
 
 ## Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Build for production |
-| `pnpm start` | Start production server |
-| `pnpm lint` | Run ESLint |
+| Command              | Description                         |
+| -------------------- | ----------------------------------- |
+| `pnpm dev`           | Start development server            |
+| `pnpm build`         | Build for production                |
+| `pnpm start`         | Start production server             |
+| `pnpm lint`          | Run ESLint                          |
 | `pnpm typegen:build` | Generate types and check TypeScript |
 
 ## Deployment

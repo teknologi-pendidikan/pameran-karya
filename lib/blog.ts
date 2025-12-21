@@ -51,7 +51,7 @@ function loadBlogPosts(): BlogPost[] {
 
           // Create slug from title instead of filename
           const slug = createSlugFromTitle(
-            data.title || fileName.replace(/\.mdx$/, "")
+            data.title || fileName.replace(/\.mdx$/, ""),
           );
 
           return {

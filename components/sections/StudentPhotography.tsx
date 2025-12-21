@@ -136,7 +136,7 @@ export default function StudentPhotography({
             >
               <div
                 className={`relative ${getHeightClasses(
-                  index
+                  index,
                 )} rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform transition-all duration-500 hover:scale-[1.02]`}
               >
                 <img
@@ -158,8 +158,8 @@ export default function StudentPhotography({
                       index === 0
                         ? "text-2xl"
                         : index === 1 || index === 3
-                        ? "text-xl"
-                        : "text-lg"
+                          ? "text-xl"
+                          : "text-lg"
                     }`}
                   >
                     {photo.title}

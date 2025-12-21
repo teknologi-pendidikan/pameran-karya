@@ -39,7 +39,7 @@ interface WorkWithAssets {
 const getSupabaseClient = () =>
   createClientStatic(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
   );
 
 // Cache for person data to avoid duplicate queries
@@ -104,7 +104,7 @@ async function getPersonData(slug: string) {
         contribution_role,
         ordering
       )
-    `
+    `,
     )
     .eq("slug", slug)
     .order("ordering", { referencedTable: "work_person" })
@@ -147,7 +147,7 @@ async function getPersonData(slug: string) {
         ordering: wp.ordering,
         work_created_at: wp.work.created_at,
         assets: wp.work.asset || [],
-      })
+      }),
     ) || [];
 
   const result = {

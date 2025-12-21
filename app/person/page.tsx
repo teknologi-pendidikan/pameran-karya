@@ -5,7 +5,7 @@ import Link from "next/link";
 const getSupabaseClient = () =>
   createClientStatic(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
   );
 
 interface Person {
@@ -35,7 +35,7 @@ export default async function PersonDirectoryPage() {
       `
       *,
       work_person(count)
-    `
+    `,
     )
     .order("name", { ascending: true });
 
@@ -122,10 +122,10 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
                           person.tag === "Committee"
                             ? "bg-red-600 text-white"
                             : person.tag === "Operations"
-                            ? "bg-blue-500 text-white"
-                            : person.tag === "Volunteer"
-                            ? "bg-green-600 text-white"
-                            : "badge-gray"
+                              ? "bg-blue-500 text-white"
+                              : person.tag === "Volunteer"
+                                ? "bg-green-600 text-white"
+                                : "badge-gray"
                         }
                       }`}
                       >

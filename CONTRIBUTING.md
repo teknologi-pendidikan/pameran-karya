@@ -85,6 +85,7 @@ A clear and concise description of the bug.
 
 **To Reproduce**
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '...'
 3. Scroll down to '...'
@@ -97,6 +98,7 @@ What you expected to happen.
 If applicable, add screenshots.
 
 **Environment:**
+
 - OS: [e.g., Windows, macOS, Linux]
 - Browser: [e.g., Chrome, Firefox, Safari]
 - Version: [e.g., 22]
@@ -331,21 +333,26 @@ When creating a pull request, include:
 
 ```markdown
 ## Description
+
 Brief description of changes made.
 
 ## Type of Change
+
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Documentation update
 
 ## How Has This Been Tested?
+
 Describe the tests you ran and provide instructions to reproduce.
 
 ## Screenshots (if applicable)
+
 Add screenshots to help explain your changes.
 
 ## Checklist
+
 - [ ] My code follows the code style of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
@@ -376,14 +383,14 @@ Add screenshots to help explain your changes.
 
 ```css
 /* Primary Colors */
---primary: #4A90E2;     /* Main brand blue */
---secondary: #7B68EE;   /* Accent purple */
---accent: #FF6B6B;      /* Highlight red */
+--primary: #4a90e2; /* Main brand blue */
+--secondary: #7b68ee; /* Accent purple */
+--accent: #ff6b6b; /* Highlight red */
 
 /* Neutral Colors */
---base-100: #FFFFFF;    /* Background white */
---base-200: #F8F9FA;    /* Light gray */
---base-300: #E9ECEF;    /* Medium gray */
+--base-100: #ffffff; /* Background white */
+--base-200: #f8f9fa; /* Light gray */
+--base-300: #e9ecef; /* Medium gray */
 --base-content: #212529; /* Text color */
 ```
 
@@ -391,7 +398,7 @@ Add screenshots to help explain your changes.
 
 ```css
 /* Font Family: Plus Jakarta Sans */
---font-primary: 'Plus Jakarta Sans', sans-serif;
+--font-primary: "Plus Jakarta Sans", sans-serif;
 
 /* Font Weights */
 --font-light: 300;
@@ -543,4 +550,4 @@ Thank you for contributing to the future of educational technology in Indonesia!
 
 **Happy Contributing! 🚀**
 
-*"Technology is best when it brings people together."* - Matt Mullenweg
+_"Technology is best when it brings people together."_ - Matt Mullenweg

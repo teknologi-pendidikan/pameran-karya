@@ -34,7 +34,7 @@ interface Asset {
 const getSupabaseClient = () =>
   createClientStatic(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
   );
 
 export const metadata = {
@@ -73,7 +73,7 @@ export default async function WorkDirectoryPage() {
         thumbnail_url,
         file_url
       )
-    `
+    `,
     )
     .order("created_at", { ascending: false });
 
@@ -144,8 +144,8 @@ export default async function WorkDirectoryPage() {
               {
                 new Set(
                   works.flatMap(
-                    (work) => work.contributors?.map((c) => c.person_id) || []
-                  )
+                    (work) => work.contributors?.map((c) => c.person_id) || [],
+                  ),
                 ).size
               }
             </div>

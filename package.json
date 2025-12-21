@@ -5,11 +5,20 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
+    "start": "pnpx serve@latest out",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "typegen:build": "next typegen && tsc --noEmit",
     "prepare": "husky install"
   },
+  "license": "AGPL-3.0-only",
+  "author": {
+    "name": "Teknologi Pendidikan ID",
+    "url": "https://teknologipendidikan.or.id",
+    "email": "pamerankarya@teknologipendidikan.or.id"
+  },
+  "contributors": [
+    "Rengga Prakoso Nugroho"
+  ],
   "dependencies": {
     "@base-ui/react": "^1.0.0",
     "@hugeicons/core-free-icons": "^3.0.0",

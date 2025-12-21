@@ -8,8 +8,7 @@
     "start": "pnpx serve@latest out",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write .",
-    "typegen:build": "next typegen && tsc --noEmit",
-    "prepare": "husky install"
+    "typegen:build": "next typegen && tsc --noEmit"
   },
   "license": "AGPL-3.0-only",
   "author": {
@@ -55,7 +54,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
     "eslint-config-prettier": "^10.1.8",
-    "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "supabase": "^2.67.3",

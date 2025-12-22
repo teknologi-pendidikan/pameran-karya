@@ -88,10 +88,10 @@ export default function ExploreSection() {
 
         <div className="mt-12 text-center max-w-2xl">
           <Link
-            href="/work"
+            href="/explore"
             className="inline-block text-blue-600 font-semibold hover:underline"
           >
-            Lihat Semua Karya &rarr;
+            Jelajahi koleksi karya &rarr;
           </Link>
         </div>
       </div>

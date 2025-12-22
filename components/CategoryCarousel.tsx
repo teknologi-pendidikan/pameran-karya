@@ -72,7 +72,7 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
               <Link href={item.link} className="block">
                 <div className="aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 mb-3">
                   <img
-                    src="/placeholder-16x9.jpg"
+                    src={item.image}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     alt={item.title}
                   />

@@ -31,12 +31,12 @@ export default function ExploreSection() {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-90 group-hover:brightness-75"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-100 group-hover:brightness-110"
                   />
                 )}
 
                 {/* Dynamic Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/90 group-hover:via-black/40 transition-all duration-500"></div>
+                <div className="absolute inset-0  to-transparent group-hover:from-black/90 group-hover:via-black/40 transition-all duration-500"></div>
 
                 {/* Decorative Elements */}
                 <div className="absolute top-4 right-4 w-8 h-8 border-2 border-white/30 rounded-full group-hover:border-white/60 group-hover:scale-110 transition-all duration-300"></div>

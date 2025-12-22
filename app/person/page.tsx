@@ -5,7 +5,7 @@ import Link from "next/link";
 const getSupabaseClient = () =>
   createClientStatic(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
   );
 
 interface Person {
@@ -35,7 +35,7 @@ export default async function PersonDirectoryPage() {
       `
       *,
       work_person(count)
-    `,
+    `
     )
     .order("name", { ascending: true });
 
@@ -78,9 +78,9 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-6">Direktori Eksibitor</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        <div className="mb-12">
+          <h1 className="text-5xl mb-6">Direktori Eksibitor</h1>
+          <p className="text-lg text-gray-600 max-w-3xl">
             Temui para mahasiswa Teknologi Pendidikan dari seluruh Indonesia
             yang berpartisipasi dalam Pameran Karya. Jelajahi profil dan
             karya-karya inovatif mereka dalam bidang teknologi pendidikan.

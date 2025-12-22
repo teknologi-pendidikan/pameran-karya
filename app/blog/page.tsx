@@ -5,12 +5,10 @@ export default function BlogPage() {
   const posts = getAllBlogPosts();
 
   return (
-    <section className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">
-          Rilisan dan Pengumuman Pameran Karya
-        </h1>
-        <p className="text-gray-600">
+    <section className="container mx-auto px-4 py-8 max-w-7xl space-y-12">
+      <div className="mb-12">
+        <h1 className="text-5xl mb-4">Rilisan dan Pengumuman Pameran Karya</h1>
+        <p className="text-gray-600 text-lg">
           Rilisan dan pengumuman terbaru seputar Pameran Karya Teknologi
           Pendidikan.
         </p>

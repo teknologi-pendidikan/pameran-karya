@@ -34,7 +34,7 @@ interface Asset {
 const getSupabaseClient = () =>
   createClientStatic(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
   );
 
 export const metadata = {
@@ -73,7 +73,7 @@ export default async function WorkDirectoryPage() {
         thumbnail_url,
         file_url
       )
-    `,
+    `
     )
     .order("created_at", { ascending: false });
 
@@ -116,42 +116,35 @@ export default async function WorkDirectoryPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-6">Direktori Karya</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        <header className="mb-8 md:mb-12">
+          <h1 className="text-3xl md:text-5xl lg:text-7xl mb-3 md:mb-4 font-bold">
+            Direktori Karya
+          </h1>
+          <div className="flex flex-wrap justify-start gap-2 md:gap-3 mb-4 md:mb-6">
+            <div className="badge badge-primary badge-md md:badge-lg">
+              {works.length} Karya
+            </div>
+            <div className="badge badge-secondary badge-md md:badge-lg">
+              {works.reduce((sum, work) => sum + (work.asset_count || 0), 0)}{" "}
+              Aset
+            </div>
+            <div className="badge badge-accent badge-md md:badge-lg">
+              {
+                new Set(
+                  works.flatMap(
+                    (work) => work.contributors?.map((c) => c.person_id) || []
+                  )
+                ).size
+              }{" "}
+              Kontributor
+            </div>
+          </div>
+          <p className="text-base md:text-xl text-gray-600 max-w-3xl leading-relaxed">
             Jelajahi koleksi karya inovatif dari mahasiswa Teknologi Pendidikan
             Indonesia. Temukan berbagai proyek, penelitian, dan karya kreatif
             dalam bidang teknologi pendidikan.
           </p>
-        </div>
-
-        {/* Statistics Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-linear-to-br from-blue-50 to-blue-100 rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">
-              {works.length}
-            </div>
-            <div className="text-blue-800 font-medium">Total Karya</div>
-          </div>
-          <div className="bg-linear-to-br from-green-50 to-green-100 rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
-              {works.reduce((sum, work) => sum + (work.asset_count || 0), 0)}
-            </div>
-            <div className="text-green-800 font-medium">Total Aset</div>
-          </div>
-          <div className="bg-linear-to-br from-purple-50 to-purple-100 rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-purple-600 mb-2">
-              {
-                new Set(
-                  works.flatMap(
-                    (work) => work.contributors?.map((c) => c.person_id) || [],
-                  ),
-                ).size
-              }
-            </div>
-            <div className="text-purple-800 font-medium">Kontributor</div>
-          </div>
-        </div>
+        </header>
 
         {/* Works Grid */}
         {works.length > 0 ? (

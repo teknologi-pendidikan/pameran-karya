@@ -3,6 +3,7 @@ import ExploreSection from "@/components/sections/ExploreSection";
 import FeaturedUniversity from "@/components/sections/FeaturedUniversity";
 import StudentPhotography from "@/components/sections/StudentPhotography";
 import InstagramFollow from "@/components/sections/InstagramFollow";
+import SponsorSection from "@/components/sections/SponsorSection";
 
 export default function Page() {
   return (
@@ -11,6 +12,7 @@ export default function Page() {
       <ConferenceSection />
       <FeaturedUniversity />
       <StudentPhotography />
+      <SponsorSection />
       <InstagramFollow />
     </main>
   );

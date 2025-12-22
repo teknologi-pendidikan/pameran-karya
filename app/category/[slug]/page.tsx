@@ -172,196 +172,176 @@ export default async function CategoryPage({ params }: PageProps) {
     }) || [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Breadcrumb Navigation */}
-        <nav className="breadcrumbs mb-8">
-          <ul>
-            <li>
-              <Link href="/">Beranda</Link>
-            </li>
-            <li>
-              <Link href="/work">Direktori Karya</Link>
-            </li>
-            <li>{category.label}</li>
-          </ul>
-        </nav>
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
+      {/* Breadcrumb Navigation */}
+      <nav className="breadcrumbs mb-2">
+        <ul>
+          <li>
+            <Link href="/">Beranda</Link>
+          </li>
+          <li>
+            <Link href="/work">Direktori Karya</Link>
+          </li>
+          <li className="font-semibold">{category.label}</li>
+        </ul>
+      </nav>
 
-        {/* Header Section */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white text-2xl font-bold mb-4">
-            {category.label.charAt(0).toUpperCase()}
+      {/* Header Section */}
+      <header className="text-left mb-8 md:mb-12">
+        <h1 className="text-3xl md:text-5xl lg:text-7xl mb-3 md:mb-4 font-bold">
+          {category.label}
+        </h1>
+        <div className="flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-6">
+          <div className="badge badge-primary badge-md md:badge-lg">
+            {works.length} Karya
           </div>
-          <h1 className="text-5xl font-bold mb-4">{category.label}</h1>
-          {category.type && (
-            <div className="inline-block bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
-              {category.type}
-            </div>
-          )}
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Jelajahi koleksi karya dalam kategori{" "}
-            <strong>{category.label}</strong>. Temukan berbagai proyek,
-            penelitian, dan karya kreatif yang telah dikembangkan oleh mahasiswa
-            Teknologi Pendidikan Indonesia.
-          </p>
-        </div>
-
-        {/* Statistics Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">
-              {works.length}
-            </div>
-            <div className="text-blue-800 font-medium">
-              Karya dalam Kategori
-            </div>
+          <div className="badge badge-secondary badge-md md:badge-lg">
+            {works.reduce((sum, work) => sum + (work.asset_count || 0), 0)} Aset
           </div>
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
-              {works.reduce((sum, work) => sum + (work.asset_count || 0), 0)}
-            </div>
-            <div className="text-green-800 font-medium">Total Aset</div>
-          </div>
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-purple-600 mb-2">
-              {
-                new Set(
-                  works.flatMap(
-                    (work) => work.contributors?.map((c) => c.person_id) || []
-                  )
-                ).size
-              }
-            </div>
-            <div className="text-purple-800 font-medium">Kontributor</div>
+          <div className="badge badge-accent badge-md md:badge-lg">
+            {
+              new Set(
+                works.flatMap(
+                  (work) => work.contributors?.map((c) => c.person_id) || []
+                )
+              ).size
+            }{" "}
+            Kontributor
           </div>
         </div>
+        <p className="text-base md:text-lg text-gray-600 max-w-3xl leading-relaxed">
+          Jelajahi koleksi karya dalam kategori{" "}
+          <strong>{category.label}</strong>. Temukan berbagai proyek,
+          penelitian, dan karya kreatif yang telah dikembangkan oleh mahasiswa
+          Teknologi Pendidikan Indonesia.
+        </p>
+      </header>
 
-        {/* Works Grid */}
-        {works.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {works.map((work) => (
-              <Link
-                key={work.work_id}
-                href={`/work/${work.slug}`}
-                className="card bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-300 group"
-              >
-                {/* Featured Asset Thumbnail */}
-                <figure className="h-48">
-                  {work.featured_asset?.thumbnail_url ||
-                  work.featured_asset?.file_url ? (
-                    <img
-                      src={
-                        work.featured_asset.thumbnail_url ||
-                        work.featured_asset.file_url ||
-                        "/placeholder-work.png"
-                      }
-                      alt={work.title}
-                      width={400}
-                      height={192}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 aspect-video"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="text-4xl mb-2">📄</div>
-                        <div className="text-gray-500 text-sm">No Preview</div>
-                      </div>
-                    </div>
-                  )}
-                </figure>
-
-                <div className="card-body p-4">
-                  {/* Title and Date */}
-                  <div className="mb-3">
-                    <h2 className="card-title text-lg group-hover:text-blue-600 transition-colors line-clamp-2">
-                      {work.title}
-                    </h2>
-                    <div className="text-xs text-gray-500 mt-1">
-                      <time dateTime={work.created_at}>
-                        {new Date(work.created_at).toLocaleDateString("id-ID", {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </time>
+      {/* Works Grid */}
+      {works.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {works.map((work) => (
+            <Link
+              key={work.work_id}
+              href={`/work/${work.slug}`}
+              className="card bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-300 group"
+            >
+              {/* Featured Asset Thumbnail */}
+              <figure className="h-48">
+                {work.featured_asset?.thumbnail_url ||
+                work.featured_asset?.file_url ? (
+                  <img
+                    src={
+                      work.featured_asset.thumbnail_url ||
+                      work.featured_asset.file_url ||
+                      "/placeholder-work.png"
+                    }
+                    alt={work.title}
+                    width={400}
+                    height={192}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 aspect-video"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">📄</div>
+                      <div className="text-gray-500 text-sm">No Preview</div>
                     </div>
                   </div>
+                )}
+              </figure>
 
-                  {/* Abstract */}
-                  {work.abstract && (
-                    <p className="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed">
-                      {work.abstract}
-                    </p>
-                  )}
-
-                  {/* Contributors */}
-                  {work.contributors && work.contributors.length > 0 && (
-                    <div className="mb-4">
-                      <div className="text-xs text-gray-500 mb-2">
-                        Contributors:
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {work.contributors.slice(0, 3).map((contributor) => (
-                          <span
-                            key={contributor.person_id}
-                            className="badge badge-outline text-xs"
-                          >
-                            {contributor.name}
-                          </span>
-                        ))}
-                        {work.contributors.length > 3 && (
-                          <span className="badge badge-ghost text-xs">
-                            +{work.contributors.length - 3} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Footer */}
-                  <div className="card-actions justify-between items-center">
-                    <div className="text-xs text-gray-500">
-                      {work.asset_count || 0}{" "}
-                      {work.asset_count === 1 ? "asset" : "assets"}
-                    </div>
-                    <div className="btn btn-link btn-sm">View Details →</div>
+              <div className="card-body p-4">
+                {/* Title and Date */}
+                <div className="mb-3">
+                  <h2 className="card-title text-lg group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {work.title}
+                  </h2>
+                  <div className="text-xs text-gray-500 mt-1">
+                    <time dateTime={work.created_at}>
+                      {new Date(work.created_at).toLocaleDateString("id-ID", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </time>
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center text-gray-500 py-16">
-            <div className="text-6xl mb-4">📂</div>
-            <h3 className="text-xl font-semibold mb-2">Belum Ada Karya</h3>
-            <p>
-              Kategori ini belum memiliki karya. Periksa kembali nanti untuk
-              karya-karya baru.
-            </p>
-          </div>
-        )}
 
-        {/* Navigation to Other Categories */}
-        <div className="text-center mt-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl p-8">
-          <h2 className="text-3xl font-bold mb-4">Jelajahi Kategori Lainnya</h2>
-          <p className="text-xl mb-6 text-blue-100">
-            Temukan berbagai kategori karya lainnya dari mahasiswa Teknologi
-            Pendidikan Indonesia.
+                {/* Abstract */}
+                {work.abstract && (
+                  <p className="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed">
+                    {work.abstract}
+                  </p>
+                )}
+
+                {/* Contributors */}
+                {work.contributors && work.contributors.length > 0 && (
+                  <div className="mb-4">
+                    <div className="text-xs text-gray-500 mb-2">
+                      Contributors:
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {work.contributors.slice(0, 3).map((contributor) => (
+                        <span
+                          key={contributor.person_id}
+                          className="badge badge-outline text-xs"
+                        >
+                          {contributor.name}
+                        </span>
+                      ))}
+                      {work.contributors.length > 3 && (
+                        <span className="badge badge-ghost text-xs">
+                          +{work.contributors.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Footer */}
+                <div className="card-actions justify-between items-center">
+                  <div className="text-xs text-gray-500">
+                    {work.asset_count || 0}{" "}
+                    {work.asset_count === 1 ? "asset" : "assets"}
+                  </div>
+                  <div className="btn btn-link btn-sm">View Details →</div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center text-gray-500 py-16">
+          <div className="text-6xl mb-4">📂</div>
+          <h3 className="text-xl font-semibold mb-2">Belum Ada Karya</h3>
+          <p>
+            Kategori ini belum memiliki karya. Periksa kembali nanti untuk
+            karya-karya baru.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/work"
-              className="btn btn-outline btn-white border-white text-white hover:bg-white hover:text-blue-600"
-            >
-              Semua Karya
-            </Link>
-            <Link
-              href="/person"
-              className="btn btn-outline btn-white border-white text-white hover:bg-white hover:text-purple-600"
-            >
-              Direktori Eksibitor
-            </Link>
-          </div>
+        </div>
+      )}
+
+      {/* Navigation to Other Categories */}
+      <div className="text-center mt-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl p-8">
+        <h2 className="text-3xl font-bold mb-4">Jelajahi Kategori Lainnya</h2>
+        <p className="text-xl mb-6 text-blue-100">
+          Temukan berbagai kategori karya lainnya dari mahasiswa Teknologi
+          Pendidikan Indonesia.
+        </p>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <Link
+            href="/work"
+            className="btn btn-outline btn-white border-white text-white hover:bg-white hover:text-blue-600"
+          >
+            Semua Karya
+          </Link>
+          <Link
+            href="/person"
+            className="btn btn-outline btn-white border-white text-white hover:bg-white hover:text-purple-600"
+          >
+            Direktori Eksibitor
+          </Link>
         </div>
       </div>
     </div>

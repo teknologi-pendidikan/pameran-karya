@@ -7,9 +7,12 @@ export default function BlogPage() {
   return (
     <section className="container mx-auto px-4 py-8 max-w-6xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Blog</h1>
+        <h1 className="text-3xl font-bold mb-4">
+          Rilisan dan Pengumuman Pameran Karya
+        </h1>
         <p className="text-gray-600">
-          Artikel dan wawasan tentang pameran karya, teknologi, dan budaya
+          Rilisan dan pengumuman terbaru seputar Pameran Karya Teknologi
+          Pendidikan.
         </p>
       </div>
 
@@ -23,7 +26,7 @@ export default function BlogPage() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group block bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+              className="group block bg-white rounded-lg shadow-md transition-all duration-300 overflow-hidden"
             >
               <div className="aspect-video overflow-hidden">
                 <img

@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <article className="">
       <header className="flex bg-gray-200 w-full pt-16 pb-12 mb-8">
-        <div className="max-w-7xl container mx-auto px-4 lg:px-0">
+        <div className="max-w-7xl container mx-auto px-4 lg:px-8">
           <h1 className="text-3xl lg:text-5xl mb-4">{post.title}</h1>
           <p id="tldr" className="text-md lg:max-w-3/6">
             {post.description}
@@ -106,7 +106,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </header> */}
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-0 pb-16">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-16">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Article Content - 3/4 width */}
           <div className="lg:w-3/4">

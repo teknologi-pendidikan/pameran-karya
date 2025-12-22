@@ -10,10 +10,13 @@ export default function Footer() {
           <Link href="/whitepaper" className="link link-hover">
             Whitepaper
           </Link>
-          <Link href="/committee" className="link link-hover">
+          <Link
+            href="/blog/dibalik-layar-tim-pengelola-pameran-karya-tep"
+            className="link link-hover"
+          >
             Pengelola
           </Link>
-          <Link href="/sponsor" className="link link-hover">
+          <Link href="/blog/sponsor" className="link link-hover">
             Sponsor
           </Link>
         </nav>

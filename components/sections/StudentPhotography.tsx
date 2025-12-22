@@ -26,7 +26,7 @@ const defaultPhotos: PhotoItem[] = [
     title: "Learning Center TEP",
     category: "Education",
     categoryColor: "bg-purple-600",
-    image: "/placeholder-foto-umdrone-16x9.webp",
+    image: "/placeholder-foto-umdrone-lego-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
     studentAvatar: "/placeholder-16x9.jpg",
@@ -36,7 +36,7 @@ const defaultPhotos: PhotoItem[] = [
     title: "Learning Center TEP",
     category: "Education",
     categoryColor: "bg-purple-600",
-    image: "/placeholder-foto-labtepum-16x9.webp",
+    image: "/placeholder-foto-labtepum-lego-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
     studentAvatar: "/placeholder-16x9.jpg",
@@ -56,7 +56,7 @@ const defaultPhotos: PhotoItem[] = [
     title: "Learning Center TEP",
     category: "Education",
     categoryColor: "bg-purple-600",
-    image: "/placeholder-foto-praktikum-16x9.webp",
+    image: "/placeholder-foto-praktikum-lego-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
     studentAvatar: "/placeholder-16x9.jpg",
@@ -76,7 +76,7 @@ const defaultPhotos: PhotoItem[] = [
     title: "Learning Center TEP",
     category: "Education",
     categoryColor: "bg-purple-600",
-    image: "/placeholder-foto-praktikum-16x9.webp",
+    image: "/placeholder-foto-praktikum-lego-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
     studentAvatar: "/placeholder-16x9.jpg",
@@ -136,7 +136,7 @@ export default function StudentPhotography({
             >
               <div
                 className={`relative ${getHeightClasses(
-                  index,
+                  index
                 )} rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform transition-all duration-500 hover:scale-[1.02]`}
               >
                 <img

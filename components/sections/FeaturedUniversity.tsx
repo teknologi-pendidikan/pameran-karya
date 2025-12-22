@@ -15,7 +15,7 @@ interface FeaturedUniversityProps {
 export default function FeaturedUniversity({
   title = "Universitas Negeri Malang",
   description = "Melahirkan generasi unggul dalam bidang teknologi pendidikan yang inovatif dan berkelanjutan untuk masa depan Indonesia yang cerah.",
-  image = "/placeholder-foto-umdrone-16x9.webp",
+  image = "/placeholder-foto-umdrone-lego-16x9.webp",
   link = "/university/malang",
   stats = { works: 150, students: 45 },
 }: FeaturedUniversityProps) {

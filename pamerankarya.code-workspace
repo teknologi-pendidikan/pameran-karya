@@ -1,8 +1,17 @@
 {
   "folders": [
     {
-      "path": ".",
+      "name": "root",
+      "path": "."
     },
+    {
+      "name": "main-frontend",
+      "path": "./apps/pamerankarya"
+    },
+    {
+      "name": "backoffice",
+      "path": "./apps/backoffice"
+    }
   ],
-  "settings": {},
+  "settings": {}
 }

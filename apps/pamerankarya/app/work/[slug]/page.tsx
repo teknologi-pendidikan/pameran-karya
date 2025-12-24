@@ -270,7 +270,6 @@ export default async function WorkPage({ params }: PageProps) {
                     {asset.type === "video" && asset.file_url ? (
                       (() => {
                         const videoId = getYouTubeVideoId(asset.file_url);
-                        console.log("Extracted video ID:", videoId);
                         return videoId ? (
                           <YouTubeEmbed
                             videoid={videoId}

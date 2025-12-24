@@ -2,6 +2,8 @@
 import { createClient as createClientStatic } from "@supabase/supabase-js";
 import Link from "next/link";
 import Image from "next/image";
+import { Suspense } from "react";
+import { WorkDirectoryClient } from "@/app/work/WorkDirectoryClient";
 
 interface Work {
   work_id: string;
@@ -45,7 +47,8 @@ export const metadata = {
     "karya teknologi pendidikan, student work, innovation, educational technology, research",
 };
 
-export default async function WorkDirectoryPage() {
+// Server component to fetch data
+async function getWorksData() {
   const supabase = getSupabaseClient();
 
   // Fetch all works with contributors and asset counts
@@ -79,16 +82,7 @@ export default async function WorkDirectoryPage() {
 
   if (error) {
     console.error("Error fetching works:", error);
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Error Loading Works</h1>
-          <p className="text-gray-600">
-            Unable to load the works directory at this time.
-          </p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   // Transform the data
@@ -104,7 +98,6 @@ export default async function WorkDirectoryPage() {
           person_id: wp.person.person_id,
           name: wp.person.name,
           slug: wp.person.slug,
-          //   image: wp.person.image,
           contribution_role: wp.contribution_role,
           affiliation: wp.person.affiliation,
         })) || [],
@@ -112,157 +105,51 @@ export default async function WorkDirectoryPage() {
       featured_asset: work.asset?.[0] || null,
     })) || [];
 
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <header className="mb-8 md:mb-12">
-          <h1 className="text-3xl md:text-5xl lg:text-7xl mb-3 md:mb-4 font-bold">
-            Direktori Karya
-          </h1>
-          <div className="flex flex-wrap justify-start gap-2 md:gap-3 mb-4 md:mb-6">
-            <div className="badge badge-primary badge-md md:badge-lg">
-              {works.length} Karya
-            </div>
-            <div className="badge badge-secondary badge-md md:badge-lg">
-              {works.reduce((sum, work) => sum + (work.asset_count || 0), 0)}{" "}
-              Aset
-            </div>
-            <div className="badge badge-accent badge-md md:badge-lg">
-              {
-                new Set(
-                  works.flatMap(
-                    (work) => work.contributors?.map((c) => c.person_id) || []
-                  )
-                ).size
-              }{" "}
-              Kontributor
-            </div>
-          </div>
-          <p className="text-base md:text-xl text-gray-600 max-w-3xl leading-relaxed">
-            Jelajahi koleksi karya inovatif dari mahasiswa Teknologi Pendidikan
-            Indonesia. Temukan berbagai proyek, penelitian, dan karya kreatif
-            dalam bidang teknologi pendidikan.
+  return works;
+}
+
+export default async function WorkDirectoryPage() {
+  const works = await getWorksData();
+
+  if (!works) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">Error Loading Works</h1>
+          <p className="text-gray-600">
+            Unable to load the works directory at this time.
           </p>
-        </header>
-
-        {/* Works Grid */}
-        {works.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {works.map((work) => (
-              <Link
-                key={work.work_id}
-                href={`/work/${work.slug}`}
-                className="card bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-300 group"
-              >
-                {/* Featured Asset Thumbnail */}
-                <figure className="h-48">
-                  {work.featured_asset?.thumbnail_url ||
-                  work.featured_asset?.file_url ? (
-                    <img
-                      src={
-                        work.featured_asset.thumbnail_url ||
-                        work.featured_asset.file_url ||
-                        "/placeholder-work.png"
-                      }
-                      alt={work.title}
-                      width={400}
-                      height={192}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 aspect-video"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="text-4xl mb-2">📄</div>
-                        <div className="text-gray-500 text-sm">No Preview</div>
-                      </div>
-                    </div>
-                  )}
-                </figure>
-
-                <div className="card-body p-4">
-                  {/* Title and Date */}
-                  <div className="mb-3">
-                    <h2 className="card-title text-lg group-hover:text-blue-600 transition-colors line-clamp-2">
-                      {work.title}
-                    </h2>
-                    <div className="text-xs text-gray-500 mt-1">
-                      <time dateTime={work.created_at}>
-                        {new Date(work.created_at).toLocaleDateString("id-ID", {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </time>
-                    </div>
-                  </div>
-
-                  {/* Abstract */}
-                  {work.abstract && (
-                    <p className="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed">
-                      {work.abstract}
-                    </p>
-                  )}
-
-                  {/* Contributors */}
-                  {work.contributors && work.contributors.length > 0 && (
-                    <div className="mb-4">
-                      <div className="text-xs text-gray-500 mb-2">
-                        Contributors:
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {work.contributors.slice(0, 3).map((contributor) => (
-                          <span
-                            key={contributor.person_id}
-                            className="badge badge-outline text-xs"
-                          >
-                            {contributor.name}
-                          </span>
-                        ))}
-                        {work.contributors.length > 3 && (
-                          <span className="badge badge-ghost text-xs">
-                            +{work.contributors.length - 3} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Footer */}
-                  <div className="card-actions justify-between items-center">
-                    <div className="text-xs text-gray-500">
-                      {work.asset_count || 0}{" "}
-                      {work.asset_count === 1 ? "asset" : "assets"}
-                    </div>
-                    <div className="btn btn-link btn-sm">View Details →</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center text-gray-500 py-16">
-            <div className="text-6xl mb-4">📝</div>
-            <h3 className="text-xl font-semibold mb-2">No Works Available</h3>
-            <p>Check back later for new works from our students.</p>
-          </div>
-        )}
-
-        {/* Call to Action */}
-        <div className="text-center mt-16 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-2xl p-8">
-          <h2 className="text-3xl font-bold mb-4">Contribute Your Work</h2>
-          <p className="text-xl mb-6 text-blue-100">
-            Mahasiswa Teknologi Pendidikan? Bagikan karya inovatif Anda dan
-            inspirasi rekan-rekan lainnya.
-          </p>
-          <Link
-            href="/person"
-            className="inline-block bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            Lihat Direktori Eksibitor
-          </Link>
         </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <Suspense
+      fallback={
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="animate-pulse">
+              <div className="h-16 bg-gray-200 rounded mb-8"></div>
+              <div className="h-16 bg-gray-200 rounded mb-8"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="card bg-gray-100">
+                    <div className="h-48 bg-gray-200"></div>
+                    <div className="card-body">
+                      <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-200 rounded mb-4"></div>
+                      <div className="h-16 bg-gray-200 rounded"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <WorkDirectoryClient initialWorks={works} />
+    </Suspense>
   );
 }

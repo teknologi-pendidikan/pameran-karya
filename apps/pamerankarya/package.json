@@ -59,7 +59,7 @@
     "eslint-config-prettier": "^10.1.8",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
-    "supabase": "^2.67.3",
+    "supabase": "^2.70.4",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

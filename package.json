@@ -13,7 +13,8 @@
         "lint:all": "pnpm --filter '*' lint",
         "clean:all": "pnpm --filter '*' clean",
         "install:all": "pnpm install",
-        "dev": "pnpm dev:frontend"
+        "dev": "pnpm dev:frontend",
+        "serve:frontend": "serve apps/pamerankarya/out"
     },
     "workspaces": [
         "apps/*"
@@ -25,5 +26,8 @@
     "engines": {
         "node": ">=22.0.0",
         "pnpm": ">=10.0.0"
+    },
+    "dependencies": {
+        "serve": "^14.2.5"
     }
 }

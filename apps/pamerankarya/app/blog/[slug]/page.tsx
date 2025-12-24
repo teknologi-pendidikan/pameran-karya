@@ -34,6 +34,24 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     return {
       title: post.title,
       description: post.description,
+      authors: [{ name: post.author }],
+      openGraph: {
+        title: post.title,
+        description: post.description,
+        type: "article",
+        article: {
+          authors: [post.author],
+          publishedTime: post.date,
+        },
+        images: post.image
+          ? [
+              {
+                url: post.image,
+                alt: post.title,
+              },
+            ]
+          : undefined,
+      },
     };
   } catch (error) {
     console.error("Error generating metadata:", error);
@@ -65,45 +83,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
         </div>
       </header>
-
-      {/* <header className="mb-8">
-        <div className="aspect-video rounded-xl overflow-hidden mb-6">
-          <img
-            src={post.image}
-            alt={post.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        <div className="flex flex-wrap gap-2 mb-4">
-          {post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-
-        <div className="flex items-center text-gray-600 text-sm mb-4">
-          <span>By {post.author}</span>
-          <span className="mx-2">•</span>
-          <time dateTime={post.date}>
-            {new Date(post.date).toLocaleDateString("id-ID", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </time>
-        </div>
-
-        <p className="text-xl text-gray-700 leading-relaxed">
-          {post.description}
-        </p>
-      </header> */}
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-16">

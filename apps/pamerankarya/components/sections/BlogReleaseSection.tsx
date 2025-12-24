@@ -9,71 +9,63 @@ export default function BlogReleaseSection() {
   }
 
   return (
-    <section className="py-16 bg-base-100">
+    <section className="py-8 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-base-content mb-4">
-            Rilisan dan Pengumuman
+        <div className="text-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            Rilisan Terbaru
           </h2>
-          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
-            Rilisan dan pengumuman terbaru seputar Pameran Karya Teknologi
-            Pendidikan
+          <p className="text-base text-gray-600">
+            Berita dan pengumuman terbaru
           </p>
         </div>
 
-        {/* Blog Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        {/* Blog Cards with Image Overlay */}
+        <div className="grid md:grid-cols-3 gap-4 mb-6">
           {blogPosts.map((post) => (
-            <div key={post.slug} className="card bg-base-100 shadow-xl">
-              <figure className="aspect-video relative overflow-hidden">
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
+              <div className="relative h-40 md:h-48 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
                 <img
                   src={post.image}
                   alt={post.title}
-                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 group-hover:brightness-100"
                 />
-              </figure>
-              <div className="card-body">
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {post.tags.slice(0, 2).map((tag) => (
-                    <span key={tag} className="badge badge-primary badge-sm">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="card-title text-lg line-clamp-2">
-                  {post.title}
-                </h3>
-                <p className="text-base-content/70 line-clamp-3 text-sm">
-                  {post.description}
-                </p>
-                <div className="flex items-center justify-between text-sm text-base-content/60 mt-2">
-                  <span>{post.author}</span>
-                  <span>
+                <div className="absolute inset-0 bg-linear-to-t from-black to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <div className="flex gap-1 mb-2">
+                    {post.tags.slice(0, 1).map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="text-white text-sm md:text-base font-semibold line-clamp-2 leading-tight">
+                    {post.title}
+                  </h3>
+                  <div className="text-white/80 text-xs mt-1">
                     {new Date(post.date).toLocaleDateString("id-ID", {
-                      day: "numeric",
-                      month: "short",
+                      day: "2-digit",
+                      month: "long",
                       year: "numeric",
                     })}
-                  </span>
-                </div>
-                <div className="card-actions justify-end mt-4">
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="btn btn-primary btn-sm"
-                  >
-                    Baca Selengkapnya
-                  </Link>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
         {/* View All Button */}
         <div className="text-center">
-          <Link href="/blog" className="btn btn-link btn-primary">
-            Lihat Semua Artikel
+          <Link
+            href="/blog"
+            className=" inline-flex items-center px-4 py-2 text-md font-medium border rounded text-gray-800 hover:text-blue-700 hover:underline transition-colors"
+          >
+            Lihat Semua Pengumuman
           </Link>
         </div>
       </div>

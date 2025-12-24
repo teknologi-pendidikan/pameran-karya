@@ -10,7 +10,7 @@ export const sponsors: Sponsor[] = [
     name: "Universitas Negeri Malang",
     logo: "/lambang-um.webp",
     website: "https://um.ac.id",
-    tier: "platinum",
+    tier: "diamond",
   },
   {
     name: "Cloudflare",
@@ -24,13 +24,19 @@ export const sponsors: Sponsor[] = [
     website: "https://idcloudhost.com",
     tier: "gold",
   },
+  {
+    name: "IMATEPSI",
+    logo: "/lambang-imatepsi.png",
+    website: "https://imatepsi.or.id",
+    tier: "diamond",
+  },
 ];
 
 export const tierConfig = {
   diamond: {
     title: "Diamond Sponsor",
     badgeClass: "badge-info",
-    logoSize: "h-20 md:h-24",
+    logoSize: "h-20 md:h-32",
     gridCols: "grid-cols-1 md:grid-cols-2",
   },
   platinum: {

@@ -50,11 +50,11 @@ export default function FeaturedUniversity({
             </div>
 
             {/* Main Title */}
-            <h1 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight transform group-hover:translate-x-2 md:group-hover:translate-x-4 transition-all duration-700">
+            <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight transform group-hover:translate-x-2 md:group-hover:translate-x-4 transition-all duration-700">
               <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
                 {title}
               </span>
-            </h1>
+            </h2>
 
             {/* Subtitle */}
             <p className="text-base md:text-xl mb-6 md:mb-8 text-white/90 leading-relaxed transform group-hover:translate-x-1 md:group-hover:translate-x-2 transition-all duration-500 delay-100">

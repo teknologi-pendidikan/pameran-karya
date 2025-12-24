@@ -6,8 +6,11 @@ export default function ExploreSection() {
   return (
     <section id="explore" className="relative">
       <div className="container mx-auto px-4 my-8 py-8 flex flex-col items-center">
-        <div className="text-center max-w-3xl">
-          <h1 className="text-5xl mb-4">Explore and Discover</h1>
+        <div className="text-center max-w-5xl">
+          <h1 className="text-5xl font-semibold mb-8 pb-10">
+            Pameran Karya Teknologi Pendidikan
+          </h1>
+          <h2 className="text-5xl mb-4">Explore and Discover</h2>
           <p className="text-lg text-gray-600">
             Jelajahi berbagai kategori dan temukan karya terbaik dari para
             mahasiswa Teknologi Pendidikan di seluruh Indonesia.
@@ -53,9 +56,9 @@ export default function ExploreSection() {
 
                   {/* Bottom Section */}
                   <div className="transform group-hover:translate-y-0 transition-all duration-500">
-                    <h2 className="text-3xl font-bold mb-4 leading-tight group-hover:text-white transition-colors duration-300">
+                    <h3 className="text-3xl font-bold mb-4 leading-tight group-hover:text-white transition-colors duration-300">
                       {item.title}
-                    </h2>
+                    </h3>
 
                     {/* CTA Button */}
                     <div className="flex items-center space-x-2 text-white/80 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-2">

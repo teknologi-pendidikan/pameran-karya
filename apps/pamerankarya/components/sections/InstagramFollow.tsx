@@ -49,9 +49,9 @@ export default function InstagramFollow({
 
           {/* Text Content */}
           <div className="flex-grow text-white text-center md:text-left">
-            <h1 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 group-hover:translate-x-0 md:group-hover:translate-x-2 transition-transform duration-300">
+            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 group-hover:translate-x-0 md:group-hover:translate-x-2 transition-transform duration-300">
               {title}
-            </h1>
+            </h2>
             <p className="text-base md:text-lg mb-4 md:mb-6 opacity-90 group-hover:opacity-100 transition-all duration-300">
               {description}
             </p>

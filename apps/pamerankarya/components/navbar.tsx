@@ -41,12 +41,17 @@ export default function Navbar() {
           </div>
 
           {/* Logo - centered on mobile */}
-          <Link href="/" className="btn btn-ghost text-xl lg:flex">
+          <Link
+            href="/"
+            className="btn btn-ghost text-xl lg:flex"
+            aria-label="Beranda"
+          >
             <LogoPameran
               className="h-6 lg:h-8 w-auto"
               style={{ height: "auto", width: "96px", maxWidth: "128px" }}
               fillcolorbottom="black"
               fillcolortop="black"
+              alt="Logo Pameran Karya"
             />
           </Link>
         </div>

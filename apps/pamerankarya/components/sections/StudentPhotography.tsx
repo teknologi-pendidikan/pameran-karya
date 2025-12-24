@@ -153,7 +153,7 @@ export default function StudentPhotography({
                       {photo.category}
                     </span>
                   </div>
-                  <h3
+                  <p
                     className={`font-bold mb-2 ${
                       index === 0
                         ? "text-2xl"
@@ -163,7 +163,7 @@ export default function StudentPhotography({
                     }`}
                   >
                     {photo.title}
-                  </h3>
+                  </p>
                   <div
                     className={`flex items-center ${
                       index === 2 || index === 5 ? "space-x-2" : "space-x-3"

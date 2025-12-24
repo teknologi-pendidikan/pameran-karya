@@ -6,7 +6,7 @@ export default function Footer() {
     <div className="bg-base-200 pt-12 pb-16 mt-16">
       <footer className="container mx-auto max-w-7xl footer footer-vertical sm:footer-horizontal px-4 text-base-content">
         <nav>
-          <h6 className="footer-title">Tentang Kami</h6>
+          <h2 className="footer-title">Tentang Kami</h2>
           <Link href="/whitepaper" className="link link-hover">
             Whitepaper
           </Link>
@@ -21,7 +21,7 @@ export default function Footer() {
           </Link>
         </nav>
         <nav>
-          <h6 className="footer-title">Jelajah karya</h6>
+          <h2 className="footer-title">Jelajah karya</h2>
           <Link href="/eksibitor" className="link link-hover">
             Eksibitor
           </Link>
@@ -33,7 +33,7 @@ export default function Footer() {
           </Link>
         </nav>
         <nav>
-          <h6 className="footer-title">Berpartisipasi</h6>
+          <h2 className="footer-title">Berpartisipasi</h2>
           <Link
             href="/blog/pedoman-pengiriman-karya-untuk-pameran-karya-tep"
             className="link link-hover"
@@ -51,7 +51,7 @@ export default function Footer() {
           </Link>
         </nav>
         <nav>
-          <h6 className="footer-title">Teknologi</h6>
+          <h2 className="footer-title">Teknologi</h2>
           <Link
             href="https://github.com/teknologi-pendidikan/pameran-karya"
             className="link link-hover"

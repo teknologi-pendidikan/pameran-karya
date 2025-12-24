@@ -172,7 +172,7 @@ export function WorkDirectoryClient({
         </header>
 
         {/* Search and Filter Controls */}
-        <div className="bg-base-200 rounded-2xl p-6 mb-8">
+        <div className=" rounded-2xl p-6 mb-8">
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search Input */}
             <div className="flex-1">
@@ -233,7 +233,7 @@ export function WorkDirectoryClient({
               <Link
                 key={work.work_id}
                 href={`/work/${work.slug}`}
-                className="card bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-300 group"
+                className="card  shadow-md hover:shadow-xl transition-shadow duration-300 group"
               >
                 {/* Featured Asset Thumbnail */}
                 <figure className="h-48">

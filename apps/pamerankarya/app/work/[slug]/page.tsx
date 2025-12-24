@@ -200,7 +200,7 @@ export default async function WorkPage({ params }: PageProps) {
                 <Link
                   key={contributor.person_id}
                   href={`/person/${contributor.slug}`}
-                  className="card card-side bg-base-100 shadow-sm hover:shadow-md transition-shadow"
+                  className="card card-side  shadow-sm hover:shadow-md transition-shadow"
                 >
                   <figure className="w-24 h-24 shrink-0">
                     <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center">
@@ -264,7 +264,7 @@ export default async function WorkPage({ params }: PageProps) {
               {assets.map((asset, index) => (
                 <div
                   key={asset.asset_id}
-                  className="card bg-base-100 shadow-md hover:shadow-lg transition-shadow"
+                  className="card  shadow-md hover:shadow-lg transition-shadow"
                 >
                   <figure className="h-64">
                     {asset.type === "video" && asset.file_url ? (

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <div className="bg-base-200 pt-12 pb-16 mt-16">
+    <div className=" pt-12 pb-16 mt-16">
       <footer className="container mx-auto max-w-7xl footer footer-vertical sm:footer-horizontal px-4 text-base-content">
         <nav>
           <h2 className="footer-title">Tentang Kami</h2>

@@ -95,7 +95,7 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
               href={`/person/${person.slug}`}
               className="group block transition-transform hover:scale-105 hover:border-rose-100 border border-transparent shadow-sm rounded-lg overflow-hidden"
             >
-              <div className="card card-side bg-base-100 shadow-sm w-full">
+              <div className="card card-side  shadow-sm w-full">
                 <figure>
                   <img
                     src={person.image || "/placeholder-4x6.png"}

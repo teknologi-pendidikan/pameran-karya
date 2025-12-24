@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="bg-base-100 shadow-sm sticky top-0 z-50">
-      <div className="navbar bg-base-100 mx-auto px-4">
+    <div className=" shadow-sm sticky top-0 z-50">
+      <div className="navbar  mx-auto px-4">
         {/* Mobile menu button */}
         <div className="navbar-start">
           <div className="dropdown lg:hidden">
@@ -28,7 +28,7 @@ export default function Navbar() {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52"
             >
               {navItems.map((item) => (
                 <li key={item.href}>

@@ -207,7 +207,7 @@ export default async function PersonPage({ params }: PageProps) {
                 <Link
                   href={`/work/${work.slug}`}
                   key={work.work_id}
-                  className="card bg-base-100 w-1/2 shadow-md hover:shadow-lg transition-shadow block hover:border-rose-100 border border-transparent"
+                  className="card  w-1/2 shadow-md hover:shadow-lg transition-shadow block hover:border-rose-100 border border-transparent"
                 >
                   <div className="card-body">
                     {/* Work Header */}
@@ -236,10 +236,7 @@ export default async function PersonPage({ params }: PageProps) {
                     {work.assets && work.assets.length > 0 && (
                       <div className="grid grid-cols-1 gap-4">
                         {work.assets.map((asset: Asset, assetIndex: number) => (
-                          <div
-                            key={asset.asset_id}
-                            className="card bg-base-100 shadow-sm"
-                          >
+                          <div key={asset.asset_id} className="card  shadow-sm">
                             <figure className="h-48">
                               {asset.type === "video" && asset.file_url ? (
                                 (() => {

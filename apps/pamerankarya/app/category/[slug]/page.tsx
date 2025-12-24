@@ -224,7 +224,7 @@ export default async function CategoryPage({ params }: PageProps) {
             <Link
               key={work.work_id}
               href={`/work/${work.slug}`}
-              className="card bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-300 group"
+              className="card  shadow-md hover:shadow-xl transition-shadow duration-300 group"
             >
               {/* Featured Asset Thumbnail */}
               <figure className="h-48">

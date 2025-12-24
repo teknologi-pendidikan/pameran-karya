@@ -3,8 +3,6 @@ import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { type User } from "@supabase/supabase-js";
 
-// ...
-
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
@@ -19,7 +17,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 
       const { data, error, status } = await supabase
         .from("profiles")
-        .select(`full_name, username, website, avatar_url`)
+        .select(`full_name, id, email, access_level`)
         .eq("id", user?.id)
         .single();
 
@@ -30,9 +28,9 @@ export default function AccountForm({ user }: { user: User | null }) {
 
       if (data) {
         setFullname(data.full_name);
-        setUsername(data.username);
-        setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
+        setIdentity(data.id);
+        setAccessLevel(data.access_level);
+        setEmail(data.email);
       }
     } catch (error) {
       alert("Error loading user data!");

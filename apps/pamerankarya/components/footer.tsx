@@ -14,22 +14,25 @@ export default function Footer() {
             href="/blog/dibalik-layar-tim-pengelola-pameran-karya-tep"
             className="link link-hover"
           >
-            Pengelola
+            Informasi Tim Pengelola
           </Link>
-          <Link href="/blog/sponsor" className="link link-hover">
-            Sponsor
+          <Link
+            href="/blog/informasi-sponsor-pameran-karya-tep"
+            className="link link-hover"
+          >
+            Informasi Sponsor
           </Link>
         </nav>
         <nav>
-          <h2 className="footer-title">Jelajah karya</h2>
-          <Link href="/eksibitor" className="link link-hover">
-            Eksibitor
+          <h2 className="footer-title">Kumpulan Karya</h2>
+          <Link href="/explore" className="link link-hover">
+            Jelajahi karya
           </Link>
           <Link href="/work" className="link link-hover">
             Lihat semua karya
           </Link>
-          <Link href="/category" className="link link-hover">
-            Kategori
+          <Link href="/person" className="link link-hover">
+            Para Eksibitor
           </Link>
         </nav>
         <nav>
@@ -40,7 +43,10 @@ export default function Footer() {
           >
             Pedoman Unggah
           </Link>
-          <Link href="/informasi-kurasi" className="link link-hover">
+          <Link
+            href="/blog/informasi-kurasi-karya-digital"
+            className="link link-hover"
+          >
             Kebijakan kurasi
           </Link>
           <Link

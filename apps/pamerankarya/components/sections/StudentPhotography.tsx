@@ -29,7 +29,7 @@ const defaultPhotos: PhotoItem[] = [
     image: "/placeholder-foto-umdrone-lego-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
-    studentAvatar: "/placeholder-16x9.jpg",
+    studentAvatar: "/placeholder-16x9.webp",
   },
   {
     id: "2",
@@ -39,7 +39,7 @@ const defaultPhotos: PhotoItem[] = [
     image: "/placeholder-foto-labtepum-lego-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
-    studentAvatar: "/placeholder-16x9.jpg",
+    studentAvatar: "/placeholder-16x9.webp",
   },
   {
     id: "3",
@@ -49,7 +49,7 @@ const defaultPhotos: PhotoItem[] = [
     image: "/placeholder-foto-a20-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
-    studentAvatar: "/placeholder-16x9.jpg",
+    studentAvatar: "/placeholder-16x9.webp",
   },
   {
     id: "4",
@@ -59,7 +59,7 @@ const defaultPhotos: PhotoItem[] = [
     image: "/placeholder-foto-praktikum-lego-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
-    studentAvatar: "/placeholder-16x9.jpg",
+    studentAvatar: "/placeholder-16x9.webp",
   },
   {
     id: "5",
@@ -69,7 +69,7 @@ const defaultPhotos: PhotoItem[] = [
     image: "/placeholder-foto-a20-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
-    studentAvatar: "/placeholder-16x9.jpg",
+    studentAvatar: "/placeholder-16x9.webp",
   },
   {
     id: "6",
@@ -79,7 +79,7 @@ const defaultPhotos: PhotoItem[] = [
     image: "/placeholder-foto-praktikum-lego-16x9.webp",
     studentName: "Rengga Prakoso Nugroho",
     university: "Universitas Negeri Malang",
-    studentAvatar: "/placeholder-16x9.jpg",
+    studentAvatar: "/placeholder-16x9.webp",
   },
 ];
 

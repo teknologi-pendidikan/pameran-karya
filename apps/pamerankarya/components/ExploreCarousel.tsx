@@ -71,7 +71,7 @@ export default function ExploreCarousel({ items }: ExploreCarouselProps) {
               className="group relative block flex-none w-full sm:w-[calc(100%/2-8px)] lg:w-[calc(100%/3-16px)] aspect-video rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               <img
-                src="/placeholder-16x9.jpg"
+                src="/placeholder-16x9.webp"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 alt={item.title}
               />

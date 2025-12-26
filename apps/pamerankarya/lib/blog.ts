@@ -51,7 +51,7 @@ function loadBlogPosts(): BlogPost[] {
 
           // Create slug from title instead of filename
           const slug = createSlugFromTitle(
-            data.title || fileName.replace(/\.mdx$/, ""),
+            data.title || fileName.replace(/\.mdx$/, "")
           );
 
           return {
@@ -61,7 +61,7 @@ function loadBlogPosts(): BlogPost[] {
             date: data.date || new Date().toISOString(),
             author: data.author || "Unknown",
             tags: data.tags || [],
-            image: data.image || "/placeholder-16x9.jpg",
+            image: data.image || "/placeholder-16x9.webp",
             content,
           } as BlogPost;
         } catch (error) {

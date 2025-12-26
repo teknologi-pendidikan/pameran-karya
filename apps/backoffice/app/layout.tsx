@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { createClient } from "@/lib/supabase/server";
+import { Navigation } from "@/components/navigation";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,12 +25,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <html lang="en" data-theme="light">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background`}
       >
+        <Navigation user={user} />
         <main className="container mx-auto px-4 py-8">{children}</main>
+        <Toaster />
       </body>
     </html>
   );

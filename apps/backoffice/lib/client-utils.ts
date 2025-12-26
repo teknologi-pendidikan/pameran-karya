@@ -5,7 +5,7 @@ export interface Work {
   work_id: string;
   title: string;
   abstract: string | null;
-  status: "draft" | "final" | "archived";
+  status: "draft" | "ready" | "final" | "archived";
   created_at: string;
   slug: string;
 }
@@ -24,6 +24,7 @@ export interface Person {
   slug: string;
   bio: string | null;
   tag: string | null;
+  profile_id: string | null;
 }
 
 export interface Asset {
@@ -42,4 +43,21 @@ export function generateSlug(title: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+}
+
+// Get allowed status options based on user role
+export function getAllowedStatusOptions(
+  accessLevel: string
+): Array<{ value: string; label: string }> {
+  const baseStatuses = [
+    { value: "draft", label: "Draft" },
+    { value: "ready", label: "Ready for Review" },
+  ];
+
+  // Only curators and operations can set status to final
+  if (["curator", "operations"].includes(accessLevel)) {
+    baseStatuses.push({ value: "final", label: "Final" });
+  }
+
+  return baseStatuses;
 }

@@ -7,7 +7,7 @@ import { generateSlug } from "@/lib/database";
 export interface CreateWorkData {
   title: string;
   abstract: string;
-  status: "draft" | "final";
+  status: "draft" | "ready" | "final" | "ready for review";
   categories: string[];
   authorName: string;
   authorAffiliation?: string;
@@ -16,7 +16,16 @@ export interface CreateWorkData {
   assetType: "image" | "video" | "audio" | "document" | "link";
 }
 
-export async function createWorkAction(data: CreateWorkData) {
+export interface CreateWorkResult {
+  success: boolean;
+  workId?: string;
+  redirectTo?: string;
+  error?: string;
+}
+
+export async function createWorkAction(
+  data: CreateWorkData
+): Promise<CreateWorkResult> {
   const supabase = await createClient();
 
   // Get current user
@@ -74,14 +83,15 @@ export async function createWorkAction(data: CreateWorkData) {
       console.log("Categories added successfully");
     }
 
-    // Step 2: Create or find person record for current user
+    // Step 2: Create or find person record for current user linked to their profile
     const authorSlug = generateSlug(data.authorName);
     let person;
 
-    // Try to find existing person by name and affiliation
+    // Try to find existing person linked to this user's profile
     const { data: existingPerson } = await supabase
       .from("person")
       .select("*")
+      .eq("profile_id", user.id)
       .eq("name", data.authorName)
       .eq("affiliation", data.authorAffiliation || "")
       .single();
@@ -90,7 +100,7 @@ export async function createWorkAction(data: CreateWorkData) {
       person = existingPerson;
       console.log("Found existing person:", person.person_id);
     } else {
-      // Create new person record
+      // Create new person record linked to the user's profile
       const { data: newPerson, error: personError } = await supabase
         .from("person")
         .insert([
@@ -99,6 +109,7 @@ export async function createWorkAction(data: CreateWorkData) {
             affiliation: data.authorAffiliation || null,
             slug: authorSlug,
             tag: "author",
+            profile_id: user.id, // Link to user's profile
           },
         ])
         .select()
@@ -168,17 +179,20 @@ export async function createWorkAction(data: CreateWorkData) {
     // More detailed error information
     if (error && typeof error === "object" && "code" in error) {
       const dbError = error as { code: unknown; message?: string };
-      throw new Error(
-        `Database error (${dbError.code}): ${
+      return {
+        success: false,
+        error: `Database error (${dbError.code}): ${
           dbError.message || "Unknown error"
-        }`
-      );
+        }`,
+      };
     }
 
-    throw new Error(
-      "Failed to create work: " +
-        (error instanceof Error ? error.message : String(error))
-    );
+    return {
+      success: false,
+      error:
+        "Failed to create work: " +
+        (error instanceof Error ? error.message : String(error)),
+    };
   }
 }
 
@@ -214,9 +228,10 @@ export async function updateWorkAction(
   updates: {
     title?: string;
     abstract?: string;
-    status?: "draft" | "final" | "archived";
+    status?: "draft" | "ready" | "final" | "archived";
+    categories?: string[];
   }
-) {
+): Promise<CreateWorkResult> {
   const supabase = await createClient();
 
   const {
@@ -225,27 +240,71 @@ export async function updateWorkAction(
   } = await supabase.auth.getUser();
 
   if (userError || !user) {
-    throw new Error("You must be logged in");
+    return {
+      success: false,
+      error: "You must be logged in",
+    };
   }
 
   try {
+    // Prepare work updates
+    const workUpdates: any = { ...updates };
+    delete workUpdates.categories; // Remove categories from work updates
+
     // Update slug if title changed
     if (updates.title) {
-      updates = { ...updates, slug: generateSlug(updates.title) } as typeof updates & { slug: string };
+      workUpdates.slug = generateSlug(updates.title);
     }
 
-    const { data, error } = await supabase
+    // Update the work
+    const { data: work, error: workError } = await supabase
       .from("work")
-      .update(updates)
+      .update(workUpdates)
       .eq("work_id", workId)
       .select()
       .single();
 
-    if (error) throw error;
+    if (workError) throw workError;
 
-    return { success: true, work: data };
+    // Update categories if provided
+    if (updates.categories) {
+      // First, remove existing categories
+      await supabase.from("work_category").delete().eq("work_id", workId);
+
+      // Then add new categories
+      if (updates.categories.length > 0) {
+        const workCategories = updates.categories.map((categoryId) => ({
+          work_id: workId,
+          category_id: categoryId,
+        }));
+
+        const { error: categoryError } = await supabase
+          .from("work_category")
+          .insert(workCategories);
+
+        if (categoryError) throw categoryError;
+      }
+    }
+
+    return { success: true, workId };
   } catch (error) {
     console.error("Error updating work:", error);
-    throw new Error("Failed to update work");
+
+    if (error && typeof error === "object" && "code" in error) {
+      const dbError = error as { code: unknown; message?: string };
+      return {
+        success: false,
+        error: `Database error (${dbError.code}): ${
+          dbError.message || "Unknown error"
+        }`,
+      };
+    }
+
+    return {
+      success: false,
+      error:
+        "Failed to update work: " +
+        (error instanceof Error ? error.message : String(error)),
+    };
   }
 }

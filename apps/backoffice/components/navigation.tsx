@@ -12,13 +12,21 @@ import {
   PlusIcon,
   FolderIcon,
   UserIcon,
+  CrownIcon,
+  ShieldIcon,
 } from "lucide-react";
 
 interface NavigationProps {
   user: User | null;
+  userProfile?: {
+    id: string;
+    full_name: string;
+    email: string;
+    access_level: string;
+  } | null;
 }
 
-export function Navigation({ user }: NavigationProps) {
+export function Navigation({ user, userProfile }: NavigationProps) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
@@ -27,6 +35,28 @@ export function Navigation({ user }: NavigationProps) {
     await supabase.auth.signOut();
     router.push("/auth");
     router.refresh();
+  };
+
+  const getAccessLevelIcon = (level: string) => {
+    switch (level) {
+      case "operations":
+        return <CrownIcon className="h-4 w-4" />;
+      case "curator":
+        return <ShieldIcon className="h-4 w-4" />;
+      default:
+        return <UserIcon className="h-4 w-4" />;
+    }
+  };
+
+  const getAccessLevelColor = (level: string) => {
+    switch (level) {
+      case "operations":
+        return "text-yellow-600";
+      case "curator":
+        return "text-blue-600";
+      default:
+        return "text-muted-foreground";
+    }
   };
 
   if (!user) return null;
@@ -80,10 +110,33 @@ export function Navigation({ user }: NavigationProps) {
           </div>
 
           <div className="flex items-center space-x-4">
-            <div className="hidden md:flex items-center space-x-2 text-sm text-muted-foreground">
-              <UserIcon className="h-4 w-4" />
-              <span>{user.email}</span>
+            <div className="hidden md:flex items-center space-x-3">
+              {/* User Info */}
+              <div className="flex items-center space-x-2">
+                <div className="text-right">
+                  <div className="text-sm font-medium">
+                    {userProfile?.full_name || user.email}
+                  </div>
+                  <div
+                    className={`text-xs capitalize flex items-center space-x-1 ${getAccessLevelColor(
+                      userProfile?.access_level || "participant"
+                    )}`}
+                  >
+                    {getAccessLevelIcon(
+                      userProfile?.access_level || "participant"
+                    )}
+                    <span>{userProfile?.access_level || "participant"}</span>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <Link href="/dashboard/account">
+              <Button variant="ghost" size="sm">
+                <UserIcon className="h-4 w-4 mr-2" />
+                Account
+              </Button>
+            </Link>
 
             <Button variant="outline" size="sm" onClick={handleSignOut}>
               <LogOutIcon className="h-4 w-4 mr-2" />

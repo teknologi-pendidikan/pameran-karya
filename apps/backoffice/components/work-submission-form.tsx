@@ -32,7 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { type Category } from "@/lib/client-utils";
+import { type Category, getAllowedStatusOptions } from "@/lib/client-utils";
 import { createWorkAction, type CreateWorkData } from "@/lib/actions";
 import { toast } from "sonner";
 
@@ -45,7 +45,7 @@ const workSchema = z.object({
     .string()
     .min(10, "Abstract must be at least 10 characters")
     .max(2000, "Abstract must be less than 2000 characters"),
-  status: z.enum(["draft", "final"]),
+  status: z.enum(["draft", "ready", "final"]),
   categories: z.array(z.string()).min(1, "Please select at least one category"),
   authorName: z.string().min(1, "Author name is required"),
   authorAffiliation: z.string().optional(),
@@ -73,6 +73,11 @@ export function WorkSubmissionForm({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  // Get allowed status options based on user role
+  const allowedStatuses = getAllowedStatusOptions(
+    userProfile?.access_level || "participant"
+  );
 
   const form = useForm<WorkFormData>({
     resolver: zodResolver(workSchema),
@@ -105,7 +110,10 @@ export function WorkSubmissionForm({
         if (result.success) {
           toast.success("Work submitted successfully!");
           router.push(`/dashboard/works/${result.workId}/edit`);
-          router.refresh();
+        } else {
+          toast.error(
+            result.error || "Failed to submit work. Please try again."
+          );
         }
       } catch (error) {
         console.error("Error submitting work:", error);
@@ -193,12 +201,17 @@ export function WorkSubmissionForm({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="draft">Draft</SelectItem>
-                      <SelectItem value="final">Final</SelectItem>
+                      {allowedStatuses.map((status) => (
+                        <SelectItem key={status.value} value={status.value}>
+                          {status.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormDescription>
-                    Choose whether this is a draft or final version
+                    {userProfile?.access_level === "participant"
+                      ? "Participants can set status as Draft or Ready for Review. Only curators can mark as Final."
+                      : "Choose the appropriate status for your work submission."}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

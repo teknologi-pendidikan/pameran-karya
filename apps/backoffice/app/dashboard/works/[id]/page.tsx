@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
-import { getWorkById } from "@/lib/database";
+import { getWorkById, canUserAccessWork } from "@/lib/database";
+import { ensureUserProfile } from "@/lib/user-profile";
 import {
   Card,
   CardContent,
@@ -12,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import Link from "next/link";
-import { ArrowLeftIcon, EditIcon, TrashIcon } from "lucide-react";
+import { ArrowLeftIcon, EditIcon } from "lucide-react";
 
 interface WorkDetailPageProps {
   params: Promise<{ id: string }>;
@@ -30,10 +31,19 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
     return redirect("/auth");
   }
 
+  // Get user profile
+  const profile = await ensureUserProfile();
+
   try {
     const work = await getWorkById(id);
 
     if (!work) {
+      return notFound();
+    }
+
+    // Check if user can access this work
+    const canAccess = await canUserAccessWork(id, profile);
+    if (!canAccess) {
       return notFound();
     }
 
@@ -81,14 +91,12 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
           </div>
 
           <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm">
-              <EditIcon className="h-4 w-4 mr-2" />
-              Edit
-            </Button>
-            <Button variant="outline" size="sm">
-              <TrashIcon className="h-4 w-4 mr-2" />
-              Delete
-            </Button>
+            <Link href={`/dashboard/works/${work.work_id}/edit`}>
+              <Button variant="outline" size="sm">
+                <EditIcon className="h-4 w-4 mr-2" />
+                Edit
+              </Button>
+            </Link>
           </div>
         </div>
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { createClient } from "@/lib/supabase/server";
 import { Navigation } from "@/components/navigation";
+import { ensureUserProfile } from "@/lib/user-profile";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -30,12 +31,22 @@ export default async function RootLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Get user profile if user is authenticated
+  let userProfile = null;
+  if (user) {
+    try {
+      userProfile = await ensureUserProfile();
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  }
+
   return (
     <html lang="en" data-theme="light">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background`}
       >
-        <Navigation user={user} />
+        <Navigation user={user} userProfile={userProfile} />
         <main className="container mx-auto px-4 py-8">{children}</main>
         <Toaster />
       </body>

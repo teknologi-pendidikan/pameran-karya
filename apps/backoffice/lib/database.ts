@@ -11,16 +11,42 @@ import {
 export type { Work, Category, Person, Asset };
 export { generateSlug };
 
-// Get all works
-export async function getWorks() {
+// Get all works (for curators/operations) or user's works (for participants)
+export async function getWorks(
+  userProfile?: { id: string; access_level: string } | null
+) {
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("work")
-    .select("*")
-    .order("created_at", { ascending: false });
 
-  if (error) throw error;
-  return data as Work[];
+  // If user is curator or operations, show all works
+  if (
+    userProfile &&
+    ["curator", "operations"].includes(userProfile.access_level)
+  ) {
+    const { data, error } = await supabase
+      .from("work")
+      .select(
+        `
+        *,
+        work_person(
+          person(*),
+          contribution_role,
+          ordering
+        )
+      `
+      )
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data as Work[];
+  }
+
+  // For participants, only show their own works
+  if (userProfile?.id) {
+    return getCurrentUserWorks(userProfile.id);
+  }
+
+  // Fallback: return empty array if no user profile
+  return [];
 }
 
 // Get work by ID with related data
@@ -49,18 +75,24 @@ export async function getWorkById(workId: string) {
   return data;
 }
 
-// Get current user's works
+// Get current user's works using the profile_id link
 export async function getCurrentUserWorks(userId: string) {
   const supabase = await createClient();
+
+  // Get works where the user has person records linked to their profile
   const { data, error } = await supabase
     .from("work")
     .select(
       `
       *,
-      work_person!inner(person_id)
+      work_person!inner(
+        person!inner(profile_id),
+        contribution_role,
+        ordering
+      )
     `
     )
-    .eq("work_person.person_id", userId)
+    .eq("work_person.person.profile_id", userId)
     .order("created_at", { ascending: false });
 
   if (error) throw error;
@@ -117,6 +149,46 @@ export async function getCategories() {
 
   if (error) throw error;
   return data as Category[];
+}
+
+// Check if user can access a specific work using profile_id link
+export async function canUserAccessWork(
+  workId: string,
+  userProfile: {
+    id: string;
+    access_level: string;
+    full_name: string;
+    email: string;
+  }
+) {
+  const supabase = await createClient();
+
+  // Curators and operations can access all works
+  if (["curator", "operations"].includes(userProfile.access_level)) {
+    return true;
+  }
+
+  // For participants, check if they have any person records linked to this work
+  // First, get the person IDs linked to this user profile
+  const { data: personData } = await supabase
+    .from("person")
+    .select("person_id")
+    .eq("profile_id", userProfile.id);
+
+  if (!personData || personData.length === 0) {
+    return false; // No person records linked to this user
+  }
+
+  const personIds = personData.map((p) => p.person_id);
+
+  // Then check if any of these persons are linked to the work
+  const { data } = await supabase
+    .from("work_person")
+    .select("work_id")
+    .eq("work_id", workId)
+    .in("person_id", personIds);
+
+  return data && data.length > 0;
 }
 
 // Create category

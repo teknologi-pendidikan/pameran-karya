@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { getCategories } from "@/lib/database";
+import { Category, getCategories } from "@/lib/database";
 import { WorkSubmissionForm } from "@/components/work-submission-form";
 import { ensureUserProfile } from "@/lib/user-profile";
 
@@ -15,26 +15,20 @@ export default async function NewWorkPage() {
     return redirect("/auth");
   }
 
+  let categories: Category[] = [];
+  let userProfile;
+  let hasError = false;
+
   try {
-    const categories = await getCategories();
-
-    // Ensure user has a profile
-    const userProfile = await ensureUserProfile();
-
-    return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold">Submit New Work</h1>
-          <p className="text-muted-foreground">
-            Create a new academic work submission
-          </p>
-        </div>
-
-        <WorkSubmissionForm categories={categories} userProfile={userProfile} />
-      </div>
-    );
+    const fetchedCategories = await getCategories();
+    categories = fetchedCategories || [];
+    userProfile = await ensureUserProfile();
   } catch (error) {
     console.error("Database error:", error);
+    hasError = true;
+  }
+
+  if (hasError) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
@@ -47,4 +41,17 @@ export default async function NewWorkPage() {
       </div>
     );
   }
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold">Submit New Work</h1>
+        <p className="text-muted-foreground">
+          Create a new academic work submission
+        </p>
+      </div>
+
+      <WorkSubmissionForm categories={categories} userProfile={userProfile} />
+    </div>
+  );
 }

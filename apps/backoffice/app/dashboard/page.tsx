@@ -37,7 +37,7 @@ export default async function DashboardPage() {
 
   try {
     const [works, categories] = await Promise.all([
-      getWorks(),
+      getWorks(profile),
       getCategories(),
     ]);
 

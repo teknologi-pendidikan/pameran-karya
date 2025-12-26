@@ -27,7 +27,7 @@ export function LoginForm({
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: "github",
+        provider: "google",
         options: {
           redirectTo: `${window.location.origin}/auth/oauth?next=/dashboard`,
         },
@@ -52,7 +52,7 @@ export function LoginForm({
             <div className="flex flex-col gap-6">
               {error && <p className="text-sm text-destructive-500">{error}</p>}
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Logging in..." : "Continue with GitHub"}
+                {isLoading ? "Logging in..." : "Continue with Google"}
               </Button>
             </div>
           </form>

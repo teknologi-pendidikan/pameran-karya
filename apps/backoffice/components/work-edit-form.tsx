@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
+import { format } from "date-fns";
 import { type Category, getAllowedStatusOptions } from "@/lib/client-utils";
 import { updateWorkAction } from "@/lib/actions";
 import { toast } from "sonner";
@@ -83,6 +84,9 @@ interface Work {
   title: string;
   abstract: string;
   status: string;
+  slug: string;
+  created_at: string;
+  updated_at?: string;
   work_category: Array<{
     category: {
       category_id: string;
@@ -186,53 +190,121 @@ export function WorkEditForm({
   };
 
   return (
-    <>
-      <Card className="w-full max-w-4xl mx-auto">
-        <CardHeader>
-          <CardTitle>Edit Work</CardTitle>
-          <CardDescription>
-            Update your work information and settings
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your work title" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Main Content - Left Column */}
+      <div className="lg:col-span-2 space-y-6">
+        {/* Basic Information */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Work Information</CardTitle>
+            <CardDescription>
+              Update the basic details of your work
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter your work title" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="abstract"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Abstract</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Provide a detailed abstract of your work..."
-                        className="min-h-[120px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      A comprehensive summary of your work&apos;s objectives,
-                      methods, and key findings.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="abstract"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Abstract</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Provide a detailed abstract of your work..."
+                          className="min-h-[120px]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        A comprehensive summary of your work&apos;s objectives,
+                        methods, and key findings.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
+                <div className="flex justify-end space-x-4 pt-4 border-t">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => router.back()}
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit" disabled={isPending}>
+                    {isPending ? "Saving..." : "Save Changes"}
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+
+        {/* Assets */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Assets</CardTitle>
+            <CardDescription>
+              Manage files and media for this work
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AssetManager
+              workId={work.work_id}
+              assets={assets}
+              onAssetsChange={setAssets}
+            />
+          </CardContent>
+        </Card>
+
+        {/* Contributors */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Contributors</CardTitle>
+            <CardDescription>
+              Add collaborators and link existing profiles
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ContributorManager
+              workId={work.work_id}
+              contributors={contributors}
+              onContributorsChange={setContributors}
+            />
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Sidebar - Right Column */}
+      <div className="lg:col-span-1 space-y-6">
+        {/* Status & Categories */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Publication Settings</CardTitle>
+            <CardDescription>Status and categorization options</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <Form {...form}>
               <FormField
                 control={form.control}
                 name="status"
@@ -326,57 +398,53 @@ export function WorkEditForm({
                   </FormItem>
                 )}
               />
+            </Form>
+          </CardContent>
+        </Card>
 
-              <div className="flex justify-end space-x-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => router.back()}
-                >
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={isPending}>
-                  {isPending ? "Saving..." : "Save Changes"}
-                </Button>
+        {/* Work Details Info */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Work Details</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm">
+            <div>
+              <div className="font-semibold text-muted-foreground mb-1">
+                Work ID
               </div>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-
-      {/* Asset Management */}
-      <Card className="w-full max-w-4xl mx-auto mt-6">
-        <CardHeader>
-          <CardTitle>Assets</CardTitle>
-          <CardDescription>
-            Manage files and media for this work
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <AssetManager
-            workId={work.work_id}
-            assets={assets}
-            onAssetsChange={setAssets}
-          />
-        </CardContent>
-      </Card>
-
-      {/* Contributor Management */}
-      <Card className="w-full max-w-4xl mx-auto mt-6">
-        <CardHeader>
-          <CardTitle>Contributors</CardTitle>
-          <CardDescription>
-            Add collaborators and link existing profiles
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ContributorManager
-            workId={work.work_id}
-            contributors={contributors}
-            onContributorsChange={setContributors}
-          />
-        </CardContent>
-      </Card>
-    </>
+              <code className="text-xs bg-muted px-2 py-1 rounded break-all">
+                {work.work_id}
+              </code>
+            </div>
+            <div>
+              <div className="font-semibold text-muted-foreground mb-1">
+                Slug
+              </div>
+              <code className="text-xs bg-muted px-2 py-1 rounded">
+                {work.slug}
+              </code>
+            </div>
+            <div>
+              <div className="font-semibold text-muted-foreground mb-1">
+                Created
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {format(new Date(work.created_at), "MMM d, yyyy 'at' h:mm a")}
+              </div>
+            </div>
+            {work.updated_at && work.updated_at !== work.created_at && (
+              <div>
+                <div className="font-semibold text-muted-foreground mb-1">
+                  Last Updated
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {format(new Date(work.updated_at), "MMM d, yyyy 'at' h:mm a")}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

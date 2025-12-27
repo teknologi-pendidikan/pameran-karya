@@ -8,6 +8,14 @@ export interface Work {
   status: "draft" | "ready" | "final" | "archived";
   created_at: string;
   slug: string;
+  work_person?: {
+    person: {
+      name: string;
+      affiliation: string | null;
+    };
+    contribution_role: string;
+    ordering: number;
+  }[];
 }
 
 export interface Category {
@@ -43,6 +51,28 @@ export function generateSlug(title: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+}
+
+// Get first author from work_person relationship
+export function getFirstAuthor(
+  work: Work
+): { name: string; affiliation: string | null } | null {
+  if (!work.work_person || work.work_person.length === 0) {
+    return null;
+  }
+
+  // Find the first author (ordering = 1) or the one with "First Author" role
+  const firstAuthor = work.work_person.find(
+    (wp) => wp.ordering === 1 || wp.contribution_role === "First Author"
+  );
+
+  // If no specific first author found, return the first person in the list
+  const authorToReturn = firstAuthor || work.work_person[0];
+
+  return {
+    name: authorToReturn.person.name,
+    affiliation: authorToReturn.person.affiliation,
+  };
 }
 
 // Get allowed status options based on user role

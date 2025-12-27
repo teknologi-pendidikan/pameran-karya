@@ -1,7 +1,8 @@
 @import "tailwindcss";
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* IBM Carbon Design - Zero Radius System */
+  --radius: 0px;
   --radius-sm: 0px;
   --radius-md: 0px;
   --radius-lg: 0px;
@@ -9,119 +10,249 @@
   --radius-2xl: 0px;
   --radius-3xl: 0px;
   --radius-4xl: 0px;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Monospace font families */
-  --font-mono: ui-monospace, "SF Mono", "Monaco", "Inconsolata", "Roboto Mono",
-    "Source Code Pro", "Courier New", monospace;
-  --font-sans: var(--font-mono);
+  /* IBM Carbon Color Tokens */
+  --color-background: oklch(100% 0 0); /* White */
+  --color-foreground: oklch(12.5% 0 0); /* Gray 100 */
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(12.5% 0 0);
+  --color-popover: oklch(100% 0 0);
+  --color-popover-foreground: oklch(12.5% 0 0);
+  --color-primary: oklch(51% 0.21 264); /* IBM Blue 60 */
+  --color-primary-foreground: oklch(100% 0 0);
+  --color-secondary: oklch(96% 0 0); /* Gray 10 */
+  --color-secondary-foreground: oklch(12.5% 0 0);
+  --color-muted: oklch(96% 0 0);
+  --color-muted-foreground: oklch(43% 0 0); /* Gray 70 */
+  --color-accent: oklch(88% 0 0); /* Gray 20 */
+  --color-accent-foreground: oklch(12.5% 0 0);
+  --color-destructive: oklch(55% 0.23 27); /* Red 60 */
+  --color-destructive-foreground: oklch(100% 0 0);
+  --color-border: oklch(88% 0 0);
+  --color-input: oklch(96% 0 0);
+  --color-ring: oklch(51% 0.21 264);
+
+  /* IBM Typography System */
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", "Monaco", "Inconsolata",
+    "Roboto Mono", monospace;
+
+  /* IBM Grid & Layout System */
+  --container-max-width: 1584px;
+  --grid-gutter: 2rem; /* 32px */
+  --grid-mini-unit: 0.5rem; /* 8px - IBM's base unit */
+
+  /* IBM Shadow System - Remove all shadows */
+  --shadow: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+  --shadow-2xl: none;
 }
 
-:root {
-  --radius: 0rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+/* Dark mode color overrides */
+@media (prefers-color-scheme: dark) {
+  @theme inline {
+    --color-background: oklch(12.5% 0 0); /* Gray 100 */
+    --color-foreground: oklch(96% 0 0); /* Gray 10 */
+    --color-card: oklch(20% 0 0); /* Gray 90 */
+    --color-card-foreground: oklch(96% 0 0);
+    --color-popover: oklch(20% 0 0);
+    --color-popover-foreground: oklch(96% 0 0);
+    --color-primary: oklch(64% 0.19 264); /* IBM Blue 50 */
+    --color-primary-foreground: oklch(100% 0 0);
+    --color-secondary: oklch(30% 0 0); /* Gray 80 */
+    --color-secondary-foreground: oklch(96% 0 0);
+    --color-muted: oklch(30% 0 0);
+    --color-muted-foreground: oklch(78% 0 0); /* Gray 30 */
+    --color-accent: oklch(40% 0 0); /* Gray 70 */
+    --color-accent-foreground: oklch(96% 0 0);
+    --color-destructive: oklch(70% 0.18 27); /* Red 50 */
+    --color-border: oklch(40% 0 0);
+    --color-input: oklch(30% 0 0);
+    --color-ring: oklch(64% 0.19 264);
+  }
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+    box-shadow: none !important; /* Remove all shadows globally */
   }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+  }
+
   body {
     @apply bg-background text-foreground;
+    line-height: 1.5;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* IBM Typography Hierarchy */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: 0;
+  }
+
+  h1 {
+    font-size: 3rem;
+    line-height: 1.125;
+  } /* 48px */
+  h2 {
+    font-size: 2.25rem;
+    line-height: 1.22;
+  } /* 36px */
+  h3 {
+    font-size: 1.75rem;
+    line-height: 1.29;
+  } /* 28px */
+  h4 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+  } /* 20px */
+  h5 {
+    font-size: 1.125rem;
+    line-height: 1.33;
+  } /* 18px */
+  h6 {
+    font-size: 1rem;
+    line-height: 1.5;
+  } /* 16px */
+
+  code,
+  pre,
+  kbd {
     font-family: var(--font-mono);
+  }
+
+  /* Force all elements to use sharp corners */
+  button,
+  input,
+  select,
+  textarea,
+  .card,
+  .btn,
+  [class*="rounded"] {
+    border-radius: 0 !important;
+  }
+}
+
+@layer components {
+  /* IBM Grid System */
+  .grid-container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--grid-gutter);
+  }
+
+  .grid-2x {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-gutter);
+  }
+
+  .grid-4x {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--grid-gutter);
+  }
+
+  .grid-12x {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--grid-gutter);
+  }
+
+  /* IBM Spacing Scale */
+  .space-mini {
+    padding: var(--grid-mini-unit);
+  } /* 8px */
+  .space-xs {
+    padding: calc(var(--grid-mini-unit) * 2);
+  } /* 16px */
+  .space-sm {
+    padding: calc(var(--grid-mini-unit) * 3);
+  } /* 24px */
+  .space-md {
+    padding: calc(var(--grid-mini-unit) * 4);
+  } /* 32px */
+  .space-lg {
+    padding: calc(var(--grid-mini-unit) * 6);
+  } /* 48px */
+  .space-xl {
+    padding: calc(var(--grid-mini-unit) * 8);
+  } /* 64px */
+  .space-2xl {
+    padding: calc(var(--grid-mini-unit) * 12);
+  } /* 96px */
+
+  /* IBM Motion System */
+  .motion-productive {
+    transition: all 110ms cubic-bezier(0.2, 0, 0.38, 0.9);
+  }
+
+  .motion-expressive {
+    transition: all 240ms cubic-bezier(0.4, 0.14, 0.3, 1);
+  }
+
+  /* Override Tailwind/shadcn components for IBM style */
+  .btn,
+  button[class*="btn"] {
+    transition: all 110ms cubic-bezier(0.2, 0, 0.38, 0.9);
+    border-radius: 0 !important;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    letter-spacing: 0.16px;
+    box-shadow: none !important;
+    border-width: 1px;
+  }
+
+  .card,
+  [data-slot="card"] {
+    @apply border border-border bg-card text-card-foreground;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* IBM-style form inputs */
+  .input,
+  input,
+  textarea,
+  select {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transition: all 110ms cubic-bezier(0.2, 0, 0.38, 0.9);
+    background: transparent;
+    border-bottom-width: 1px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .input:focus,
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-bottom-width: 2px;
+    @apply border-primary;
+    outline: none;
   }
 }

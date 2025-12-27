@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { type Work, type Category } from "@/lib/client-utils";
+import { type Work, type Category, getFirstAuthor } from "@/lib/client-utils";
 import { format } from "date-fns";
 import Link from "next/link";
 import { ExternalLinkIcon, SearchIcon } from "lucide-react";
@@ -148,6 +148,21 @@ export function WorksList({ works, categories }: WorksListProps) {
                   >
                     {work.title}
                   </Link>
+                  {(() => {
+                    const firstAuthor = getFirstAuthor(work);
+                    return firstAuthor ? (
+                      <div className="text-sm text-muted-foreground mt-1">
+                        <span className="font-medium">Author:</span>{" "}
+                        {firstAuthor.name}
+                        {firstAuthor.affiliation && (
+                          <span className="text-xs">
+                            {" "}
+                            · {firstAuthor.affiliation}
+                          </span>
+                        )}
+                      </div>
+                    ) : null;
+                  })()}
                   <div className="flex items-center gap-2 mt-1">
                     <Badge
                       variant={getStatusBadgeVariant(work.status)}

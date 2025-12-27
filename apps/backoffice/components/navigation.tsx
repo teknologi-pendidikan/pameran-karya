@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
@@ -12,8 +13,6 @@ import {
   PlusIcon,
   FolderIcon,
   UserIcon,
-  CrownIcon,
-  ShieldIcon,
 } from "lucide-react";
 
 interface NavigationProps {
@@ -37,25 +36,26 @@ export function Navigation({ user, userProfile }: NavigationProps) {
     router.refresh();
   };
 
-  const getAccessLevelIcon = (level: string) => {
+  const getAccessLevelBadge = (level: string) => {
     switch (level) {
       case "operations":
-        return <CrownIcon className="h-4 w-4" />;
+        return (
+          <Badge className="bg-yellow-500 text-white text-xs px-2 py-0.5">
+            OPERATIONS
+          </Badge>
+        );
       case "curator":
-        return <ShieldIcon className="h-4 w-4" />;
+        return (
+          <Badge className="bg-blue-500 text-white text-xs px-2 py-0.5">
+            CURATOR
+          </Badge>
+        );
       default:
-        return <UserIcon className="h-4 w-4" />;
-    }
-  };
-
-  const getAccessLevelColor = (level: string) => {
-    switch (level) {
-      case "operations":
-        return "text-yellow-600";
-      case "curator":
-        return "text-blue-600";
-      default:
-        return "text-muted-foreground";
+        return (
+          <Badge variant="secondary" className="text-xs px-2 py-0.5">
+            PARTICIPANT
+          </Badge>
+        );
     }
   };
 
@@ -144,21 +144,14 @@ export function Navigation({ user, userProfile }: NavigationProps) {
           <div className="flex items-center space-x-4">
             <div className="hidden md:flex items-center space-x-3">
               {/* User Info */}
-              <div className="flex items-center space-x-2">
-                <div className="text-right">
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <div className="text-sm font-medium">
                     {userProfile?.full_name || user.email}
                   </div>
-                  <div
-                    className={`text-xs capitalize flex items-center space-x-1 ${getAccessLevelColor(
-                      userProfile?.access_level || "participant"
-                    )}`}
-                  >
-                    {getAccessLevelIcon(
-                      userProfile?.access_level || "participant"
-                    )}
-                    <span>{userProfile?.access_level || "participant"}</span>
-                  </div>
+                  {getAccessLevelBadge(
+                    userProfile?.access_level || "participant"
+                  )}
                 </div>
               </div>
             </div>

@@ -137,7 +137,7 @@ export function WorkSubmissionForm({
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full mx-auto">
       <CardHeader>
         <CardTitle>Submit New Work</CardTitle>
         <CardDescription>

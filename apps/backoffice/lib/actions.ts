@@ -87,20 +87,43 @@ export async function createWorkAction(
     const authorSlug = generateSlug(data.authorName);
     let person;
 
-    // Try to find existing person linked to this user's profile
-    const { data: existingPerson } = await supabase
+    // First, try to find existing person linked to this user's profile
+    const { data: userPerson } = await supabase
       .from("person")
       .select("*")
       .eq("profile_id", user.id)
-      .eq("name", data.authorName)
-      .eq("affiliation", data.authorAffiliation || "")
       .single();
 
-    if (existingPerson) {
-      person = existingPerson;
-      console.log("Found existing person:", person.person_id);
+    if (userPerson) {
+      // User already has a person record, update it if needed
+      if (
+        userPerson.name !== data.authorName ||
+        userPerson.affiliation !== (data.authorAffiliation || null)
+      ) {
+        const { data: updatedPerson, error: updateError } = await supabase
+          .from("person")
+          .update({
+            name: data.authorName,
+            affiliation: data.authorAffiliation || null,
+            slug: authorSlug,
+          })
+          .eq("person_id", userPerson.person_id)
+          .select()
+          .single();
+
+        if (updateError) {
+          console.error("Person update error:", updateError);
+          throw updateError;
+        }
+
+        person = updatedPerson;
+        console.log("Updated existing person:", person.person_id);
+      } else {
+        person = userPerson;
+        console.log("Using existing person:", person.person_id);
+      }
     } else {
-      // Create new person record linked to the user's profile
+      // Create new person record linked to the user's profile (fallback for existing users)
       const { data: newPerson, error: personError } = await supabase
         .from("person")
         .insert([

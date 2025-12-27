@@ -26,7 +26,10 @@ CREATE TABLE public.person (
   slug text NOT NULL UNIQUE,
   bio text,
   tag text,
-  CONSTRAINT person_pkey PRIMARY KEY (person_id)
+  email text,
+  profile_id uuid,
+  CONSTRAINT person_pkey PRIMARY KEY (person_id),
+  CONSTRAINT person_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES public.profiles(id)
 );
 CREATE TABLE public.profiles (
   id uuid NOT NULL,
@@ -66,7 +69,7 @@ CREATE TABLE public.work (
   work_id uuid NOT NULL DEFAULT gen_random_uuid(),
   title text NOT NULL,
   abstract text,
-  status text DEFAULT 'draft'::text CHECK (status = ANY (ARRAY['draft'::text, 'final'::text, 'archived'::text])),
+  status text DEFAULT 'draft'::text CHECK (status = ANY (ARRAY['Ready for Review'::text, 'ready for review'::text, 'draft'::text, 'final'::text, 'archived'::text])),
   created_at timestamp with time zone DEFAULT now(),
   slug text NOT NULL UNIQUE,
   CONSTRAINT work_pkey PRIMARY KEY (work_id)

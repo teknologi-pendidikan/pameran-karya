@@ -43,38 +43,59 @@ export default async function WorkEditPage({ params }: WorkEditPageProps) {
     }
 
     return (
-      <div className="space-y-6">
+      <div className="min-h-screen bg-base-100">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link href="/dashboard">
-              <Button variant="outline" size="sm">
-                <ArrowLeftIcon className="h-4 w-4 mr-2" />
-                Back to Dashboard
-              </Button>
-            </Link>
-            <div>
-              <h1 className="text-3xl font-bold">Edit Work</h1>
-              <p className="text-muted-foreground">{work.title}</p>
-            </div>
-          </div>
+        <div className="bg-base-200 border-b-2">
+          <div className="px-8 py-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-8">
+                <Link href="/dashboard">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="!rounded-none px-6 py-3 text-base font-medium border-2"
+                  >
+                    <ArrowLeftIcon className="h-5 w-5 mr-3" />
+                    Dashboard
+                  </Button>
+                </Link>
+                <div className="w-px h-12 bg-base-content/20"></div>
+                <div>
+                  <h1 className="text-4xl font-bold text-base-content mb-2">
+                    Edit Work
+                  </h1>
+                  <p className="text-base-content/70 text-lg max-w-2xl">
+                    {work.title}
+                  </p>
+                </div>
+              </div>
 
-          <div className="flex items-center space-x-2">
-            <Link href={`/dashboard/works/${id}`}>
-              <Button variant="outline" size="sm">
-                <EyeIcon className="h-4 w-4 mr-2" />
-                View Details
-              </Button>
-            </Link>
+              <div className="flex items-center space-x-4">
+                <Link href={`/dashboard/works/${id}`}>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="!rounded-none px-6 py-3 text-base font-medium border-2"
+                  >
+                    <EyeIcon className="h-5 w-5 mr-3" />
+                    View Details
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Edit Form */}
-        <WorkEditForm
-          work={work}
-          categories={categories}
-          userProfile={profile}
-        />
+        {/* Main Content */}
+        <div className="px-8 py-12">
+          <div className="w-full">
+            <WorkEditForm
+              work={work}
+              categories={categories}
+              userProfile={profile}
+            />
+          </div>
+        </div>
       </div>
     );
   } catch (error) {

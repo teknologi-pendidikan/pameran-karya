@@ -36,6 +36,8 @@ import { X } from "lucide-react";
 import { type Category, getAllowedStatusOptions } from "@/lib/client-utils";
 import { updateWorkAction } from "@/lib/actions";
 import { toast } from "sonner";
+import { AssetManager } from "@/components/asset-manager";
+import { ContributorManager } from "@/components/contributor-manager";
 
 const editWorkSchema = z.object({
   title: z
@@ -52,6 +54,30 @@ const editWorkSchema = z.object({
 
 type EditWorkFormData = z.infer<typeof editWorkSchema>;
 
+interface Asset {
+  asset_id: string;
+  work_id: string;
+  type: "image" | "video" | "audio" | "document" | "link";
+  file_url: string;
+  thumbnail_url?: string;
+  license?: string;
+  created_at: string;
+}
+
+interface WorkPerson {
+  person_id: string;
+  contribution_role?: string;
+  ordering?: number;
+  person: {
+    person_id: string;
+    name: string;
+    slug: string;
+    affiliation?: string;
+    bio?: string;
+    tag?: string;
+  };
+}
+
 interface Work {
   work_id: string;
   title: string;
@@ -63,6 +89,8 @@ interface Work {
       label: string;
     };
   }>;
+  asset?: Asset[];
+  work_person?: WorkPerson[];
 }
 
 interface WorkEditFormProps {
@@ -87,6 +115,10 @@ export function WorkEditForm({
   const [isPending, startTransition] = useTransition();
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     work.work_category.map((wc) => wc.category.category_id)
+  );
+  const [assets, setAssets] = useState<Asset[]>(work.asset || []);
+  const [contributors, setContributors] = useState<WorkPerson[]>(
+    work.work_person || []
   );
 
   // Get allowed status options based on user role
@@ -154,159 +186,197 @@ export function WorkEditForm({
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader>
-        <CardTitle>Edit Work</CardTitle>
-        <CardDescription>
-          Update your work information and settings
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your work title" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="abstract"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Abstract</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Provide a detailed abstract of your work..."
-                      className="min-h-[120px]"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    A comprehensive summary of your work&apos;s objectives,
-                    methods, and key findings.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="status"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Status</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+    <>
+      <Card className="w-full max-w-4xl mx-auto">
+        <CardHeader>
+          <CardTitle>Edit Work</CardTitle>
+          <CardDescription>
+            Update your work information and settings
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select work status" />
-                      </SelectTrigger>
+                      <Input placeholder="Enter your work title" {...field} />
                     </FormControl>
-                    <SelectContent>
-                      {allowedStatuses.map((status) => (
-                        <SelectItem key={status.value} value={status.value}>
-                          {status.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>
-                    {userProfile.access_level === "participant"
-                      ? "Participants can set status as Draft or Ready for Review. Only curators can mark as Final."
-                      : "Draft works can be edited freely. Ready works are awaiting review. Final works are approved for publication."}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="categories"
-              render={() => (
-                <FormItem>
-                  <FormLabel>Categories</FormLabel>
-                  <div className="space-y-4">
-                    <Select onValueChange={addCategory}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Add a category" />
-                      </SelectTrigger>
+              <FormField
+                control={form.control}
+                name="abstract"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Abstract</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Provide a detailed abstract of your work..."
+                        className="min-h-[120px]"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      A comprehensive summary of your work&apos;s objectives,
+                      methods, and key findings.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select work status" />
+                        </SelectTrigger>
+                      </FormControl>
                       <SelectContent>
-                        {categories
-                          .filter(
-                            (category) =>
-                              !selectedCategories.includes(category.category_id)
-                          )
-                          .map((category) => (
-                            <SelectItem
-                              key={category.category_id}
-                              value={category.category_id}
-                            >
-                              {category.label}
-                            </SelectItem>
-                          ))}
+                        {allowedStatuses.map((status) => (
+                          <SelectItem key={status.value} value={status.value}>
+                            {status.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
+                    <FormDescription>
+                      {userProfile.access_level === "participant"
+                        ? "Participants can set status as Draft or Ready for Review. Only curators can mark as Final."
+                        : "Draft works can be edited freely. Ready works are awaiting review. Final works are approved for publication."}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                    {selectedCategories.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {getSelectedCategoryNames().map(
-                          (categoryName, index) => (
-                            <Badge
-                              key={selectedCategories[index]}
-                              variant="secondary"
-                              className="flex items-center gap-1"
-                            >
-                              {categoryName}
-                              <X
-                                className="h-3 w-3 cursor-pointer hover:text-destructive"
-                                onClick={() =>
-                                  removeCategory(selectedCategories[index])
-                                }
-                              />
-                            </Badge>
-                          )
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <FormDescription>
-                    Select relevant categories for your work to help with
-                    discoverability.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="categories"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>Categories</FormLabel>
+                    <div className="space-y-4">
+                      <Select onValueChange={addCategory}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Add a category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories
+                            .filter(
+                              (category) =>
+                                !selectedCategories.includes(
+                                  category.category_id
+                                )
+                            )
+                            .map((category) => (
+                              <SelectItem
+                                key={category.category_id}
+                                value={category.category_id}
+                              >
+                                {category.label}
+                              </SelectItem>
+                            ))}
+                        </SelectContent>
+                      </Select>
 
-            <div className="flex justify-end space-x-4">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => router.back()}
-              >
-                Cancel
-              </Button>
-              <Button type="submit" disabled={isPending}>
-                {isPending ? "Saving..." : "Save Changes"}
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+                      {selectedCategories.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {getSelectedCategoryNames().map(
+                            (categoryName, index) => (
+                              <Badge
+                                key={selectedCategories[index]}
+                                variant="secondary"
+                                className="flex items-center gap-1"
+                              >
+                                {categoryName}
+                                <X
+                                  className="h-3 w-3 cursor-pointer hover:text-destructive"
+                                  onClick={() =>
+                                    removeCategory(selectedCategories[index])
+                                  }
+                                />
+                              </Badge>
+                            )
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    <FormDescription>
+                      Select relevant categories for your work to help with
+                      discoverability.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex justify-end space-x-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => router.back()}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={isPending}>
+                  {isPending ? "Saving..." : "Save Changes"}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+
+      {/* Asset Management */}
+      <Card className="w-full max-w-4xl mx-auto mt-6">
+        <CardHeader>
+          <CardTitle>Assets</CardTitle>
+          <CardDescription>
+            Manage files and media for this work
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <AssetManager
+            workId={work.work_id}
+            assets={assets}
+            onAssetsChange={setAssets}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Contributor Management */}
+      <Card className="w-full max-w-4xl mx-auto mt-6">
+        <CardHeader>
+          <CardTitle>Contributors</CardTitle>
+          <CardDescription>
+            Add collaborators and link existing profiles
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ContributorManager
+            workId={work.work_id}
+            contributors={contributors}
+            onContributorsChange={setContributors}
+          />
+        </CardContent>
+      </Card>
+    </>
   );
 }

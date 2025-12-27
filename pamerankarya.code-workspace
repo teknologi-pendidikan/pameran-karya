@@ -13,5 +13,7 @@
       "path": "./apps/backoffice"
     }
   ],
-  "settings": {}
+  "settings": {
+    "powershell.cwd": "root"
+  }
 }

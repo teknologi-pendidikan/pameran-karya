@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Public pages for OAuth verification
+Allow: /
+Allow: /kebijakan-privasi
+Allow: /ketentuan-layanan
+Allow: /auth
+
+# Sitemap
+Sitemap: https://backoffice-pktep.teknologipendidikan.my.id/sitemap.xml

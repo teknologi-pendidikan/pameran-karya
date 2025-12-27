@@ -59,7 +59,39 @@ export function Navigation({ user, userProfile }: NavigationProps) {
     }
   };
 
-  if (!user) return null;
+  // Show minimal header for public pages
+  if (!user) {
+    const isPublicPage =
+      ["/kebijakan-privasi", "/ketentuan-layanan", "/tentang"].includes(
+        pathname
+      ) || pathname === "/";
+
+    if (isPublicPage) {
+      return (
+        <nav className="border-b bg-background">
+          <div className="container mx-auto px-4 py-3">
+            <div className="flex items-center justify-between">
+              <Link href="/" className="text-xl font-bold">
+                Backoffice Pameran Karya Teknologi Pendidikan
+              </Link>
+              <div className="flex items-center space-x-4">
+                <Link
+                  href="/tentang"
+                  className="text-sm text-muted-foreground hover:text-primary"
+                >
+                  Tentang
+                </Link>
+                <Link href="/auth">
+                  <Button variant="outline">Masuk</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </nav>
+      );
+    }
+    return null;
+  }
 
   const navItems = [
     {

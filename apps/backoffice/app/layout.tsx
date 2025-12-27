@@ -17,8 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pameran Karya - Backoffice",
-  description: "Management system for Pameran Karya submissions",
+  title: "Backoffice Pameran Karya Teknologi Pendidikan",
+  description:
+    "Sistem manajemen backoffice untuk mengelola dan menampilkan karya-karya teknologi pendidikan dari mahasiswa dan akademisi",
 };
 
 export default async function RootLayout({
@@ -47,7 +48,9 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background`}
       >
         <Navigation user={user} userProfile={userProfile} />
-        <main className="container mx-auto px-4 py-8">{children}</main>
+        <main className={user ? "container mx-auto px-4 py-8" : ""}>
+          {children}
+        </main>
         <Toaster />
       </body>
     </html>

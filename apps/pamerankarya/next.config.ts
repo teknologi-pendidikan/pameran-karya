@@ -6,7 +6,7 @@ const cspHeader = `
     script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net/;
     style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/;
     img-src 'self' blob: data: https://i.ytimg.com/ https://img.youtube.com/;
-    frame-src https://www.youtube.com/ https://www.google.com/ https://www.youtube-nocookie.com/ https://docs.google.com/ https://calendar.google.com/;
+    frame-src https://www.youtube.com/ https://www.google.com/ https://www.youtube-nocookie.com/ https://docs.google.com/ https://calendar.google.com/ https://*.google.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';

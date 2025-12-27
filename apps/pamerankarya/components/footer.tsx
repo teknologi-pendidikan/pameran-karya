@@ -1,5 +1,6 @@
 import LogoPameran from "@/assets/logo_pameran";
 import Link from "next/link";
+import BuildInfoDisplay from "@/components/BuildInfoDisplay";
 
 export default function Footer() {
   return (
@@ -70,19 +71,24 @@ export default function Footer() {
         </nav>
       </footer>
       <footer className="container mx-auto max-w-7xl footer footer-vertical sm:footer-horizontal text-base-content border-base-300 border-t px-4 py-8 mt-8">
-        <aside className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4">
           <LogoPameran
             className="h-8 sm:h-10 w-auto max-w-48 sm:max-w-64"
             style={{ height: "auto", width: "100%", maxWidth: "256px" }}
             fillcolorbottom="black"
             fillcolortop="black"
           />
-          <p className="text-center sm:text-left text-sm lg:max-w-xs">
-            by Teknologi Pendidikan ID & Ikatan Mahasiswa Teknologi Pendidikan
-            Indonesia
-          </p>
-        </aside>
+          <div className="text-center sm:text-left text-sm">
+            <p className="lg:max-w-xs">
+              by Teknologi Pendidikan ID & Ikatan Mahasiswa Teknologi Pendidikan
+              Indonesia
+            </p>
+          </div>
+        </div>
       </footer>
+      <div className="container px-4 max-w-7xl mx-auto">
+        <BuildInfoDisplay className="mt-1" />
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+ 
 import { exploreItems, categoryItems } from "@/assets/data/homepage.data";
 import ExploreCarousel from "@/components/ExploreCarousel";
 import CategoryCarousel from "@/components/CategoryCarousel";

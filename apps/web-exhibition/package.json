@@ -7,6 +7,7 @@
     "build": "node generate-build-info.js && next build",
     "start": "pnpx serve@latest out",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write .",
     "typegen:build": "next typegen && tsc --noEmit",
     "clean": "rm -rf .next out"

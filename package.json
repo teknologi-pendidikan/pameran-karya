@@ -4,17 +4,20 @@
     "private": true,
     "packageManager": "pnpm@10.0.0",
     "scripts": {
-        "dev:frontend": "pnpm --filter web-exhibition dev",
+        "dev:exhibition": "pnpm --filter web-exhibition dev",
         "dev:backoffice": "pnpm --filter web-backoffice dev",
-        "build:frontend": "pnpm --filter web-exhibition build",
+        "build:exhibition": "pnpm --filter web-exhibition build",
         "build:backoffice": "pnpm --filter web-backoffice build",
-        "dev:all": "pnpm --filter '*' dev",
-        "build:all": "pnpm --filter '*' build",
-        "lint:all": "pnpm --filter '*' lint",
-        "clean:all": "pnpm --filter '*' clean",
+        "clean:exhibition": "pnpm --filter web-exhibition clean",
+        "clean:backoffice": "pnpm --filter web-backoffice clean",
+        "dev:all": "pnpm -r dev",
+        "build:all": "pnpm -r build",
+        "lint:all": "pnpm -r lint",
+        "lint:all:fix": "pnpm -r lint:fix",
+        "clean:all": "pnpm -r clean",
         "install:all": "pnpm install",
-        "dev": "pnpm dev:frontend",
-        "serve:frontend": "serve apps/web-exhibition/out"
+        "dev": "pnpm dev:exhibition",
+        "serve:exhibition": "serve apps/web-exhibition/out"
     },
     "workspaces": [
         "apps/*"

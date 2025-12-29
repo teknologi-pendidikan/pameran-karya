@@ -1,16 +1,16 @@
 {
   "folders": [
     {
-      "name": "root",
+      "name": "pamerankarya",
       "path": "."
     },
     {
-      "name": "main-frontend",
-      "path": "./apps/pamerankarya"
+      "name": "web-exhibition",
+      "path": "./apps/web-exhibition"
     },
     {
-      "name": "backoffice",
-      "path": "./apps/backoffice"
+      "name": "web-backoffice",
+      "path": "./apps/web-backoffice"
     }
   ],
   "settings": {

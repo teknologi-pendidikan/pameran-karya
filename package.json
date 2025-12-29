@@ -1,20 +1,20 @@
 {
-    "name": "pamerankarya-monorepo",
+    "name": "pamerankarya",
     "version": "1.0.0",
     "private": true,
     "packageManager": "pnpm@10.0.0",
     "scripts": {
-        "dev:frontend": "pnpm --filter pamerankarya dev",
-        "dev:backoffice": "pnpm --filter backoffice dev",
-        "build:frontend": "pnpm --filter pamerankarya build",
-        "build:backoffice": "pnpm --filter backoffice build",
+        "dev:frontend": "pnpm --filter web-exhibition dev",
+        "dev:backoffice": "pnpm --filter web-backoffice dev",
+        "build:frontend": "pnpm --filter web-exhibition build",
+        "build:backoffice": "pnpm --filter web-backoffice build",
         "dev:all": "pnpm --filter '*' dev",
         "build:all": "pnpm --filter '*' build",
         "lint:all": "pnpm --filter '*' lint",
         "clean:all": "pnpm --filter '*' clean",
         "install:all": "pnpm install",
         "dev": "pnpm dev:frontend",
-        "serve:frontend": "serve apps/pamerankarya/out"
+        "serve:frontend": "serve apps/web-exhibition/out"
     },
     "workspaces": [
         "apps/*"

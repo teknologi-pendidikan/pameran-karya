@@ -150,6 +150,11 @@ async function getWorkData(slug: string) {
 export default async function WorkPage({ params }: PageProps) {
   const { slug } = await params;
 
+  // Handle empty database case
+  if (slug === "_empty_") {
+    notFound();
+  }
+
   const data = await getWorkData(slug);
 
   if (!data) {
@@ -356,25 +361,43 @@ let staticParamsCache: { slug: string }[] | null = null;
 
 // Generate static params for all work slugs
 export async function generateStaticParams() {
-  if (staticParamsCache) {
+  // Always check cache first
+  if (staticParamsCache !== null) {
     return staticParamsCache;
   }
 
-  const supabase = getSupabaseClient();
-  const { data: works } = await supabase
-    .from("work")
-    .select("slug")
-    .order("slug");
+  try {
+    const supabase = getSupabaseClient();
+    const { data: works, error } = await supabase
+      .from("work")
+      .select("slug")
+      .order("slug");
 
-  if (!works) {
-    return [];
+    if (error) {
+      console.warn("Error fetching works for static params:", error);
+      // For static export, we need to return something when there's no data
+      staticParamsCache = [{ slug: "_empty_" }];
+      return staticParamsCache;
+    }
+
+    if (!works || works.length === 0) {
+      console.warn("No works found in database for static generation");
+      // For static export, we need to return something when there's no data
+      staticParamsCache = [{ slug: "_empty_" }];
+      return staticParamsCache;
+    }
+
+    staticParamsCache = works.map((work) => ({
+      slug: work.slug,
+    }));
+
+    return staticParamsCache;
+  } catch (error) {
+    console.error("Error in generateStaticParams:", error);
+    // For static export, we need to return something when there's no data
+    staticParamsCache = [{ slug: "_empty_" }];
+    return staticParamsCache;
   }
-
-  staticParamsCache = works.map((work) => ({
-    slug: work.slug,
-  }));
-
-  return staticParamsCache;
 }
 
 // Generate metadata for SEO using cached data

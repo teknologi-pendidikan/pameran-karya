@@ -1,2 +1,8 @@
 packages:
-  - "apps/*"
+  - apps/*
+
+onlyBuiltDependencies:
+  - msw
+  - sharp
+  - supabase
+  - unrs-resolver

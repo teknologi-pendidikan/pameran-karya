@@ -37,6 +37,16 @@ export default function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li className="mt-2 pt-2 border-t border-base-300">
+                <a
+                  href="https://backoffice-pktep.teknologipendidikan.my.id/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary btn-sm text-primary-content font-semibold"
+                >
+                  Submit Karya
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -70,6 +80,16 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          <div className="ml-4">
+            <a
+              href="https://backoffice-pktep.teknologipendidikan.my.id/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary font-semibold shadow-sm hover:shadow-md transition-all duration-200"
+            >
+              Submit Karya
+            </a>
+          </div>
         </div>
 
         {/* Mobile menu spacer */}

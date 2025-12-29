@@ -10,6 +10,8 @@
         "build:backoffice": "pnpm --filter web-backoffice build",
         "clean:exhibition": "pnpm --filter web-exhibition clean",
         "clean:backoffice": "pnpm --filter web-backoffice clean",
+        "test:exhibition": "pnpm --filter web-exhibition test",
+        "test:backoffice": "pnpm --filter web-backoffice test",
         "dev:all": "pnpm -r dev",
         "build:all": "pnpm -r build",
         "lint:all": "pnpm -r lint",

@@ -41,7 +41,7 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
     }
   }, []);
 
-  const maxIndex = Math.max(0, items.length - itemsPerView);
+  const maxIndex = Math.max(0, (items || []).length - itemsPerView);
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
@@ -64,25 +64,25 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
             }%)`,
           }}
         >
-          {items.map((item) => (
+          {(items || []).filter(Boolean).map((item, index) => (
             <div
-              key={item.id}
+              key={item?.id || `item-${index}`}
               className="group flex-none w-[calc(100%/2-4px)] sm:w-[calc(100%/3-8px)] lg:w-[calc(100%/4-12px)] transition-all duration-300"
             >
-              <Link href={item.link} className="block">
+              <Link href={item?.link || "#"} className="block">
                 <div className="aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 mb-3">
                   <img
-                    src={item.image}
+                    src={item?.image || "/placeholder.jpg"}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    alt={item.title}
+                    alt={item?.title || "Category item"}
                   />
                 </div>
                 <div className="text-gray-800">
                   <h3 className="text-base font-semibold mb-1 line-clamp-1">
-                    {item.title}
+                    {item?.title || "Untitled"}
                   </h3>
                   <p className="text-xs text-gray-600 leading-tight line-clamp-2">
-                    {item.description}
+                    {item?.description || "No description available"}
                   </p>
                 </div>
               </Link>
@@ -91,7 +91,7 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
         </div>
       </div>
 
-      {items.length > itemsPerView && (
+      {(items || []).length > itemsPerView && (
         <>
           <button
             onClick={goToPrevious}

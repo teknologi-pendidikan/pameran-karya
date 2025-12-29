@@ -41,7 +41,7 @@ export default function ExploreCarousel({ items }: ExploreCarouselProps) {
     }
   }, []);
 
-  const maxIndex = Math.max(0, items.length - itemsPerView);
+  const maxIndex = Math.max(0, (items || []).length - itemsPerView);
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
@@ -64,24 +64,24 @@ export default function ExploreCarousel({ items }: ExploreCarouselProps) {
             }%)`,
           }}
         >
-          {items.map((item) => (
+          {(items || []).filter(Boolean).map((item, index) => (
             <Link
-              key={item.id}
-              href={item.link}
+              key={item?.id || `item-${index}`}
+              href={item?.link || "#"}
               className="group relative block flex-none w-full sm:w-[calc(100%/2-8px)] lg:w-[calc(100%/3-16px)] aspect-video rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               <img
-                src="/placeholder-16x9.webp"
+                src={item?.image || "/placeholder-16x9.webp"}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                alt={item.title}
+                alt={item?.title || "Explore item"}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 text-white">
                 <h3 className="text-lg font-semibold mb-1 drop-shadow-md">
-                  {item.title}
+                  {item?.title || "Untitled"}
                 </h3>
                 <span className="text-sm opacity-90 bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
-                  {item.type}
+                  {item?.type || "Unknown"}
                 </span>
               </div>
             </Link>
@@ -89,7 +89,7 @@ export default function ExploreCarousel({ items }: ExploreCarouselProps) {
         </div>
       </div>
 
-      {items.length > itemsPerView && (
+      {(items || []).length > itemsPerView && (
         <>
           <button
             onClick={goToPrevious}

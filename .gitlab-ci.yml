@@ -255,9 +255,22 @@ build:exhibition:
     - test:typecheck:exhibition
   variables:
     NEXT_PUBLIC_SUPABASE_URL: $NEXT_PUBLIC_SUPABASE_URL
-    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: $NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: $NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
   script:
     - echo "Building web-exhibition app for verification..."
+    - echo "Validating environment variables..."
+    - |
+      if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then
+        echo "❌ NEXT_PUBLIC_SUPABASE_URL is not set or empty"
+        exit 1
+      fi
+      if [ -z "$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY" ]; then
+        echo "❌ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is not set or empty"
+        exit 1
+      fi
+      echo "✅ Environment variables validated"
+      echo "SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:0:30}..."
+      echo "SUPABASE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:0:30}..."
     - pnpm --filter web-exhibition build
     - echo "Build successful - ready for Netlify deployment"
   artifacts:
@@ -290,6 +303,19 @@ build:backoffice:
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: $NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
   script:
     - echo "Building web-backoffice app for verification..."
+    - echo "Validating environment variables..."
+    - |
+      if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then
+        echo "❌ NEXT_PUBLIC_SUPABASE_URL is not set or empty"
+        exit 1
+      fi
+      if [ -z "$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY" ]; then
+        echo "❌ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is not set or empty"
+        exit 1
+      fi
+      echo "✅ Environment variables validated"
+      echo "SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:0:30}..."
+      echo "SUPABASE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:0:30}..."
     - pnpm --filter web-backoffice build
     - echo "Build successful - ready for Vercel deployment"
   artifacts:

@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import {
   generateSlug,
+  generateSlugWithUuid,
   type Work,
   type Category,
   type Person,
@@ -9,7 +10,7 @@ import {
 
 // Re-export types for server-side use
 export type { Work, Category, Person, Asset };
-export { generateSlug };
+export { generateSlug, generateSlugWithUuid };
 
 // Get all works (for curators/operations) or user's works (for participants)
 export async function getWorks(

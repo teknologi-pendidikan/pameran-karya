@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { generateSlug } from "@/lib/database";
+import { generateSlugWithUuid } from "@/lib/database";
 
 export interface CreateWorkData {
   title: string;
@@ -38,10 +38,10 @@ export async function createWorkAction(
   }
 
   try {
-    // Generate slug from title
-    const slug = generateSlug(data.title);
+    // Generate a temporary slug from title
+    const tempSlug = generateSlugWithUuid(data.title, "temp");
 
-    // Create the work
+    // Create the work with temporary slug
     const { data: work, error: workError } = await supabase
       .from("work")
       .insert([
@@ -49,13 +49,24 @@ export async function createWorkAction(
           title: data.title,
           abstract: data.abstract,
           status: data.status,
-          slug,
+          slug: tempSlug,
         },
       ])
       .select()
       .single();
 
     if (workError) throw workError;
+
+    // Now generate the final slug using the actual UUID
+    const finalSlug = generateSlugWithUuid(data.title, work.work_id);
+
+    // Update the work with the final slug
+    const { error: updateError } = await supabase
+      .from("work")
+      .update({ slug: finalSlug })
+      .eq("work_id", work.work_id);
+
+    if (updateError) throw updateError;
 
     console.log("Work created successfully:", work.work_id);
 

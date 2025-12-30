@@ -45,12 +45,44 @@ export interface Asset {
   created_at: string;
 }
 
-// Utility function to generate slug from title
-export function generateSlug(title: string): string {
-  return title
+// Utility function to generate 5 random characters
+function generateRandomSuffix(): string {
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < 5; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+// Utility function to generate slug from title with optional random suffix
+export function generateSlug(
+  title: string,
+  addRandomSuffix: boolean = false
+): string {
+  const baseSlug = title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+
+  if (addRandomSuffix) {
+    return `${baseSlug}-${generateRandomSuffix()}`;
+  }
+
+  return baseSlug;
+}
+
+// Alternative function to generate slug with UUID suffix
+export function generateSlugWithUuid(title: string, uuid: string): string {
+  const baseSlug = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+  // Take first 5 characters from UUID (removing hyphens first)
+  const uuidSuffix = uuid.replace(/-/g, "").substring(0, 5);
+
+  return `${baseSlug}-${uuidSuffix}`;
 }
 
 // Get first author from work_person relationship

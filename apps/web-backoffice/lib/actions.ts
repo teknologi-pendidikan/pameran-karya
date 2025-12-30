@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { generateSlugWithUuid } from "@/lib/database";
+import { generateSlug, generateSlugWithUuid } from "@/lib/database";
 
 export interface CreateWorkData {
   title: string;
@@ -94,7 +94,7 @@ export async function createWorkAction(
     }
 
     // Step 2: Create or find person record for current user linked to their profile
-    const authorSlug = generateSlug(data.authorName);
+    const authorSlug = generateSlugWithUuid(data.authorName, user.id);
     let person;
 
     // First, try to find existing person linked to this user's profile
@@ -292,7 +292,7 @@ export async function updateWorkAction(
 
     // Update slug if title changed
     if (updates.title) {
-      workUpdates.slug = generateSlug(updates.title);
+      workUpdates.slug = generateSlugWithUuid(updates.title, workId);
     }
 
     // Update the work

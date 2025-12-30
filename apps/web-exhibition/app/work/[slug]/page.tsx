@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { createClient as createClientStatic } from "@supabase/supabase-js";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { getYouTubeVideoId } from "@/lib/youtubeEmbed";
+import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -164,26 +165,74 @@ export default async function WorkPage({ params }: PageProps) {
   const { work, assets, contributors } = data;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Work Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">
-            {work.title}
-          </h1>
-          <div className="text-center text-gray-600 mb-4">
-            <time dateTime={work.created_at}>
-              Created:{" "}
-              {new Date(work.created_at).toLocaleDateString("id-ID", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </time>
-            {work.updated_at && work.updated_at !== work.created_at && (
-              <>
-                <span className="mx-2">•</span>
-                <time dateTime={work.updated_at}>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        {/* Back Navigation */}
+        <div className="mb-6">
+          <Link
+            href="/person"
+            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200"
+          >
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back to Directory
+          </Link>
+        </div>
+
+        {/* Hero Section */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12 mb-8">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              {work.title}
+            </h1>
+            <div className="flex flex-wrap justify-center items-center gap-4 text-sm text-gray-500 mb-8">
+              <time dateTime={work.created_at} className="flex items-center">
+                <svg
+                  className="w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                Created:{" "}
+                {new Date(work.created_at).toLocaleDateString("id-ID", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+              {work.updated_at && work.updated_at !== work.created_at && (
+                <time dateTime={work.updated_at} className="flex items-center">
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
                   Updated:{" "}
                   {new Date(work.updated_at).toLocaleDateString("id-ID", {
                     year: "numeric",
@@ -191,165 +240,321 @@ export default async function WorkPage({ params }: PageProps) {
                     day: "numeric",
                   })}
                 </time>
-              </>
-            )}
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Contributors Section */}
-        {contributors.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">Contributors</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {contributors.map((contributor) => (
-                <Link
-                  key={contributor.person_id}
-                  href={`/person/${contributor.slug}`}
-                  className="card card-side  shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <figure className="w-24 h-24 shrink-0">
-                    <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center">
-                      <span className="text-gray-400 text-xs font-semibold">
-                        {contributor.name.charAt(0)}
-                      </span>
-                    </div>
-                  </figure>
-                  <div className="card-body p-3">
-                    <h3 className="font-semibold text-sm">
-                      {contributor.name}
-                    </h3>
-                    {contributor.contribution_role && (
-                      <span className="badge badge-primary badge-sm">
-                        {contributor.contribution_role}
-                      </span>
-                    )}
-                    {contributor.affiliation && (
-                      <p className="text-xs text-gray-600 truncate">
-                        {contributor.affiliation}
-                      </p>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Abstract Section */}
-        {work.abstract && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">Abstract</h2>
-            <div className="prose prose-lg max-w-none">
-              <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                {work.abstract}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Description Section */}
-        {work.description && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">Description</h2>
-            <div className="prose prose-lg max-w-none">
-              <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                {work.description}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Assets Section */}
-        {assets.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">
-              Assets ({assets.length})
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {assets.map((asset, index) => (
-                <div
-                  key={asset.asset_id}
-                  className="card  shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <figure className="h-64">
-                    {asset.type === "video" && asset.file_url ? (
-                      (() => {
-                        const videoId = getYouTubeVideoId(asset.file_url);
-                        return videoId ? (
-                          <YouTubeEmbed
-                            videoid={videoId}
-                            height={256}
-                            width={400}
-                            params="controls=1&rel=0"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                            <p className="text-gray-500">Video not available</p>
-                          </div>
-                        );
-                      })()
-                    ) : (
-                      <Image
-                        src={
-                          asset.thumbnail_url ||
-                          asset.file_url ||
-                          "/placeholder-asset.png"
-                        }
-                        alt={`${work.title} - Asset ${index + 1}`}
-                        width={400}
-                        height={256}
-                        className="w-full h-full object-cover"
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Abstract */}
+            {work.abstract && (
+              <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                  <div className="w-6 h-6 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                    <svg
+                      className="w-3 h-3 text-blue-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z"
+                        clipRule="evenodd"
                       />
-                    )}
-                  </figure>
-                  <div className="card-body p-4">
-                    <div className="flex items-center justify-between">
-                      <span className="badge badge-outline">
-                        {asset.type.toUpperCase()}
-                      </span>
-                      {asset.license && (
-                        <span className="text-sm text-gray-500">
-                          License: {asset.license}
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-xs text-gray-500 mt-2">
-                      <time dateTime={asset.created_at}>
-                        Added:{" "}
-                        {new Date(asset.created_at).toLocaleDateString("id-ID")}
-                      </time>
-                    </div>
-                    {asset.file_url && asset.type !== "video" && (
-                      <div className="card-actions justify-end mt-2">
-                        <a
-                          href={asset.file_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-primary btn-sm"
-                        >
-                          View Full Size
-                        </a>
-                      </div>
-                    )}
+                    </svg>
                   </div>
+                  Abstract
+                </h2>
+                <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                  <p className="whitespace-pre-wrap">{work.abstract}</p>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
+              </section>
+            )}
 
-        {/* No assets message */}
-        {assets.length === 0 && (
-          <div className="text-center text-gray-500 py-8">
-            <p>No assets available for this work yet.</p>
-          </div>
-        )}
+            {/* Description */}
+            {work.description && (
+              <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                  <div className="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                    <svg
+                      className="w-3 h-3 text-green-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  Description
+                </h2>
+                <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                  <div className="whitespace-pre-wrap">{work.description}</div>
+                </div>
+              </section>
+            )}
 
-        {/* Back to Directory */}
-        <div className="text-center mt-12">
-          <Link href="/person" className="btn btn-outline btn-lg">
-            ← Back to Directory
-          </Link>
+            {/* Assets Section */}
+            {assets.length > 0 && (
+              <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                  <div className="w-6 h-6 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                    <svg
+                      className="w-3 h-3 text-purple-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  Media & Assets
+                  <span className="ml-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">
+                    {assets.length}
+                  </span>
+                </h2>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {assets.map((asset, index) => (
+                    <div
+                      key={asset.asset_id}
+                      className="group relative bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
+                    >
+                      {/* Media Preview */}
+                      <div className="aspect-video relative overflow-hidden bg-gray-100">
+                        {asset.type === "video" && asset.file_url ? (
+                          (() => {
+                            const videoId = getYouTubeVideoId(asset.file_url);
+                            return videoId ? (
+                              <div className="w-full h-full relative">
+                                <YouTubeEmbed
+                                  videoid={videoId}
+                                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                  params="controls=1&rel=0"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-full h-full bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center">
+                                <div className="text-center">
+                                  <svg
+                                    className="w-8 h-8 text-red-400 mx-auto mb-2"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                    />
+                                  </svg>
+                                  <p className="text-sm text-red-600">
+                                    Video not available
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })()
+                        ) : (
+                          <div className="relative w-full h-full group">
+                            <Image
+                              src={
+                                asset.thumbnail_url ||
+                                asset.file_url ||
+                                "/placeholder-asset.png"
+                              }
+                              alt={`${work.title} - Asset ${index + 1}`}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            {asset.file_url && asset.type !== "video" && (
+                              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 flex items-center justify-center">
+                                <a
+                                  href={asset.file_url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white text-gray-900 px-4 py-2 rounded-lg font-medium shadow-lg hover:bg-gray-100"
+                                >
+                                  View Full Size
+                                </a>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Asset Info */}
+                      <div className="p-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <span
+                            className={`px-2 py-1 text-xs font-medium rounded-full ${
+                              asset.type === "video"
+                                ? "bg-red-100 text-red-700"
+                                : asset.type === "image"
+                                  ? "bg-blue-100 text-blue-700"
+                                  : asset.type === "document"
+                                    ? "bg-green-100 text-green-700"
+                                    : asset.type === "audio"
+                                      ? "bg-purple-100 text-purple-700"
+                                      : "bg-gray-100 text-gray-700"
+                            }`}
+                          >
+                            {asset.type.toUpperCase()}
+                          </span>
+                          {asset.license && (
+                            <span className="text-xs text-gray-500">
+                              {asset.license}
+                            </span>
+                          )}
+                        </div>
+                        <time
+                          className="text-xs text-gray-400"
+                          dateTime={asset.created_at}
+                        >
+                          Added{" "}
+                          {new Date(asset.created_at).toLocaleDateString(
+                            "id-ID"
+                          )}
+                        </time>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* No Assets Message */}
+            {assets.length === 0 && (
+              <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-12">
+                <div className="text-center">
+                  <svg
+                    className="w-12 h-12 text-gray-300 mx-auto mb-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 011 1v2a1 1 0 01-1 1h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V8H3a1 1 0 01-1-1V5a1 1 0 011-1h4zM9 3v1h6V3H9zm2 8a1 1 0 112 0v6a1 1 0 11-2 0v-6zm4 0a1 1 0 112 0v6a1 1 0 11-2 0v-6z"
+                    />
+                  </svg>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    No Media Available
+                  </h3>
+                  <p className="text-gray-500">
+                    No assets have been uploaded for this work yet.
+                  </p>
+                </div>
+              </section>
+            )}
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-8">
+            {/* Contributors */}
+            {contributors.length > 0 && (
+              <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <div className="w-5 h-5 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
+                    <svg
+                      className="w-3 h-3 text-indigo-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                    </svg>
+                  </div>
+                  Contributors
+                </h2>
+                <div className="space-y-3">
+                  {contributors.map((contributor) => (
+                    <Link
+                      key={contributor.person_id}
+                      href={`/person/${contributor.slug}`}
+                      className="block group"
+                    >
+                      <div className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                        <div className="w-10 h-10 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mr-3 group-hover:scale-105 transition-transform duration-200">
+                          <span className="text-indigo-700 font-semibold text-sm">
+                            {contributor.name.charAt(0)}
+                          </span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-200">
+                            {contributor.name}
+                          </p>
+                          {contributor.contribution_role && (
+                            <p className="text-xs text-indigo-600 font-medium">
+                              {contributor.contribution_role}
+                            </p>
+                          )}
+                          {contributor.affiliation && (
+                            <p className="text-xs text-gray-500 truncate">
+                              {contributor.affiliation}
+                            </p>
+                          )}
+                        </div>
+                        <svg
+                          className="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors duration-200"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Quick Info */}
+            <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Work Information
+              </h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500">Created:</span>
+                  <time dateTime={work.created_at} className="text-gray-900">
+                    {format(new Date(work.created_at), "MMM d, yyyy")}
+                  </time>
+                </div>
+                {work.updated_at && work.updated_at !== work.created_at && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">Updated:</span>
+                    <time dateTime={work.updated_at} className="text-gray-900">
+                      {format(new Date(work.updated_at), "MMM d, yyyy")}
+                    </time>
+                  </div>
+                )}
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500">Contributors:</span>
+                  <span className="text-gray-900">{contributors.length}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500">Assets:</span>
+                  <span className="text-gray-900">{assets.length}</span>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>

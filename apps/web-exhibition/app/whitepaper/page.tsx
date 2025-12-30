@@ -1,5 +1,33 @@
 import Whitepaper from "@/assets/whitepaper.mdx";
-import LogoPameran from "@/assets/logo_pameran";
+import { Metadata } from "next";
+import { openGraphGlobalMetadata } from "@/app/global-metadata";
+
+export const metadata: Metadata = {
+  title: "Whitepaper PameranKarya",
+  description:
+    "Whitepaper resmi untuk Pameran Karya Teknologi Pendidikan (PKTEP) yang menjelaskan tujuan, format, dan manfaat dari pameran akademik berbasis hybrid (luring dan daring) ini. Whitepaper menjelaskan kebijakan dan pedoman untuk peserta, penyelenggara, dan pemangku kepentingan lainnya.",
+  authors: [
+    {
+      name: "Rengga Prakoso Nugroho",
+      url: "http://pamerankarya.teknologipendidikan.or.id/person/rengga-prakoso-nugroho",
+    },
+    {
+      name: "Teknologi Pendidikan ID",
+      url: "https://teknologipendidikan.or.id",
+    },
+    {
+      name: "Ikatan Mahasiswa Teknologi Pendidikan Indonesia",
+      url: "https://imatepsi.or.id",
+    },
+  ],
+  openGraph: {
+    ...openGraphGlobalMetadata,
+    title: "Whitepaper PameranKarya",
+    description:
+      "Whitepaper resmi untuk Pameran Karya Teknologi Pendidikan (PKTEP) yang menjelaskan tujuan, format, dan manfaat dari pameran akademik berbasis hybrid (luring dan daring) ini. Whitepaper menjelaskan kebijakan dan pedoman untuk peserta, penyelenggara, dan pemangku kepentingan lainnya.",
+    url: "https://pamerankarya.teknologipendidikan.or.id/whitepaper",
+  },
+};
 
 export default function Page() {
   return (

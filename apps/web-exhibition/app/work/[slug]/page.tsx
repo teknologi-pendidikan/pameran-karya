@@ -5,6 +5,7 @@ import { getYouTubeVideoId } from "@/lib/youtubeEmbed";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import { openGraphGlobalMetadata } from "@/app/global-metadata";
 
 interface WorkData {
   work: WorkWithDetails;
@@ -621,7 +622,7 @@ export async function generateMetadata({ params }: PageProps) {
   const contributorNames = contributors.map((c) => c.name).join(", ");
 
   return {
-    title: `${work.title} - Pameran Karya Teknologi Pendidikan`,
+    title: `${work.title}`,
     description: work.abstract
       ? work.abstract.slice(0, 160)
       : `Explore the innovative work "${work.title}" by ${
@@ -632,11 +633,15 @@ export async function generateMetadata({ params }: PageProps) {
       "educational technology",
       "student work",
       "innovation",
+      "karya teknologi pendidikan",
+      "pameran karya",
+      "mahasiswa teknologi pendidikan",
       work.title,
       ...contributorNames.split(", "),
     ].join(", "),
     openGraph: {
-      title: `${work.title} - Pameran Karya Teknologi Pendidikan`,
+      ...openGraphGlobalMetadata,
+      title: `${work.title} | Pameran Karya Teknologi Pendidikan`,
       description: work.abstract
         ? work.abstract.slice(0, 160)
         : `Explore the innovative work "${work.title}" by ${

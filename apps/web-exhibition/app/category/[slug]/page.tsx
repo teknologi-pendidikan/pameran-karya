@@ -2,6 +2,9 @@
 import { createClient as createClientStatic } from "@supabase/supabase-js";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { getAllBlogPosts } from "@/lib/blog";
+import { openGraphGlobalMetadata } from "@/app/global-metadata";
 
 interface Work {
   work_id: string;
@@ -78,9 +81,14 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   return {
-    title: `${category.label} - Kategori Karya Teknologi Pendidikan`,
+    title: `${category.label}`,
     description: `Jelajahi karya-karya dalam kategori ${category.label}. Temukan berbagai proyek, penelitian, dan karya kreatif dalam bidang teknologi pendidikan.`,
     keywords: `${category.label}, kategori karya, teknologi pendidikan, student work, ${category.type || ""}`,
+    openGraph: {
+      ...openGraphGlobalMetadata,
+      title: `${category.label}`,
+      description: `Jelajahi karya-karya dalam kategori ${category.label}. Temukan berbagai proyek, penelitian, dan karya kreatif dalam bidang teknologi pendidikan.`,
+    },
   };
 }
 

@@ -4,6 +4,10 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 import { getYouTubeVideoId } from "@/lib/youtubeEmbed";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  openGraphGlobalMetadata,
+  twitterGlobalMetadata,
+} from "@/app/global-metadata";
 
 interface PersonData {
   person: PersonWithWorks;
@@ -347,11 +351,12 @@ export async function generateMetadata({ params }: PageProps) {
   const { person } = data;
 
   return {
-    title: `${person.name} - Pameran Karya Teknologi Pendidikan`,
+    title: `${person.name}`,
     description: person.bio
       ? person.bio.slice(0, 160)
       : `Learn more about ${person.name}`,
     openGraph: {
+      ...openGraphGlobalMetadata,
       title: `${person.name} - Pameran Karya Teknologi Pendidikan`,
       description: person.bio
         ? person.bio.slice(0, 160)

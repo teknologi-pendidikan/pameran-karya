@@ -1,8 +1,32 @@
- 
 import { exploreItems, categoryItems } from "@/assets/data/homepage.data";
 import ExploreCarousel from "@/components/ExploreCarousel";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import Link from "next/link";
+import { Metadata } from "next";
+import { openGraphGlobalMetadata } from "@/app/global-metadata";
+
+export const metadata: Metadata = {
+  title: "Jelajah Koleksi Karya",
+  description:
+    "Jelajahi berbagai kategori dan temukan karya terbaik dari para mahasiswa Teknologi Pendidikan di seluruh Indonesia.",
+  authors: [
+    {
+      name: "Teknologi Pendidikan ID",
+      url: "https://teknologipendidikan.or.id",
+    },
+    {
+      name: "Ikatan Mahasiswa Teknologi Pendidikan Indonesia",
+      url: "https://imatepsi.or.id",
+    },
+  ],
+  openGraph: {
+    ...openGraphGlobalMetadata,
+    title: "Jelajah Koleksi Karya",
+    description:
+      "Jelajahi berbagai kategori dan temukan karya terbaik dari para mahasiswa Teknologi Pendidikan di seluruh Indonesia.",
+    url: "https://pamerankarya.teknologipendidikan.or.id/explore",
+  },
+};
 
 export default function ExplorePage() {
   return (

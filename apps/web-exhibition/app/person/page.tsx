@@ -1,5 +1,30 @@
 import { createClient as createClientStatic } from "@supabase/supabase-js";
 import Link from "next/link";
+import { Metadata } from "next";
+import { openGraphGlobalMetadata } from "@/app/global-metadata";
+
+export const metadata: Metadata = {
+  title: "Direktori Eksibitor",
+  description:
+    "Temui para mahasiswa Teknologi Pendidikan dari seluruh Indonesia yang berpartisipasi dalam Pameran Karya. Jelajahi profil dan karya-karya inovatif mereka dalam bidang teknologi pendidikan.",
+  authors: [
+    {
+      name: "Teknologi Pendidikan ID",
+      url: "https://teknologipendidikan.or.id",
+    },
+    {
+      name: "Ikatan Mahasiswa Teknologi Pendidikan Indonesia",
+      url: "https://imatepsi.or.id",
+    },
+  ],
+  openGraph: {
+    ...openGraphGlobalMetadata,
+    title: "Direktori Eksibitor",
+    description:
+      "Temui para mahasiswa Teknologi Pendidikan dari seluruh Indonesia yang berpartisipasi dalam Pameran Karya. Jelajahi profil dan karya-karya inovatif mereka dalam bidang teknologi pendidikan.",
+    url: "https://pamerankarya.teknologipendidikan.or.id/person",
+  },
+};
 
 // Shared Supabase client for build-time operations
 const getSupabaseClient = () =>
@@ -18,12 +43,6 @@ interface Person {
   works_count?: number;
   tag?: string;
 }
-
-export const metadata = {
-  title: "Direktori Eksibitor - Pameran Karya Teknologi Pendidikan",
-  description:
-    "Jelajahi profil dan karya para mahasiswa Teknologi Pendidikan Indonesia yang berpartisipasi dalam Pameran Karya.",
-};
 
 export default async function PersonDirectoryPage() {
   const supabase = getSupabaseClient();

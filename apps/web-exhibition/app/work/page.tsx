@@ -4,6 +4,31 @@ import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
 import { WorkDirectoryClient } from "@/app/work/WorkDirectoryClient";
+import { Metadata } from "next";
+import { openGraphGlobalMetadata } from "@/app/global-metadata";
+
+export const metadata: Metadata = {
+  title: "Direktori Karya",
+  description:
+    "Direktori lengkap karya, produk, dan hasil penelitian mahasiswa di bidang Teknologi Pendidikan dari berbagai perguruan tinggi di Indonesia yang dipamerkan dalam Pameran Karya Teknologi Pendidikan (PKTEP).",
+  authors: [
+    {
+      name: "Teknologi Pendidikan ID",
+      url: "https://teknologipendidikan.or.id",
+    },
+    {
+      name: "Ikatan Mahasiswa Teknologi Pendidikan Indonesia",
+      url: "https://imatepsi.or.id",
+    },
+  ],
+  openGraph: {
+    ...openGraphGlobalMetadata,
+    title: "Direktori Karya",
+    description:
+      "Direktori lengkap karya, produk, dan hasil penelitian mahasiswa di bidang Teknologi Pendidikan dari berbagai perguruan tinggi di Indonesia yang dipamerkan dalam Pameran Karya Teknologi Pendidikan (PKTEP).",
+    url: "https://pamerankarya.teknologipendidikan.or.id/work",
+  },
+};
 
 interface Work {
   work_id: string;
@@ -38,14 +63,6 @@ const getSupabaseClient = () =>
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
   );
-
-export const metadata = {
-  title: "Direktori Karya - Pameran Karya Teknologi Pendidikan",
-  description:
-    "Jelajahi koleksi karya inovatif dari mahasiswa Teknologi Pendidikan Indonesia. Temukan berbagai proyek, penelitian, dan karya kreatif dalam bidang teknologi pendidikan.",
-  keywords:
-    "karya teknologi pendidikan, student work, innovation, educational technology, research",
-};
 
 // Server component to fetch data
 async function getWorksData() {

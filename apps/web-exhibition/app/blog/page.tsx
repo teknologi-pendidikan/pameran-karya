@@ -1,5 +1,30 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { getAllBlogPosts } from "@/lib/blog";
+import { openGraphGlobalMetadata } from "@/app/global-metadata";
+
+export const metadata: Metadata = {
+  title: "Rilisan dan Pengumuman",
+  description:
+    "Rilisan dan pengumuman terbaru seputar Pameran Karya Teknologi Pendidikan.",
+  authors: [
+    {
+      name: "Teknologi Pendidikan ID",
+      url: "https://teknologipendidikan.or.id",
+    },
+    {
+      name: "Ikatan Mahasiswa Teknologi Pendidikan Indonesia",
+      url: "https://imatepsi.or.id",
+    },
+  ],
+  openGraph: {
+    ...openGraphGlobalMetadata,
+    title: "Rilisan dan Pengumuman",
+    description:
+      "Rilisan dan pengumuman terbaru seputar Pameran Karya Teknologi Pendidikan.",
+    url: "https://pamerankarya.teknologipendidikan.or.id/blog",
+  },
+};
 
 export default function BlogPage() {
   const posts = getAllBlogPosts();

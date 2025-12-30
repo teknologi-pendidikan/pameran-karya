@@ -17,15 +17,15 @@ export interface BuildInfo {
 }
 
 const buildInfo: BuildInfo = {
-  "timestamp": "2025-12-29T02:37:34.400Z",
-  "date": "29 Desember 2025 pukul 09.37 WIB",
+  "timestamp": "2025-12-30T21:09:15.639Z",
+  "date": "31 Desember 2025 pukul 04.09 WIB",
   "version": "0.1.0",
-  "nodeVersion": "v24.11.1",
-  "buildId": "y7eeg663gj",
+  "nodeVersion": "v24.12.0",
+  "buildId": "bz65ujgfn6",
   "git": {
-    "commitHash": "5ccdea6dc294dd0e30fe4346c161686756382b9c",
-    "commitShort": "5ccdea6",
-    "commitMessage": "fix: make works slug work even the database are empty",
+    "commitHash": "ac54bee74e4bed2c186dab8964a74d391b10e720",
+    "commitShort": "ac54bee",
+    "commitMessage": "fix: use new slug-uuid generaton function",
     "branchName": "2025",
     "gitlabUrl": "https://gitlab.com/teknologi-pendidikan/pamerankarya"
   }

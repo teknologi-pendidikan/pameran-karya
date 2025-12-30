@@ -106,9 +106,37 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
     };
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        {/* Mobile Layout */}
+        <div className="flex flex-col space-y-4 sm:hidden">
+          {/* Back Button */}
+          <Link href="/dashboard">
+            <Button variant="outline" size="sm" className="w-fit">
+              <ArrowLeftIcon className="h-4 w-4 mr-2" />
+              Back
+            </Button>
+          </Link>
+
+          {/* Title */}
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold leading-tight">
+              {work.title}
+            </h1>
+            <p className="text-muted-foreground text-sm">Work Details</p>
+          </div>
+
+          {/* Action Button */}
+          <Link href={`/dashboard/works/${work.work_id}/edit`}>
+            <Button variant="outline" size="sm" className="w-full">
+              <EditIcon className="h-4 w-4 mr-2" />
+              Edit Work
+            </Button>
+          </Link>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden sm:flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link href="/dashboard">
               <Button variant="outline" size="sm">
@@ -133,7 +161,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
         </div>
 
         {/* Work Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             <Card>
@@ -246,7 +274,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Quick Stats */}
             <Card>
               <CardHeader>

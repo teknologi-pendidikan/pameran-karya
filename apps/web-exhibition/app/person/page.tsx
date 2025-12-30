@@ -75,8 +75,8 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <div className="">
         {/* Header Section */}
         <div className="mb-12">
           <h1 className="text-5xl mb-6">Direktori Eksibitor</h1>

@@ -1,4 +1,3 @@
- 
 "use client";
 import Link from "next/link";
 import Image from "next/image";
@@ -138,11 +137,11 @@ export function WorkDirectoryClient({
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="container px-4 py-8 max-w-7xl mx-auto">
+      <div className="">
         {/* Header Section */}
         <header className="mb-8 md:mb-12">
-          <h1 className="text-3xl md:text-5xl lg:text-7xl mb-3 md:mb-4 font-bold">
+          <h1 className="text-3xl md:text-5xl lg:text-5xl mb-3 md:mb-4">
             Direktori Karya
           </h1>
           <div className="flex flex-wrap justify-start gap-2 md:gap-3 mb-4 md:mb-6">
@@ -164,7 +163,7 @@ export function WorkDirectoryClient({
               Kontributor
             </div>
           </div>
-          <p className="text-base md:text-xl text-gray-600 max-w-3xl leading-relaxed">
+          <p className="text-base md:text-lg text-gray-600 max-w-3xl leading-relaxed">
             Jelajahi koleksi karya inovatif dari mahasiswa Teknologi Pendidikan
             Indonesia. Temukan berbagai proyek, penelitian, dan karya kreatif
             dalam bidang teknologi pendidikan.
@@ -172,7 +171,7 @@ export function WorkDirectoryClient({
         </header>
 
         {/* Search and Filter Controls */}
-        <div className=" rounded-2xl p-6 mb-8">
+        <div className="mb-6">
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search Input */}
             <div className="flex-1">

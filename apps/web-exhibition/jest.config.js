@@ -22,7 +22,17 @@ const config = {
     "!**/*.d.ts",
     "!**/node_modules/**",
   ],
-  coverageReporters: ["text", "lcov", "html"],
+  coverageReporters: ["text", "lcov", "html", "cobertura"],
+  reporters: [
+    "default",
+    [
+      "jest-junit",
+      {
+        outputDirectory: "coverage",
+        outputName: "junit.xml",
+      },
+    ],
+  ],
   testMatch: ["**/__tests__/**/*.(ts|tsx|js)", "**/*.(test|spec).(ts|tsx|js)"],
   verbose: false, // Set to true when needed, or override via CLI
   errorOnDeprecated: true,

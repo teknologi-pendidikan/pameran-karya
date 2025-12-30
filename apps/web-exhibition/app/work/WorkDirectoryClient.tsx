@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getYouTubeVideoId } from "@/lib/youtubeEmbed";
 
 interface Work {
   work_id: string;
@@ -43,6 +44,18 @@ export function WorkDirectoryClient({
   const searchParams = useSearchParams();
 
   const ITEMS_PER_PAGE = 12;
+
+  // Helper function to get YouTube thumbnail or original URL
+  const getImageUrl = (url: string | undefined): string => {
+    if (!url) return "/placeholder-work.png";
+
+    const videoId = getYouTubeVideoId(url);
+    if (videoId) {
+      return `https://img.youtube.com/vi/${videoId}/default.jpg`;
+    }
+
+    return url;
+  };
 
   // Get values from URL params or use defaults
   const searchQuery = searchParams.get("search") || "";
@@ -227,42 +240,41 @@ export function WorkDirectoryClient({
 
         {/* Works Grid */}
         {paginatedWorks.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {paginatedWorks.map((work) => (
               <Link
                 key={work.work_id}
                 href={`/work/${work.slug}`}
-                className="card  shadow-md hover:shadow-xl transition-shadow duration-300 group"
+                className="card shadow-md hover:shadow-xl transition-shadow duration-300 group"
               >
                 {/* Featured Asset Thumbnail */}
-                <figure className="h-48">
+                <figure className="h-36">
                   {work.featured_asset?.thumbnail_url ||
                   work.featured_asset?.file_url ? (
                     <img
-                      src={
+                      src={getImageUrl(
                         work.featured_asset.thumbnail_url ||
-                        work.featured_asset.file_url ||
-                        "/placeholder-work.png"
-                      }
+                          work.featured_asset.file_url
+                      )}
                       alt={work.title}
                       width={400}
-                      height={192}
+                      height={144}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 aspect-video"
                     />
                   ) : (
                     <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                       <div className="text-center">
-                        <div className="text-4xl mb-2">📄</div>
-                        <div className="text-gray-500 text-sm">No Preview</div>
+                        <div className="text-3xl mb-1">📄</div>
+                        <div className="text-gray-500 text-xs">No Preview</div>
                       </div>
                     </div>
                   )}
                 </figure>
 
-                <div className="card-body p-4">
+                <div className="card-body p-3">
                   {/* Title and Date */}
-                  <div className="mb-3">
-                    <h2 className="card-title text-lg group-hover:text-blue-600 transition-colors line-clamp-2">
+                  <div className="mb-2">
+                    <h2 className="card-title text-base group-hover:text-blue-600 transition-colors line-clamp-2">
                       {work.title}
                     </h2>
                     <div className="text-xs text-gray-500 mt-1">
@@ -278,19 +290,19 @@ export function WorkDirectoryClient({
 
                   {/* Abstract */}
                   {work.abstract && (
-                    <p className="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed">
+                    <p className="text-xs text-gray-600 line-clamp-2 mb-3 leading-relaxed">
                       {work.abstract}
                     </p>
                   )}
 
                   {/* Contributors */}
                   {work.contributors && work.contributors.length > 0 && (
-                    <div className="mb-4">
-                      <div className="text-xs text-gray-500 mb-2">
+                    <div className="mb-3">
+                      <div className="text-xs text-gray-500 mb-1">
                         Contributors:
                       </div>
                       <div className="flex flex-wrap gap-1">
-                        {work.contributors.slice(0, 3).map((contributor) => (
+                        {work.contributors.slice(0, 2).map((contributor) => (
                           <span
                             key={contributor.person_id}
                             className="badge badge-outline text-xs"
@@ -298,9 +310,9 @@ export function WorkDirectoryClient({
                             {contributor.name}
                           </span>
                         ))}
-                        {work.contributors.length > 3 && (
+                        {work.contributors.length > 2 && (
                           <span className="badge badge-ghost text-xs">
-                            +{work.contributors.length - 3} more
+                            +{work.contributors.length - 2} more
                           </span>
                         )}
                       </div>
@@ -313,7 +325,7 @@ export function WorkDirectoryClient({
                       {work.asset_count || 0}{" "}
                       {work.asset_count === 1 ? "asset" : "assets"}
                     </div>
-                    <div className="btn btn-link btn-sm">View Details →</div>
+                    <div className="btn btn-link btn-xs">View →</div>
                   </div>
                 </div>
               </Link>

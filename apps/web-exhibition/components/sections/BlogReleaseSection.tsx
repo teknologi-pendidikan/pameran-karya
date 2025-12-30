@@ -21,6 +21,8 @@ export default function BlogReleaseSection() {
           </p>
         </div>
 
+        <WhitePaperSection />
+
         {/* Blog Cards with Image Overlay */}
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           {blogPosts.map((post) => (
@@ -72,3 +74,32 @@ export default function BlogReleaseSection() {
     </section>
   );
 }
+
+const WhitePaperSection = () => {
+  return (
+    <div className="mb-6">
+      <Link href="/whitepaper" className="group">
+        <div className="relative h-40 md:h-80 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:shadow-blue-400/30">
+          <img
+            src="/placeholder-foto-praktikum-lego-16x9.webp"
+            alt="whitepaper cover"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 group-hover:brightness-100"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-black to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="flex gap-1 mb-2">
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                Whitepaper
+              </span>
+            </div>
+            <h3 className="max-w-2xl text-white text-sm md:text-5xl font-semibold line-clamp-2 leading-tight">
+              Whitepaper Pameran Karya Teknologi Pendidikan
+            </h3>
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
+};
+
+export { WhitePaperSection };

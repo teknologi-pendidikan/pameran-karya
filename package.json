@@ -25,10 +25,12 @@
         "clean:all": "pnpm -r clean",
         "install:all": "pnpm install",
         "dev": "pnpm dev:exhibition",
+        "build": "pnpm build:exhibition",
         "serve:exhibition": "serve apps/web-exhibition/out"
     },
     "workspaces": [
-        "apps/*"
+        "apps/web-exhibition",
+        "apps/web-backoffice"
     ],
     "devDependencies": {
         "@netlify/plugin-nextjs": "^5.15.3",
@@ -52,6 +54,9 @@
     "engines": {
         "node": ">=22.0.0",
         "pnpm": ">=10.0.0"
+    },
+    "corepack": {
+        "pnpm": "10.26.2"
     },
     "dependencies": {
         "serve": "^14.2.5"

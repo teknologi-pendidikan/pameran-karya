@@ -1,5 +1,20 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[build]
+  # Base directory for the monorepo
+  base = "apps/web-exhibition"
+  # Build command that works from the root
+  command = "cd ../.. && pnpm build:exhibition"
+  # Output directory relative to base
+  publish = "out"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF apps/web-exhibition/"
+
+[build.environment]
+  # Enable pnpm
+  NPM_FLAGS = "--version" # Prevent npm usage
+  PNPM_VERSION = "10.26.2"
+
 # Security Headers
 [[headers]]
   for = "/*"

@@ -111,16 +111,10 @@ export default function SponsorSection() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <Link
-              href="/sponsor"
+              href="/blog/informasi-sponsor-pameran-karya-tep"
               className="btn btn-outline btn-white border-white text-white hover:bg-white hover:text-blue-600"
             >
               Informasi Sponsor
-            </Link>
-            <Link
-              href="/contact"
-              className="btn btn-outline btn-white border-white text-white hover:bg-white hover:text-purple-600"
-            >
-              Hubungi Kami
             </Link>
           </div>
         </div>

@@ -124,43 +124,191 @@ test:typecheck:backoffice:
     - pnpm tsc --noEmit
   allow_failure: true
 
-# Build stage (optional - for verification)
+# Bundle analysis and performance
+test:bundle-analysis:exhibition:
+  extends: .base_job
+  stage: test
+  needs:
+    - setup:dependencies
+  script:
+    - echo "Analyzing bundle size for web-exhibition..."
+    - cd apps/web-exhibition
+    - pnpm run build
+    - echo "Bundle analysis completed"
+    - du -sh out/ | tee bundle-size.txt
+    - find out/ -name "*.js" -exec wc -c {} + | sort -n | tail -10 | tee largest-files.txt
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - apps/web-exhibition/bundle-size.txt
+      - apps/web-exhibition/largest-files.txt
+    reports:
+      dotenv: apps/web-exhibition/bundle-report.env
+  after_script:
+    - cd apps/web-exhibition
+    - echo "BUNDLE_SIZE=$(du -sb out/ | cut -f1)" > bundle-report.env
+    - echo "JS_FILES_COUNT=$(find out/ -name '*.js' | wc -l)" >> bundle-report.env
+  allow_failure: true
+
+test:bundle-analysis:backoffice:
+  extends: .base_job
+  stage: test
+  needs:
+    - setup:dependencies
+  script:
+    - echo "Analyzing bundle size for web-backoffice..."
+    - cd apps/web-backoffice
+    - pnpm run build
+    - echo "Bundle analysis completed"
+    - du -sh .next/ | tee bundle-size.txt
+    - find .next/ -name "*.js" -exec wc -c {} + | sort -n | tail -10 | tee largest-files.txt
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - apps/web-backoffice/bundle-size.txt
+      - apps/web-backoffice/largest-files.txt
+    reports:
+      dotenv: apps/web-backoffice/bundle-report.env
+  after_script:
+    - cd apps/web-backoffice
+    - echo "BUNDLE_SIZE=$(du -sb .next/ | cut -f1)" > bundle-report.env
+    - echo "JS_FILES_COUNT=$(find .next/ -name '*.js' | wc -l)" >> bundle-report.env
+  allow_failure: true
+
+# Security and dependency audit
+test:security-audit:
+  extends: .base_job
+  stage: test
+  needs:
+    - setup:dependencies
+  script:
+    - echo "Running security audit..."
+    - pnpm audit --prod
+    - echo "Checking for outdated dependencies..."
+    - pnpm outdated || true
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - audit-report.txt
+    reports:
+      dotenv: security-report.env
+  after_script:
+    - pnpm audit --prod --json > audit-report.txt || true
+    - echo "AUDIT_STATUS=completed" > security-report.env
+  allow_failure: true
+
+# Performance budget check
+test:performance-budget:exhibition:
+  extends: .base_job
+  stage: test
+  needs:
+    - test:bundle-analysis:exhibition
+  variables:
+    MAX_BUNDLE_SIZE: "5242880" # 5MB in bytes
+  script:
+    - echo "Checking performance budget for web-exhibition..."
+    - cd apps/web-exhibition
+    - |
+      if [ -f bundle-report.env ]; then
+        source bundle-report.env
+        if [ "$BUNDLE_SIZE" -gt "$MAX_BUNDLE_SIZE" ]; then
+          echo "❌ Bundle size ($BUNDLE_SIZE bytes) exceeds budget ($MAX_BUNDLE_SIZE bytes)"
+          exit 1
+        else
+          echo "✅ Bundle size ($BUNDLE_SIZE bytes) within budget ($MAX_BUNDLE_SIZE bytes)"
+        fi
+      else
+        echo "⚠️  Bundle report not found, skipping budget check"
+      fi
+  allow_failure: true
+
+test:performance-budget:backoffice:
+  extends: .base_job
+  stage: test
+  needs:
+    - test:bundle-analysis:backoffice
+  variables:
+    MAX_BUNDLE_SIZE: "10485760" # 10MB in bytes (larger for backoffice)
+  script:
+    - echo "Checking performance budget for web-backoffice..."
+    - cd apps/web-backoffice
+    - |
+      if [ -f bundle-report.env ]; then
+        source bundle-report.env
+        if [ "$BUNDLE_SIZE" -gt "$MAX_BUNDLE_SIZE" ]; then
+          echo "❌ Bundle size ($BUNDLE_SIZE bytes) exceeds budget ($MAX_BUNDLE_SIZE bytes)"
+          exit 1
+        else
+          echo "✅ Bundle size ($BUNDLE_SIZE bytes) within budget ($MAX_BUNDLE_SIZE bytes)"
+        fi
+      else
+        echo "⚠️  Bundle report not found, skipping budget check"
+      fi
+  allow_failure: true
+
+# Build stage - verification only, deployments handled by platforms
 build:exhibition:
   extends: .base_job
   stage: build
   needs:
     - test:exhibition
+    - test:typecheck:exhibition
   variables:
     NEXT_PUBLIC_SUPABASE_URL: $NEXT_PUBLIC_SUPABASE_URL
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: $NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
   script:
-    - echo "Building web-exhibition app..."
+    - echo "Building web-exhibition app for verification..."
     - pnpm --filter web-exhibition build
+    - echo "Build successful - ready for Netlify deployment"
   artifacts:
     expire_in: 1 day
     paths:
       - apps/web-exhibition/out/
-  only:
-    - "2025"
+    reports:
+      dotenv: apps/web-exhibition/build-report.env
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "2025"'
+      changes:
+        - apps/web-exhibition/**/*
+        - package.json
+        - pnpm-lock.yaml
+        - pnpm-workspace.yaml
+  after_script:
+    - echo "BUILD_STATUS=success" > apps/web-exhibition/build-report.env
+    - echo "BUILD_SIZE=$(du -sh apps/web-exhibition/out | cut -f1)" >> apps/web-exhibition/build-report.env
 
 build:backoffice:
   extends: .base_job
   stage: build
   needs:
     - test:backoffice
+    - test:typecheck:backoffice
     - lint:backoffice
   variables:
     NEXT_PUBLIC_SUPABASE_URL: $NEXT_PUBLIC_SUPABASE_URL
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: $NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
   script:
-    - echo "Building web-backoffice app..."
+    - echo "Building web-backoffice app for verification..."
     - pnpm --filter web-backoffice build
+    - echo "Build successful - ready for Vercel deployment"
   artifacts:
     expire_in: 1 day
     paths:
       - apps/web-backoffice/.next/
-  only:
-    - "2025"
+    reports:
+      dotenv: apps/web-backoffice/build-report.env
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "2025"'
+      changes:
+        - apps/web-backoffice/**/*
+        - package.json
+        - pnpm-lock.yaml
+        - pnpm-workspace.yaml
+  after_script:
+    - echo "BUILD_STATUS=success" > apps/web-backoffice/build-report.env
+    - echo "BUILD_SIZE=$(du -sh apps/web-backoffice/.next | cut -f1)" >> apps/web-backoffice/build-report.env
 
 # Security scanning
 secret_detection:

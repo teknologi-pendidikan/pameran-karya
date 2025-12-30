@@ -42,76 +42,90 @@ export default async function DashboardPage() {
     ]);
 
     return (
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold">Dashboard</h1>
-            <p className="text-muted-foreground">
-              Welcome back, {profile?.full_name || user.email}
-            </p>
+      <>
+        <div className="space-y-4 md:space-y-6">
+          {/* Header */}
+          <div className="flex flex-col space-y-3 sm:flex-row sm:justify-between sm:items-center sm:space-y-0">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold">Dashboard</h1>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Welcome back, {profile?.full_name || user.email}
+              </p>
+            </div>
+            {/* Desktop Submit Button - Hidden on mobile */}
+            <Link href="/dashboard/works/new" className="hidden sm:block">
+              <Button>
+                <PlusIcon className="w-4 h-4 mr-2" />
+                Submit New Work
+              </Button>
+            </Link>
           </div>
-          <Link href="/dashboard/works/new">
-            <Button>
-              <PlusIcon className="w-4 h-4 mr-2" />
-              Submit New Work
-            </Button>
-          </Link>
+
+          {/* Mobile CTA Button - Full width, shown only on mobile */}
+          <div className="sm:hidden">
+            <Link href="/dashboard/works/new" className="block">
+              <Button className="w-full h-12 text-base font-semibold">
+                <PlusIcon className="w-5 h-5 mr-2" />
+                Submit New Work
+              </Button>
+            </Link>
+          </div>
+
+          {/* Stats Cards */}
+          <div className="grid grid-cols-2 gap-3 md:gap-4 lg:gap-6">
+            <Card className="col-span-1">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-xs sm:text-sm font-medium">
+                  Total Works
+                </CardTitle>
+                <div className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground">
+                  📄
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="text-lg sm:text-2xl font-bold">
+                  {works.length}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  All submitted works
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="col-span-1">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-xs sm:text-sm font-medium">
+                  Draft Works
+                </CardTitle>
+                <div className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground">
+                  📝
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="text-lg sm:text-2xl font-bold">
+                  {works.filter((w) => w.status === "draft").length}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Works in progress
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Works List */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg md:text-xl">Recent Works</CardTitle>
+              <CardDescription className="text-sm">
+                All submitted works in the system
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <WorksList works={works} />
+            </CardContent>
+          </Card>
         </div>
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Works</CardTitle>
-              <div className="h-4 w-4 text-muted-foreground">📄</div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{works.length}</div>
-              <p className="text-xs text-muted-foreground">
-                All submitted works
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Draft Works</CardTitle>
-              <div className="h-4 w-4 text-muted-foreground">📝</div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                {works.filter((w) => w.status === "draft").length}
-              </div>
-              <p className="text-xs text-muted-foreground">Works in progress</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Categories</CardTitle>
-              <div className="h-4 w-4 text-muted-foreground">🏷️</div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{categories.length}</div>
-              <p className="text-xs text-muted-foreground">
-                Available categories
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Works List */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Works</CardTitle>
-            <CardDescription>All submitted works in the system</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <WorksList works={works} />
-          </CardContent>
-        </Card>
-      </div>
+      </>
     );
   } catch (error) {
     console.error("Database error:", error);

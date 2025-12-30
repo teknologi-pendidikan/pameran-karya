@@ -7,7 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
-import { LogOutIcon, HomeIcon, PlusIcon, UserIcon } from "lucide-react";
+import {
+  LogOutIcon,
+  HomeIcon,
+  PlusIcon,
+  UserIcon,
+  MenuIcon,
+  XIcon,
+} from "lucide-react";
+import { useState } from "react";
 
 interface NavigationProps {
   user: User | null;
@@ -23,6 +31,7 @@ export function Navigation({ user, userProfile }: NavigationProps) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -65,18 +74,23 @@ export function Navigation({ user, userProfile }: NavigationProps) {
         <nav className="border-b bg-background">
           <div className="container mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
-              <Link href="/" className="text-xl font-bold">
-                Backoffice Pameran Karya Teknologi Pendidikan
+              <Link href="/" className="text-lg sm:text-xl font-bold truncate">
+                <span className="hidden sm:inline">
+                  Backoffice Pameran Karya Teknologi Pendidikan
+                </span>
+                <span className="sm:hidden">Pameran Karya</span>
               </Link>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 sm:space-x-4">
                 <Link
                   href="/tentang"
-                  className="text-sm text-muted-foreground hover:text-primary"
+                  className="text-xs sm:text-sm text-muted-foreground hover:text-primary"
                 >
                   Tentang
                 </Link>
                 <Link href="/auth">
-                  <Button variant="outline">Masuk</Button>
+                  <Button variant="outline" size="sm">
+                    Masuk
+                  </Button>
                 </Link>
               </div>
             </div>
@@ -106,12 +120,13 @@ export function Navigation({ user, userProfile }: NavigationProps) {
     <nav className="border-b bg-background">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-6">
-            <Link href="/dashboard" className="text-xl font-bold">
+          <div className="flex items-center space-x-4 lg:space-x-6">
+            <Link href="/dashboard" className="text-lg sm:text-xl font-bold">
               Pameran Karya
             </Link>
 
-            <div className="hidden md:flex items-center space-x-4">
+            {/* Desktop Navigation - Hidden on mobile and tablets */}
+            <div className="hidden xl:flex items-center space-x-4">
               {navItems.map((item) => {
                 const isActive = item.exact
                   ? pathname === item.href
@@ -135,37 +150,51 @@ export function Navigation({ user, userProfile }: NavigationProps) {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:flex items-center space-x-3">
-              {/* User Info */}
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-2">
-                  <div className="text-sm font-medium">
-                    {userProfile?.full_name || user.email}
-                  </div>
-                  {getAccessLevelBadge(
-                    userProfile?.access_level || "participant"
-                  )}
+          {/* Desktop User Actions */}
+          <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
+            {/* User Info - Hide on smaller screens, show abbreviated on medium */}
+            <div className="hidden lg:flex items-center space-x-3">
+              <div className="flex items-center space-x-2">
+                <div className="text-sm font-medium max-w-32 xl:max-w-none truncate">
+                  {userProfile?.full_name || user.email}
                 </div>
+                {getAccessLevelBadge(
+                  userProfile?.access_level || "participant"
+                )}
               </div>
             </div>
 
             <Link href="/dashboard/account">
               <Button variant="ghost" size="sm">
-                <UserIcon className="h-4 w-4 mr-2" />
-                Account
+                <UserIcon className="h-4 w-4 lg:mr-2" />
+                <span className="hidden lg:inline">Account</span>
               </Button>
             </Link>
 
             <Button variant="outline" size="sm" onClick={handleSignOut}>
-              <LogOutIcon className="h-4 w-4 mr-2" />
-              Sign Out
+              <LogOutIcon className="h-4 w-4 lg:mr-2" />
+              <span className="hidden lg:inline">Sign Out</span>
+            </Button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <XIcon className="h-5 w-5" />
+              ) : (
+                <MenuIcon className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className="md:hidden mt-4 flex items-center space-x-2 overflow-x-auto">
+        {/* Tablet Navigation (1366x768 and similar) */}
+        <div className="hidden md:flex xl:hidden mt-4 items-center space-x-2 overflow-x-auto">
           {navItems.map((item) => {
             const isActive = item.exact
               ? pathname === item.href
@@ -187,6 +216,70 @@ export function Navigation({ user, userProfile }: NavigationProps) {
             );
           })}
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden mt-4 border-t pt-4">
+            {/* Navigation Items */}
+            <div className="space-y-2 mb-4">
+              {navItems.map((item) => {
+                const isActive = item.exact
+                  ? pathname === item.href
+                  : pathname.startsWith(item.href);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    }`}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* User Info */}
+            <div className="border-t pt-4 space-y-2">
+              <div className="px-3 py-2 text-sm">
+                <div className="font-medium">
+                  {userProfile?.full_name || user.email}
+                </div>
+                <div className="mt-1">
+                  {getAccessLevelBadge(
+                    userProfile?.access_level || "participant"
+                  )}
+                </div>
+              </div>
+
+              <Link
+                href="/dashboard/account"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
+              >
+                <UserIcon className="h-4 w-4" />
+                <span>Account</span>
+              </Link>
+
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  handleSignOut();
+                }}
+                className="w-full flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
+              >
+                <LogOutIcon className="h-4 w-4" />
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

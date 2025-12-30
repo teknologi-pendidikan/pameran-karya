@@ -9,7 +9,7 @@ const eslintConfig = defineConfig([
   prettier,
   // Override for test files - disable Next.js rules
   {
-    files: ["**/__tests__/**/*", "**/*.test.*", "**/*.spec.*"],
+    files: ["**/__tests__/**/*", "**/*.test.*", "**/*.spec.*", "jest.setup.js"],
     rules: {
       // Disable Next.js specific rules for test files
       "@next/next/no-img-element": "off",
@@ -31,8 +31,35 @@ const eslintConfig = defineConfig([
       "@next/next/no-assign-module-variable": "off",
       "@next/next/no-document-import-in-page": "off",
       "@next/next/no-server-import-in-page": "off",
+      // Disable React rules for tests
       "react/display-name": "off",
       "react-hooks/exhaustive-deps": "off",
+      // Disable TypeScript rules for tests
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
+  // General rules for all files
+  {
+    rules: {
+      // Allow unused vars that start with underscore
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+        },
+      ],
+      // Allow explicit any in specific cases
+      "@typescript-eslint/no-explicit-any": [
+        "error",
+        {
+          ignoreRestArgs: true,
+        },
+      ],
+      // Downgrade img warnings to warnings instead of errors
+      "@next/next/no-img-element": "warn",
     },
   },
   // Override default ignores of eslint-config-next.
@@ -42,6 +69,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Additional ignores:
+    "coverage/**",
+    "node_modules/**",
+    "*.config.js",
+    "*.config.mjs",
   ]),
 ]);
 

@@ -15,7 +15,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
       rehypePlugins={[rehypeRaw]} // This allows raw HTML including iframes
       components={{
         // Style iframe specifically
-        iframe: (props: any) => (
+        iframe: (props: React.ComponentProps<"iframe">) => (
           <div className="w-full max-w-4xl mx-auto my-8">
             <iframe
               {...props}

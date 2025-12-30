@@ -88,51 +88,75 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
         </div>
 
         {/* Person Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {persons.map((person) => (
             <Link
               key={person.person_id}
               href={`/person/${person.slug}`}
-              className="group block transition-transform hover:scale-105 hover:border-rose-100 border border-transparent shadow-sm rounded-lg overflow-hidden"
+              className="group block transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
             >
-              <div className="card card-side  shadow-sm w-full">
-                <figure>
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-full">
+                {/* Profile Image */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 aspect-[4/5]">
                   <img
-                    src={person.image || "/placeholder-4x6.png"}
+                    src={
+                      person.image ||
+                      "/placeholder-foto-praktikum-lego-16x9.webp"
+                    }
                     alt={person.name}
-                    width={192}
-                    height={192}
-                    className="h-48 w-auto"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
                   />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title">{person.name}</h2>
-                  <p>{person.bio}</p>
-                  <div className="flex flex-col gap-2">
-                    {/* <div className="badge badge-secondary">
-                      {person.works_count || 0} Karya
-                    </div> */}
-                    <div className="badge badge-outline text-xs">
-                      {person.affiliation}
-                    </div>
-                    {person.tag && (
-                      <div
-                        className={`badge badge-outline text-xs
+                  {/* Tag Badge - Positioned on image */}
+                  {person.tag && (
+                    <div
+                      className={`absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-medium shadow-sm
                         ${
                           person.tag === "Committee"
-                            ? "bg-red-600 text-white"
+                            ? "bg-red-500 text-white"
                             : person.tag === "Operations"
                               ? "bg-blue-500 text-white"
                               : person.tag === "Volunteer"
-                                ? "bg-green-600 text-white"
-                                : "badge-gray"
+                                ? "bg-green-500 text-white"
+                                : "bg-gray-500 text-white"
                         }
-                      }`}
+                      `}
+                    >
+                      {person.tag}
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    {person.name}
+                  </h3>
+
+                  {person.bio && (
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed">
+                      {person.bio}
+                    </p>
+                  )}
+
+                  {/* Affiliation */}
+                  {person.affiliation && (
+                    <div className="flex items-center gap-1 text-xs text-gray-500">
+                      <svg
+                        className="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        {person.tag}
-                      </div>
-                    )}
-                  </div>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h3M9 7h1m-1 4h1m4-4h1m-1 4h1m-1 4h1m1-4h1m-1 4h1"
+                        />
+                      </svg>
+                      <span className="truncate">{person.affiliation}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </Link>

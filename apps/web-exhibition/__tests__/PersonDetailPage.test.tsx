@@ -88,7 +88,7 @@ describe("Person Detail Page", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     consoleSpy.mockClear();
-    (notFound as jest.Mock).mockClear();
+    (notFound as unknown as jest.Mock).mockClear();
   });
 
   afterAll(() => {

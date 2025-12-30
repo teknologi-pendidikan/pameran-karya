@@ -19,6 +19,38 @@ interface WorkDetailPageProps {
   params: Promise<{ id: string }>;
 }
 
+interface WorkCategory {
+  category_id?: string;
+  category?: {
+    category_id: string;
+    label: string;
+  };
+}
+
+interface WorkPerson {
+  person_id: string;
+  contribution_role?: string;
+  ordering?: number;
+  person: {
+    person_id: string;
+    name: string;
+    slug: string;
+    affiliation?: string;
+    bio?: string;
+    tag?: string;
+  };
+}
+
+interface Asset {
+  asset_id: string;
+  work_id: string;
+  type: "image" | "video" | "audio" | "document" | "link";
+  file_url: string;
+  thumbnail_url?: string;
+  license?: string;
+  created_at: string;
+}
+
 export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
   const { id } = await params;
   const supabase = await createClient();
@@ -158,7 +190,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {work.work_category.map((wc: any) => (
+                    {work.work_category.map((wc: WorkCategory) => (
                       <Badge
                         key={wc.category?.category_id || wc.category_id}
                         variant="outline"
@@ -184,10 +216,10 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                   <div className="space-y-3">
                     {work.work_person
                       .sort(
-                        (a: any, b: any) =>
+                        (a: WorkPerson, b: WorkPerson) =>
                           (a.ordering || 0) - (b.ordering || 0)
                       )
-                      .map((wp: any) => (
+                      .map((wp: WorkPerson) => (
                         <div
                           key={wp.person.person_id}
                           className="flex items-center justify-between p-3 border rounded-lg"
@@ -266,7 +298,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    {work.asset.map((asset: any) => (
+                    {work.asset.map((asset: Asset) => (
                       <div
                         key={asset.asset_id}
                         className="flex items-center justify-between p-2 border rounded"

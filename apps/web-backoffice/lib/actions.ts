@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import { generateSlug } from "@/lib/database";
 
 export interface CreateWorkData {
@@ -271,7 +270,13 @@ export async function updateWorkAction(
 
   try {
     // Prepare work updates
-    const workUpdates: any = { ...updates };
+    const workUpdates: Partial<{
+      title: string;
+      abstract: string;
+      status: string;
+      slug: string;
+      categories: string[];
+    }> = { ...updates };
     delete workUpdates.categories; // Remove categories from work updates
 
     // Update slug if title changed
@@ -280,7 +285,7 @@ export async function updateWorkAction(
     }
 
     // Update the work
-    const { data: work, error: workError } = await supabase
+    const { error: workError } = await supabase
       .from("work")
       .update(workUpdates)
       .eq("work_id", workId)

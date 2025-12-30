@@ -110,7 +110,7 @@ test:typecheck:exhibition:
   script:
     - echo "Type checking web-exhibition app..."
     - cd apps/web-exhibition
-    - pnpm run typegen:build
+    - pnpm tsc --noEmit
   allow_failure: true
 
 test:typecheck:backoffice:

@@ -7,13 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
-import {
-  LogOutIcon,
-  HomeIcon,
-  PlusIcon,
-  FolderIcon,
-  UserIcon,
-} from "lucide-react";
+import { LogOutIcon, HomeIcon, PlusIcon, UserIcon } from "lucide-react";
 
 interface NavigationProps {
   user: User | null;

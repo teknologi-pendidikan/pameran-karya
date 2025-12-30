@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { type Category, getAllowedStatusOptions } from "@/lib/client-utils";
-import { createWorkAction, type CreateWorkData } from "@/lib/actions";
+import { createWorkAction } from "@/lib/actions";
 import { toast } from "sonner";
 
 const workSchema = z.object({

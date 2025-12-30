@@ -108,7 +108,7 @@ export default async function DashboardPage() {
             <CardDescription>All submitted works in the system</CardDescription>
           </CardHeader>
           <CardContent>
-            <WorksList works={works} categories={categories} />
+            <WorksList works={works} />
           </CardContent>
         </Card>
       </div>

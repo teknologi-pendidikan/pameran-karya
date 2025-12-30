@@ -35,11 +35,16 @@ export async function ensureUserProfile() {
         // Create person record for existing profile, but handle race condition
         try {
           await createPersonForUser(user, existingProfile);
-        } catch (error: any) {
+        } catch (error: unknown) {
           // If it's a duplicate key error, it means another concurrent call already created the person
           if (
+            error &&
+            typeof error === "object" &&
+            "code" in error &&
+            "message" in error &&
             error.code === "23505" &&
-            error.message?.includes("person_slug_key")
+            typeof error.message === "string" &&
+            error.message.includes("person_slug_key")
           ) {
             console.log(
               "Person record was already created by concurrent call, continuing..."
@@ -82,11 +87,16 @@ export async function ensureUserProfile() {
     // Create person record for the new user, but handle race condition
     try {
       await createPersonForUser(user, newProfile);
-    } catch (error: any) {
+    } catch (error: unknown) {
       // If it's a duplicate key error, it means another concurrent call already created the person
       if (
+        error &&
+        typeof error === "object" &&
+        "code" in error &&
+        "message" in error &&
         error.code === "23505" &&
-        error.message?.includes("person_slug_key")
+        typeof error.message === "string" &&
+        error.message.includes("person_slug_key")
       ) {
         console.log(
           "Person record was already created by concurrent call, continuing..."
@@ -104,7 +114,10 @@ export async function ensureUserProfile() {
   }
 }
 
-async function createPersonForUser(user: any, profile: any) {
+async function createPersonForUser(
+  user: { id: string; email?: string },
+  profile: { full_name: string; id: string }
+) {
   const supabase = await createClient();
 
   console.log("Creating person for user:", {

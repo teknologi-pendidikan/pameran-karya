@@ -11,17 +11,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { type Work, type Category, getFirstAuthor } from "@/lib/client-utils";
+import { type Work, getFirstAuthor } from "@/lib/client-utils";
 import { format } from "date-fns";
 import Link from "next/link";
 import { ExternalLinkIcon, SearchIcon } from "lucide-react";
 
 interface WorksListProps {
   works: Work[];
-  categories: Category[];
 }
 
-export function WorksList({ works, categories }: WorksListProps) {
+export function WorksList({ works }: WorksListProps) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("created_at");

@@ -106,7 +106,7 @@ interface WorkEditFormProps {
     full_name: string;
     email: string;
   };
-  onUpdate?: (updatedWork: any) => void;
+  onUpdate?: (updatedWork: Work) => void;
 }
 
 export function WorkEditForm({
@@ -156,7 +156,15 @@ export function WorkEditForm({
         if (result.success) {
           toast.success("Work updated successfully!");
           if (onUpdate) {
-            onUpdate(data);
+            // Create updated work object with form data
+            const updatedWork: Work = {
+              ...work,
+              ...data,
+              work_category: work.work_category.filter((wc) =>
+                data.categories.includes(wc.category.category_id)
+              ),
+            };
+            onUpdate(updatedWork);
           }
           router.refresh();
         } else {

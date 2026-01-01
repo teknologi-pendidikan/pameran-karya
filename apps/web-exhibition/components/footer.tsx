@@ -80,8 +80,24 @@ export default function Footer() {
           />
           <div className="text-center sm:text-left text-sm">
             <p className="lg:max-w-xs">
-              by Teknologi Pendidikan ID & Ikatan Mahasiswa Teknologi Pendidikan
-              Indonesia
+              by{" "}
+              <a
+                href="https://teknologipendidikan.or.id"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Teknologi Pendidikan ID
+              </a>{" "}
+              &amp;{" "}
+              <a
+                href="https://imatepsi.or.id"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Ikatan Mahasiswa Teknologi Pendidikan Indonesia
+              </a>
             </p>
           </div>
         </div>

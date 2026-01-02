@@ -3,7 +3,6 @@ import { createClient as createClientStatic } from "@supabase/supabase-js";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { getYouTubeVideoId } from "@/lib/youtubeEmbed";
 import { format } from "date-fns";
-import Image from "next/image";
 import Link from "next/link";
 import { openGraphGlobalMetadata } from "@/app/global-metadata";
 import BackButton from "@/components/BackButton";
@@ -378,14 +377,13 @@ export default async function WorkPage({ params }: PageProps) {
                           })()
                         ) : (
                           <div className="relative w-full h-full group">
-                            <Image
+                            <img
                               src={
                                 asset.thumbnail_url ||
                                 asset.file_url ||
                                 "/placeholder-asset.png"
                               }
                               alt={`${work.title} - Asset ${index + 1}`}
-                              fill
                               className="object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                             {asset.file_url && asset.type !== "video" && (

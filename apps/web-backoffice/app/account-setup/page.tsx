@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { ensureUserProfile } from "@/lib/user-profile";
-import AccountSetupForm from "./account-setup-form";
+import AccountSetupForm from "@/app/account-setup/account-setup-form";
 
 export default async function AccountSetup({
   searchParams,

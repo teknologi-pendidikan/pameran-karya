@@ -63,7 +63,12 @@ describe("Person Directory Page", () => {
         slug: "john-doe",
         bio: "Technology education enthusiast",
         image: "/john.jpg",
-        affiliation: "University A",
+        affiliation: {
+          affiliation_id: "aff-1",
+          name: "University A",
+          short_name: "UA",
+          type: "university",
+        },
         tag: "Committee",
       },
       {
@@ -72,7 +77,12 @@ describe("Person Directory Page", () => {
         slug: "jane-smith",
         bio: "Educational technology researcher",
         image: "/jane.jpg",
-        affiliation: "University B",
+        affiliation: {
+          affiliation_id: "aff-2",
+          name: "University B",
+          short_name: "UB",
+          type: "university",
+        },
         tag: "Volunteer",
       },
     ];
@@ -160,7 +170,12 @@ describe("Person Directory Page", () => {
         slug: "john-doe",
         bio: "Technology education enthusiast",
         image: "/john.jpg",
-        affiliation: "University A",
+        affiliation: {
+          affiliation_id: "aff-1",
+          name: "University A",
+          short_name: "UA",
+          type: "university",
+        },
         tag: "Committee",
       },
     ];
@@ -234,6 +249,12 @@ describe("Person Directory Page", () => {
       expect(mockFrom).toHaveBeenCalledWith("person");
       expect(mockSelect).toHaveBeenCalledWith(`
       *,
+      affiliation(
+        affiliation_id,
+        name,
+        short_name,
+        type
+      ),
       work_person(count)
     `);
     }
@@ -245,19 +266,28 @@ describe("Person Directory Page", () => {
         person_id: "1",
         name: "Committee Member",
         slug: "committee",
+        bio: "Committee member",
         tag: "Committee",
+        affiliation: null,
+        works_count: 0,
       },
       {
         person_id: "2",
         name: "Operations Member",
         slug: "operations",
+        bio: "Operations member",
         tag: "Operations",
+        affiliation: null,
+        works_count: 0,
       },
       {
         person_id: "3",
         name: "Volunteer Member",
         slug: "volunteer",
+        bio: "Volunteer member",
         tag: "Volunteer",
+        affiliation: null,
+        works_count: 0,
       },
     ];
 
@@ -274,9 +304,9 @@ describe("Person Directory Page", () => {
       expect(container).toBeInTheDocument();
 
       // Check for tag elements (exact styling may vary)
-      const committeeTag = container.querySelector('[class*="bg-red-600"]');
+      const committeeTag = container.querySelector('[class*="bg-red-500"]');
       const operationsTag = container.querySelector('[class*="bg-blue-500"]');
-      const volunteerTag = container.querySelector('[class*="bg-green-600"]');
+      const volunteerTag = container.querySelector('[class*="bg-green-500"]');
 
       expect(
         committeeTag || container.querySelector('[class*="Committee"]')
@@ -300,7 +330,12 @@ describe("Person Directory Page", () => {
           slug: "test-person",
           bio: "Test bio",
           image: "/test.jpg",
-          affiliation: "Test University",
+          affiliation: {
+            affiliation_id: "aff-1",
+            name: "Test University",
+            short_name: "TU",
+            type: "university",
+          },
           tag: "Committee",
         },
       ];

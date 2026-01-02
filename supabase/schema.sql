@@ -12,6 +12,18 @@ CREATE TABLE public.asset (
   CONSTRAINT asset_pkey PRIMARY KEY (asset_id),
   CONSTRAINT asset_work_id_fkey FOREIGN KEY (work_id) REFERENCES public.work(work_id)
 );
+CREATE TABLE public.affiliation (
+  affiliation_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  short_name text,
+  type text CHECK (type = ANY (ARRAY['university'::text, 'institute'::text, 'company'::text, 'organization'::text, 'other'::text])),
+  country text,
+  website text,
+  slug text NOT NULL UNIQUE,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT affiliation_pkey PRIMARY KEY (affiliation_id),
+  CONSTRAINT affiliation_name_unique UNIQUE (name)
+);
 CREATE TABLE public.category (
   category_id uuid NOT NULL DEFAULT gen_random_uuid(),
   type text,
@@ -22,14 +34,15 @@ CREATE TABLE public.category (
 CREATE TABLE public.person (
   person_id uuid NOT NULL DEFAULT gen_random_uuid(),
   name text NOT NULL,
-  affiliation text,
+  affiliation_id uuid,
   slug text NOT NULL UNIQUE,
   bio text,
   tag text,
   email text,
   profile_id uuid,
   CONSTRAINT person_pkey PRIMARY KEY (person_id),
-  CONSTRAINT person_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES public.profiles(id)
+  CONSTRAINT person_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES public.profiles(id),
+  CONSTRAINT person_affiliation_id_fkey FOREIGN KEY (affiliation_id) REFERENCES public.affiliation(affiliation_id)
 );
 CREATE TABLE public.profiles (
   id uuid NOT NULL,

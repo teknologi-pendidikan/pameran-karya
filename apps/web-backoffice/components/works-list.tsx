@@ -156,7 +156,7 @@ export function WorksList({ works }: WorksListProps) {
                         {firstAuthor.affiliation && (
                           <span className="text-xs">
                             {" "}
-                            · {firstAuthor.affiliation}
+                            · {firstAuthor.affiliation.name}
                           </span>
                         )}
                       </div>

@@ -11,7 +11,7 @@ export interface Work {
   work_person?: {
     person: {
       name: string;
-      affiliation: string | null;
+      affiliation?: Affiliation | null;
     };
     contribution_role: string;
     ordering: number;
@@ -28,11 +28,23 @@ export interface Category {
 export interface Person {
   person_id: string;
   name: string;
-  affiliation: string | null;
+  affiliation_id: string | null;
   slug: string;
   bio: string | null;
   tag: string | null;
   profile_id: string | null;
+  affiliation?: Affiliation | null;
+}
+
+export interface Affiliation {
+  affiliation_id: string;
+  name: string;
+  short_name: string | null;
+  type: "university" | "institute" | "company" | "organization" | "other";
+  country: string | null;
+  website: string | null;
+  slug: string;
+  created_at: string;
 }
 
 export interface Asset {
@@ -88,7 +100,7 @@ export function generateSlugWithUuid(title: string, uuid: string): string {
 // Get first author from work_person relationship
 export function getFirstAuthor(
   work: Work
-): { name: string; affiliation: string | null } | null {
+): { name: string; affiliation: Affiliation | null | undefined } | null {
   if (!work.work_person || work.work_person.length === 0) {
     return null;
   }

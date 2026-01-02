@@ -13,7 +13,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+
+interface Affiliation {
+  affiliation_id: string;
+  name: string;
+  short_name?: string;
+  type: string;
+}
 
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient();
@@ -23,6 +38,15 @@ export default function AccountForm({ user }: { user: User | null }) {
   const [email, setEmail] = useState<string | null>(null);
   const [accessLevel, setAccessLevel] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+
+  // Person profile states
+  const [personData, setPersonData] = useState<any>(null);
+  const [personBio, setPersonBio] = useState<string>("");
+  const [personTag, setPersonTag] = useState<string>("");
+  const [personAffiliationId, setPersonAffiliationId] = useState<string>("");
+  const [availableAffiliations, setAvailableAffiliations] = useState<
+    Affiliation[]
+  >([]);
 
   const getProfile = useCallback(async () => {
     if (!user?.id) return;
@@ -74,6 +98,44 @@ export default function AccountForm({ user }: { user: User | null }) {
         setAccessLevel(data.access_level);
         setEmail(data.email);
       }
+
+      // Fetch person data if it exists
+      const { data: personData, error: personError } = await supabase
+        .from("person")
+        .select(
+          `
+          person_id,
+          name,
+          bio,
+          tag,
+          affiliation_id,
+          affiliation(
+            affiliation_id,
+            name,
+            short_name,
+            type
+          )
+        `
+        )
+        .eq("user_id", user.id)
+        .single();
+
+      if (personData) {
+        setPersonData(personData);
+        setPersonBio(personData.bio || "");
+        setPersonTag(personData.tag || "");
+        setPersonAffiliationId(personData.affiliation_id || "");
+      }
+
+      // Fetch available affiliations
+      const { data: affiliations, error: affiliationError } = await supabase
+        .from("affiliation")
+        .select("affiliation_id, name, short_name, type")
+        .order("name");
+
+      if (affiliations) {
+        setAvailableAffiliations(affiliations);
+      }
     } catch (error) {
       console.error("Error in getProfile:", error);
       toast.error("Error loading user data");
@@ -109,6 +171,62 @@ export default function AccountForm({ user }: { user: User | null }) {
       setUpdating(false);
     }
   }
+
+  const updatePersonProfile = async () => {
+    if (!user?.id) return;
+
+    try {
+      setUpdating(true);
+
+      // Check if person exists
+      if (!personData) {
+        // Create new person record
+        const { data, error } = await supabase
+          .from("person")
+          .insert([
+            {
+              user_id: user.id,
+              name: fullname || user.user_metadata?.full_name || "Unknown",
+              bio: personBio,
+              tag: personTag,
+              affiliation_id:
+                personAffiliationId === "none"
+                  ? null
+                  : personAffiliationId || null,
+            },
+          ])
+          .select()
+          .single();
+
+        if (error) throw error;
+        setPersonData(data);
+      } else {
+        // Update existing person record
+        const { error } = await supabase
+          .from("person")
+          .update({
+            bio: personBio,
+            tag: personTag,
+            affiliation_id:
+              personAffiliationId === "none"
+                ? null
+                : personAffiliationId || null,
+          })
+          .eq("person_id", personData.person_id);
+
+        if (error) throw error;
+      }
+
+      toast.success("Person profile updated successfully!");
+      // Refresh the data
+      await getProfile();
+    } catch (error) {
+      console.error("Error updating person profile:", error);
+      toast.error("Error updating person profile");
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -194,6 +312,96 @@ export default function AccountForm({ user }: { user: User | null }) {
           <div className="flex justify-end space-x-4">
             <Button onClick={updateProfile} disabled={updating}>
               {updating ? "Updating..." : "Update Profile"}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Person Profile */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Person Profile</CardTitle>
+          <CardDescription>
+            Manage your personal information used in work attributions and
+            public display
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="personBio">Bio</Label>
+            <Textarea
+              id="personBio"
+              value={personBio}
+              onChange={(e) => setPersonBio(e.target.value)}
+              placeholder="Brief description about yourself"
+              rows={3}
+            />
+            <p className="text-sm text-muted-foreground">
+              This will be displayed on your public profile
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="personTag">Tag/Role</Label>
+            <Input
+              id="personTag"
+              type="text"
+              value={personTag}
+              onChange={(e) => setPersonTag(e.target.value)}
+              placeholder="e.g. Committee, Operations, Volunteer"
+            />
+            <p className="text-sm text-muted-foreground">
+              Your role or tag that will be displayed as a badge
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="affiliation">Affiliation</Label>
+            <Select
+              value={personAffiliationId || "none"}
+              onValueChange={(value) =>
+                setPersonAffiliationId(value === "none" ? "" : value)
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select your affiliation" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">No affiliation</SelectItem>
+                {availableAffiliations.map((affiliation) => (
+                  <SelectItem
+                    key={affiliation.affiliation_id}
+                    value={affiliation.affiliation_id}
+                  >
+                    {affiliation.short_name
+                      ? `${affiliation.name} (${affiliation.short_name})`
+                      : affiliation.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-sm text-muted-foreground">
+              Your institutional affiliation. Only you can change this.
+            </p>
+          </div>
+
+          {personData?.affiliation && (
+            <div className="p-3 bg-muted/50 rounded-lg">
+              <p className="text-sm font-medium mb-1">Current Affiliation:</p>
+              <p className="text-sm text-muted-foreground">
+                {personData.affiliation.name}
+                {personData.affiliation.short_name &&
+                  ` (${personData.affiliation.short_name})`}
+                <span className="ml-2 text-xs capitalize px-2 py-1 bg-secondary rounded">
+                  {personData.affiliation.type}
+                </span>
+              </p>
+            </div>
+          )}
+
+          <div className="flex justify-end space-x-4">
+            <Button onClick={updatePersonProfile} disabled={updating}>
+              {updating ? "Updating..." : "Update Person Profile"}
             </Button>
           </div>
         </CardContent>

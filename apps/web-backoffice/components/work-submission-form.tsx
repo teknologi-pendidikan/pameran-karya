@@ -32,7 +32,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { type Category, getAllowedStatusOptions } from "@/lib/client-utils";
+import {
+  type Category,
+  type Affiliation,
+  getAllowedStatusOptions,
+} from "@/lib/client-utils";
 import { createWorkAction } from "@/lib/actions";
 import { toast } from "sonner";
 
@@ -47,8 +51,6 @@ const workSchema = z.object({
     .max(2000, "Abstract must be less than 2000 characters"),
   status: z.enum(["draft", "ready", "final"]),
   categories: z.array(z.string()).min(1, "Please select at least one category"),
-  authorName: z.string().min(1, "Author name is required"),
-  authorAffiliation: z.string().optional(),
   assetUrl: z
     .string()
     .url("Please enter a valid URL")
@@ -86,8 +88,6 @@ export function WorkSubmissionForm({
       abstract: "",
       status: "draft",
       categories: [],
-      authorName: userProfile?.full_name || "",
-      authorAffiliation: "",
       assetUrl: "",
       assetType: "link",
     },
@@ -101,8 +101,6 @@ export function WorkSubmissionForm({
           abstract: data.abstract,
           status: data.status,
           categories: data.categories,
-          authorName: data.authorName,
-          authorAffiliation: data.authorAffiliation,
           assetUrl: data.assetUrl,
           assetType: data.assetType,
         });
@@ -141,12 +139,29 @@ export function WorkSubmissionForm({
       <CardHeader>
         <CardTitle>Submit New Work</CardTitle>
         <CardDescription>
-          Submit your academic work for review and publication
+          Submit your academic work for review and publication. Author
+          information will be taken from your account profile.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* Author Profile Info */}
+            {userProfile?.full_name && (
+              <div className="p-4 bg-muted/50 rounded-lg border">
+                <h4 className="font-medium mb-2">Author Information</h4>
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-medium">Name:</span>{" "}
+                  {userProfile.full_name}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Your name and affiliation will be pulled from your Account
+                  settings.
+                  <br />
+                  To update this information, go to Dashboard → Account.
+                </p>
+              </div>
+            )}
             <FormField
               control={form.control}
               name="title"
@@ -269,48 +284,6 @@ export function WorkSubmissionForm({
                   {form.formState.errors.categories.message}
                 </p>
               )}
-            </div>
-
-            {/* Author Information */}
-            <div className="space-y-4 border-t pt-4">
-              <h3 className="text-lg font-semibold">Author Information</h3>
-
-              <FormField
-                control={form.control}
-                name="authorName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your full name" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Your name as it should appear as the first author
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="authorAffiliation"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Affiliation (Optional)</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="University or Institution"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      Your institutional affiliation
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
 
             {/* Basic Asset */}

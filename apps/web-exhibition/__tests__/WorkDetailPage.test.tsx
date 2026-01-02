@@ -86,7 +86,12 @@ const mockContributor = {
   name: "John Doe",
   slug: "john-doe",
   bio: "Student researcher",
-  affiliation: "Teknologi Pendidikan",
+  affiliation: {
+    affiliation_id: "aff-1",
+    name: "Teknologi Pendidikan",
+    short_name: "TEP",
+    type: "university",
+  },
   contribution_role: "Lead Developer",
   ordering: 1,
 };

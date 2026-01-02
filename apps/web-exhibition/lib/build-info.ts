@@ -17,15 +17,15 @@ export interface BuildInfo {
 }
 
 const buildInfo: BuildInfo = {
-  "timestamp": "2026-01-02T01:43:38.390Z",
-  "date": "2 Januari 2026 pukul 08.43 WIB",
+  "timestamp": "2026-01-02T05:27:45.413Z",
+  "date": "2 Januari 2026 pukul 12.27 WIB",
   "version": "0.1.0",
   "nodeVersion": "v24.12.0",
-  "buildId": "ok9ic9nty6g",
+  "buildId": "gdagvxczo05",
   "git": {
-    "commitHash": "ed06e0555585817de97f79fa84abb9c55ab02832",
-    "commitShort": "ed06e05",
-    "commitMessage": "feat: add easy share button to whatsapp",
+    "commitHash": "c10a621a8fdd8dc5fdcb0ace0c35f44c1ed02168",
+    "commitShort": "c10a621",
+    "commitMessage": "feat: use centralized affiliation table",
     "branchName": "2025",
     "gitlabUrl": "https://gitlab.com/teknologi-pendidikan/pamerankarya"
   }

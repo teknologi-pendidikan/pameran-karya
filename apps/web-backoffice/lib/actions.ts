@@ -8,8 +8,6 @@ export interface CreateWorkData {
   abstract: string;
   status: "draft" | "ready" | "final" | "ready for review";
   categories: string[];
-  authorName: string;
-  authorAffiliation?: string;
   assetFile?: File;
   assetUrl?: string;
   assetType: "image" | "video" | "audio" | "document" | "link";
@@ -93,68 +91,24 @@ export async function createWorkAction(
       console.log("Categories added successfully");
     }
 
-    // Step 2: Create or find person record for current user linked to their profile
-    const authorSlug = generateSlugWithUuid(data.authorName, user.id);
+    // Step 2: Get or create person record for current user
     let person;
 
-    // First, try to find existing person linked to this user's profile
-    const { data: userPerson } = await supabase
+    // First, try to find existing person linked to this user
+    const { data: userPerson, error: personLookupError } = await supabase
       .from("person")
       .select("*")
-      .eq("profile_id", user.id)
+      .or(`user_id.eq.${user.id},profile_id.eq.${user.id}`)
       .single();
 
     if (userPerson) {
-      // User already has a person record, update it if needed
-      if (
-        userPerson.name !== data.authorName ||
-        userPerson.affiliation !== (data.authorAffiliation || null)
-      ) {
-        const { data: updatedPerson, error: updateError } = await supabase
-          .from("person")
-          .update({
-            name: data.authorName,
-            affiliation: data.authorAffiliation || null,
-            slug: authorSlug,
-          })
-          .eq("person_id", userPerson.person_id)
-          .select()
-          .single();
-
-        if (updateError) {
-          console.error("Person update error:", updateError);
-          throw updateError;
-        }
-
-        person = updatedPerson;
-        console.log("Updated existing person:", person.person_id);
-      } else {
-        person = userPerson;
-        console.log("Using existing person:", person.person_id);
-      }
+      person = userPerson;
+      console.log("Using existing person profile:", person.person_id);
     } else {
-      // Create new person record linked to the user's profile (fallback for existing users)
-      const { data: newPerson, error: personError } = await supabase
-        .from("person")
-        .insert([
-          {
-            name: data.authorName,
-            affiliation: data.authorAffiliation || null,
-            slug: authorSlug,
-            tag: "author",
-            profile_id: user.id, // Link to user's profile
-          },
-        ])
-        .select()
-        .single();
-
-      if (personError) {
-        console.error("Person creation error:", personError);
-        throw personError;
-      }
-
-      person = newPerson;
-      console.log("Created new person:", person.person_id);
+      // No person profile found - user needs to set up their profile first
+      throw new Error(
+        "Please set up your profile in Account settings before submitting work. Go to Dashboard → Account to add your name and affiliation."
+      );
     }
 
     // Step 3: Link person as first author to work

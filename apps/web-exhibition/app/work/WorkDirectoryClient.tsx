@@ -22,7 +22,12 @@ interface Contributor {
   slug: string;
   //   image?: string;
   contribution_role?: string;
-  affiliation?: string;
+  affiliation?: {
+    affiliation_id: string;
+    name: string;
+    short_name?: string;
+    type: string;
+  };
 }
 
 interface Asset {
@@ -97,7 +102,7 @@ export function WorkDirectoryClient({
           work.contributors?.some(
             (contributor) =>
               contributor.name.toLowerCase().includes(query) ||
-              contributor.affiliation?.toLowerCase().includes(query)
+              contributor.affiliation?.name.toLowerCase().includes(query)
           )
         );
       });

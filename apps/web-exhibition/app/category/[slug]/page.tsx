@@ -23,7 +23,12 @@ interface Contributor {
   name: string;
   slug: string;
   contribution_role?: string;
-  affiliation?: string;
+  affiliation?: {
+    affiliation_id: string;
+    name: string;
+    short_name?: string;
+    type: string;
+  };
 }
 
 interface Asset {
@@ -124,7 +129,12 @@ export default async function CategoryPage({ params }: PageProps) {
             person_id,
             name,
             slug,
-            affiliation
+            affiliation(
+              affiliation_id,
+              name,
+              short_name,
+              type
+            )
           ),
           contribution_role
         ),

@@ -94,7 +94,12 @@ describe("Work Directory Page", () => {
               person_id: "person-1",
               name: "John Doe",
               slug: "john-doe",
-              affiliation: "University A",
+              affiliation: {
+                affiliation_id: "aff-1",
+                name: "University A",
+                short_name: "UA",
+                type: "university",
+              },
             },
             contribution_role: "Lead Researcher",
           },
@@ -125,7 +130,12 @@ describe("Work Directory Page", () => {
               person_id: "person-2",
               name: "Jane Smith",
               slug: "jane-smith",
-              affiliation: "University B",
+              affiliation: {
+                affiliation_id: "aff-2",
+                name: "University B",
+                short_name: "UB",
+                type: "university",
+              },
             },
             contribution_role: "Developer",
           },
@@ -229,7 +239,12 @@ describe("Work Directory Page", () => {
               person_id: "person-1",
               name: "John Doe",
               slug: "john-doe",
-              affiliation: "University A",
+              affiliation: {
+                affiliation_id: "aff-1",
+                name: "University A",
+                short_name: "UA",
+                type: "university",
+              },
             },
             contribution_role: "Lead Researcher",
           },
@@ -238,7 +253,12 @@ describe("Work Directory Page", () => {
               person_id: "person-2",
               name: "Jane Smith",
               slug: "jane-smith",
-              affiliation: "University B",
+              affiliation: {
+                affiliation_id: "aff-2",
+                name: "University B",
+                short_name: "UB",
+                type: "university",
+              },
             },
             contribution_role: "Co-Researcher",
           },
@@ -327,7 +347,12 @@ describe("Work Directory Page", () => {
               person_id: "person-1",
               name: "John Doe",
               slug: "john-doe",
-              affiliation: "University A",
+              affiliation: {
+                affiliation_id: "aff-1",
+                name: "University A",
+                short_name: "UA",
+                type: "university",
+              },
             },
             contribution_role: "Author",
           },
@@ -391,7 +416,12 @@ describe("Work Directory Page", () => {
           person_id,
           name,
           slug,
-          affiliation
+          affiliation(
+            affiliation_id,
+            name,
+            short_name,
+            type
+          )
         ),
         contribution_role
       ),

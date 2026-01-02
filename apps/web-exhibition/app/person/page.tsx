@@ -39,7 +39,12 @@ interface Person {
   slug: string;
   bio?: string;
   image?: string;
-  affiliation?: string;
+  affiliation?: {
+    affiliation_id: string;
+    name: string;
+    short_name?: string;
+    type: string;
+  };
   works_count?: number;
   tag?: string;
 }
@@ -53,6 +58,12 @@ export default async function PersonDirectoryPage() {
     .select(
       `
       *,
+      affiliation(
+        affiliation_id,
+        name,
+        short_name,
+        type
+      ),
       work_person(count)
     `
     )
@@ -158,7 +169,7 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
                   )}
 
                   {/* Affiliation */}
-                  {person.affiliation && (
+                  {person.affiliation?.name && (
                     <div className="flex items-center gap-1 text-xs text-gray-500">
                       <svg
                         className="w-3 h-3"
@@ -173,7 +184,9 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
                           d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h3M9 7h1m-1 4h1m4-4h1m-1 4h1m-1 4h1m1-4h1m-1 4h1"
                         />
                       </svg>
-                      <span className="truncate">{person.affiliation}</span>
+                      <span className="truncate">
+                        {person.affiliation.name}
+                      </span>
                     </div>
                   )}
                 </div>

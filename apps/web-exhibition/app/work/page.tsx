@@ -47,7 +47,12 @@ interface Contributor {
   slug: string;
   //   image?: string;
   contribution_role?: string;
-  affiliation?: string;
+  affiliation?: {
+    affiliation_id: string;
+    name: string;
+    short_name?: string;
+    type: string;
+  };
 }
 
 interface Asset {
@@ -83,7 +88,12 @@ async function getWorksData() {
           person_id,
           name,
           slug,
-          affiliation
+          affiliation(
+            affiliation_id,
+            name,
+            short_name,
+            type
+          )
         ),
         contribution_role
       ),

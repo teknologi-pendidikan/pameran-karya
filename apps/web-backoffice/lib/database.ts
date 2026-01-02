@@ -6,10 +6,11 @@ import {
   type Category,
   type Person,
   type Asset,
+  type Affiliation,
 } from "@/lib/client-utils";
 
 // Re-export types for server-side use
-export type { Work, Category, Person, Asset };
+export type { Work, Category, Person, Asset, Affiliation };
 export { generateSlug, generateSlugWithUuid };
 
 // Get all works (for curators/operations) or user's works (for participants)
@@ -209,12 +210,17 @@ export async function createCategory(categoryData: {
   return data as Category;
 }
 
-// Get all people
+// Get all people with affiliation data
 export async function getPeople() {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("person")
-    .select("*")
+    .select(
+      `
+      *,
+      affiliation(*)
+    `
+    )
     .order("name");
 
   if (error) throw error;
@@ -225,15 +231,21 @@ export async function getPeople() {
 export async function createPerson(personData: {
   name: string;
   slug: string;
-  affiliation?: string;
+  affiliation_id?: string;
   bio?: string;
   tag?: string;
+  profile_id?: string;
 }) {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("person")
     .insert([personData])
-    .select()
+    .select(
+      `
+      *,
+      affiliation(*)
+    `
+    )
     .single();
 
   if (error) throw error;
@@ -287,4 +299,68 @@ export async function createAsset(assetData: {
 
   if (error) throw error;
   return data as Asset;
+}
+
+// Affiliation functions
+
+// Get all affiliations
+export async function getAffiliations() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("affiliation")
+    .select("*")
+    .order("name");
+
+  if (error) throw error;
+  return data as Affiliation[];
+}
+
+// Create affiliation
+export async function createAffiliation(affiliationData: {
+  name: string;
+  short_name?: string;
+  type: "university" | "institute" | "company" | "organization" | "other";
+  country?: string;
+  website?: string;
+  slug: string;
+}) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("affiliation")
+    .insert([affiliationData])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data as Affiliation;
+}
+
+// Update affiliation
+export async function updateAffiliation(
+  affiliationId: string,
+  updates: Partial<Affiliation>
+) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("affiliation")
+    .update(updates)
+    .eq("affiliation_id", affiliationId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data as Affiliation;
+}
+
+// Get affiliation by ID
+export async function getAffiliationById(affiliationId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("affiliation")
+    .select("*")
+    .eq("affiliation_id", affiliationId)
+    .single();
+
+  if (error) throw error;
+  return data as Affiliation;
 }

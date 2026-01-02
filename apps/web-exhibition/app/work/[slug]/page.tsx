@@ -48,7 +48,12 @@ interface Contributor {
   slug: string;
   image?: string;
   bio?: string;
-  affiliation?: string;
+  affiliation?: {
+    affiliation_id: string;
+    name: string;
+    short_name?: string;
+    type: string;
+  };
   contribution_role?: string;
   ordering?: number;
 }
@@ -59,7 +64,12 @@ interface WorkPersonRelation {
     name: string;
     slug: string;
     bio?: string;
-    affiliation?: string;
+    affiliation?: {
+      affiliation_id: string;
+      name: string;
+      short_name?: string;
+      type: string;
+    };
   };
   contribution_role?: string;
   ordering?: number;
@@ -109,7 +119,12 @@ async function getWorkData(slug: string) {
           name,
           slug,
           bio,
-          affiliation
+          affiliation(
+            affiliation_id,
+            name,
+            short_name,
+            type
+          )
         ),
         contribution_role,
         ordering
@@ -497,9 +512,9 @@ export default async function WorkPage({ params }: PageProps) {
                               {contributor.contribution_role}
                             </p>
                           )}
-                          {contributor.affiliation && (
+                          {contributor.affiliation?.name && (
                             <p className="text-xs text-gray-500 truncate">
-                              {contributor.affiliation}
+                              {contributor.affiliation.name}
                             </p>
                           )}
                         </div>

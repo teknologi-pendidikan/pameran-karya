@@ -33,9 +33,15 @@ interface Person {
   person_id: string;
   name: string;
   slug: string;
-  affiliation?: string;
+  affiliation_id?: string;
   bio?: string;
   tag?: string;
+  affiliation?: {
+    affiliation_id: string;
+    name: string;
+    short_name?: string;
+    type: string;
+  };
 }
 
 interface WorkPerson {
@@ -214,9 +220,15 @@ export function ContributorManager({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">
-          Contributors ({contributors.length})
-        </h3>
+        <div>
+          <h3 className="text-lg font-semibold">
+            Contributors ({contributors.length})
+          </h3>
+          <p className="text-sm text-muted-foreground">
+            Manage contributor roles and ordering. Affiliations are managed by
+            users in their account settings.
+          </p>
+        </div>
         <Button
           type="button"
           variant="outline"
@@ -251,9 +263,9 @@ export function ContributorManager({
                         <User className="h-4 w-4" />
                         <div className="text-left">
                           <div>{selectedPerson.name}</div>
-                          {selectedPerson.affiliation && (
+                          {selectedPerson.affiliation?.name && (
                             <div className="text-xs text-muted-foreground">
-                              {selectedPerson.affiliation}
+                              {selectedPerson.affiliation.name}
                             </div>
                           )}
                         </div>
@@ -275,7 +287,7 @@ export function ContributorManager({
                         {filteredPeople.map((person) => (
                           <CommandItem
                             key={person.person_id}
-                            value={`${person.name} ${person.affiliation || ""}`}
+                            value={`${person.name} ${person.affiliation?.name || ""}`}
                             onSelect={() => {
                               setSelectedPerson(person);
                               setSearchOpen(false);
@@ -283,9 +295,9 @@ export function ContributorManager({
                           >
                             <div className="flex flex-col">
                               <div className="font-medium">{person.name}</div>
-                              {person.affiliation && (
+                              {person.affiliation?.name && (
                                 <div className="text-sm text-muted-foreground">
-                                  {person.affiliation}
+                                  {person.affiliation.name}
                                 </div>
                               )}
                             </div>
@@ -389,9 +401,12 @@ export function ContributorManager({
                         )}
                       </div>
 
-                      {contributor.person.affiliation && (
+                      {contributor.person.affiliation?.name && (
                         <div className="text-sm text-muted-foreground mb-1">
-                          {contributor.person.affiliation}
+                          <span className="text-xs text-gray-500">
+                            Affiliation:
+                          </span>{" "}
+                          {contributor.person.affiliation.name}
                         </div>
                       )}
 

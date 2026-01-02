@@ -159,7 +159,7 @@ async function createPersonForUser(
 
   const personData = {
     name: profile.full_name,
-    affiliation: null, // Can be filled later by user
+    affiliation_id: null, // Can be filled later by user
     slug: uniqueSlug,
     tag: "author",
     profile_id: user.id, // Link to user's profile

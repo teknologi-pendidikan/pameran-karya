@@ -14,10 +14,25 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Get all people ordered by name
+    // Get all people ordered by name with affiliation data
     const { data: people, error } = await supabase
       .from("person")
-      .select("person_id, name, slug, affiliation, bio, tag")
+      .select(
+        `
+        person_id,
+        name,
+        slug,
+        affiliation_id,
+        bio,
+        tag,
+        affiliation(
+          affiliation_id,
+          name,
+          short_name,
+          type
+        )
+      `
+      )
       .order("name");
 
     if (error) {

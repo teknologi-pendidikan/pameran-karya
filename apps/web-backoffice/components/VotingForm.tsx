@@ -18,9 +18,7 @@ interface VotingFormProps {
 export default function VotingForm({
   workId,
   workTitle,
-  workSlug,
   userId,
-  userEmail,
   existingVote,
   authors,
 }: VotingFormProps) {

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PrinterIcon, DownloadIcon } from "lucide-react";
+import { PrinterIcon } from "lucide-react";
 import QRCode from "react-qr-code";
 
 interface Work {
@@ -29,7 +29,6 @@ interface CertificateGeneratorProps {
 export default function CertificateGenerator({
   profile,
   worksCount,
-  works,
 }: CertificateGeneratorProps) {
   const [isPrintMode, setIsPrintMode] = useState(false);
 
@@ -168,14 +167,20 @@ export default function CertificateGenerator({
                       Print Instructions:
                     </h4>
                     <ol className="text-sm text-blue-800 space-y-1">
-                      <li>1. Click the "Print Letter" button above</li>
+                      <li>
+                        1. Click the &quot;Print Letter&quot; button above
+                      </li>
                       <li>2. In the print dialog, ensure you select:</li>
                       <li className="ml-4">• Paper size: A4</li>
                       <li className="ml-4">• Orientation: Portrait</li>
                       <li className="ml-4">
-                        • Enable "Background graphics" or "Print backgrounds"
+                        • Enable &quot;Background graphics&quot; or &quot;Print
+                        backgrounds&quot;
                       </li>
-                      <li>3. Choose "Save as PDF" or print to your printer</li>
+                      <li>
+                        3. Choose &quot;Save as PDF&quot; or print to your
+                        printer
+                      </li>
                     </ol>
                   </div>
                 </div>
@@ -280,7 +285,8 @@ export default function CertificateGenerator({
                 educational technology resources and contributing to the
                 academic community. Their work
                 {worksCount > 1 ? "s have" : " has"} been reviewed and approved
-                for public exhibition, meeting our platform's quality standards.
+                for public exhibition, meeting our platform&apos;s quality
+                standards.
               </p>
 
               <p

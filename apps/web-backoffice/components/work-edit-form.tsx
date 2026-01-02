@@ -34,11 +34,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
 import { format } from "date-fns";
-import {
-  type Category,
-  getAllowedStatusOptions,
-  type Affiliation,
-} from "@/lib/client-utils";
+import { type Category, getAllowedStatusOptions } from "@/lib/client-utils";
 import { updateWorkAction } from "@/lib/actions";
 import { toast } from "sonner";
 import { AssetManager } from "@/components/asset-manager";

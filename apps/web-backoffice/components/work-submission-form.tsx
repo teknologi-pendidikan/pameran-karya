@@ -32,11 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import {
-  type Category,
-  type Affiliation,
-  getAllowedStatusOptions,
-} from "@/lib/client-utils";
+import { type Category, getAllowedStatusOptions } from "@/lib/client-utils";
 import { createWorkAction } from "@/lib/actions";
 import { toast } from "sonner";
 

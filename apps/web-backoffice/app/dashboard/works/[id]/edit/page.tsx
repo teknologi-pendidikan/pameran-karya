@@ -3,7 +3,7 @@ import { redirect, notFound } from "next/navigation";
 import { getWorkById, getCategories, canUserAccessWork } from "@/lib/database";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowLeftIcon, EyeIcon, TrashIcon } from "lucide-react";
+import { ArrowLeftIcon, EyeIcon } from "lucide-react";
 import { WorkEditForm } from "@/components/work-edit-form";
 import { ensureUserProfile } from "@/lib/user-profile";
 import { DeleteWorkButton } from "@/components/delete-work-button";

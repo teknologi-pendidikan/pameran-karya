@@ -36,10 +36,7 @@ export default async function DashboardPage() {
   }
 
   try {
-    const [works, categories] = await Promise.all([
-      getWorks(profile),
-      getCategories(),
-    ]);
+    const [works] = await Promise.all([getWorks(profile), getCategories()]);
 
     return (
       <>

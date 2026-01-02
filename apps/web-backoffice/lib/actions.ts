@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { generateSlug, generateSlugWithUuid } from "@/lib/database";
+import { generateSlugWithUuid } from "@/lib/database";
 
 export interface CreateWorkData {
   title: string;
@@ -95,7 +95,7 @@ export async function createWorkAction(
     let person;
 
     // First, try to find existing person linked to this user's profile
-    const { data: userPerson, error: personLookupError } = await supabase
+    const { data: userPerson } = await supabase
       .from("person")
       .select("*")
       .eq("profile_id", user.id)

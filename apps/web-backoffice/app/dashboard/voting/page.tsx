@@ -18,7 +18,7 @@ export default async function VotingResultsPage() {
   const { data: voteResults, error: voteError } =
     await supabase.rpc("get_vote_counts");
 
-  const { count: totalVoters, error: voterCountError } = await supabase
+  const { count: totalVoters } = await supabase
     .from("votes")
     .select("*", { count: "exact", head: true });
 

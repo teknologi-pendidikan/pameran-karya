@@ -31,6 +31,15 @@ interface Affiliation {
   type: string;
 }
 
+interface PersonData {
+  person_id: string;
+  name: string;
+  bio: string | null;
+  tag: string | null;
+  affiliation_id: string | null;
+  affiliation?: Affiliation;
+}
+
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
@@ -42,7 +51,7 @@ export default function AccountForm({ user }: { user: User | null }) {
   const [accessLevel, setAccessLevel] = useState<string | null>(null);
 
   // Person profile states
-  const [personData, setPersonData] = useState<any>(null);
+  const [personData, setPersonData] = useState<PersonData | null>(null);
   const [personBio, setPersonBio] = useState<string>("");
   const [personTag, setPersonTag] = useState<string>("");
   const [personAffiliationId, setPersonAffiliationId] = useState<string>("");
@@ -72,7 +81,7 @@ export default function AccountForm({ user }: { user: User | null }) {
       }
 
       // Fetch person data if it exists
-      const { data: personData, error: personError } = await supabase
+      const { data: personData } = await supabase
         .from("person")
         .select(
           `
@@ -93,7 +102,12 @@ export default function AccountForm({ user }: { user: User | null }) {
         .single();
 
       if (personData) {
-        setPersonData(personData);
+        setPersonData({
+          ...personData,
+          affiliation: Array.isArray(personData.affiliation)
+            ? personData.affiliation[0]
+            : personData.affiliation,
+        });
         setPersonBio(personData.bio || "");
         setPersonTag(personData.tag || "");
         setPersonAffiliationId(personData.affiliation_id || "");

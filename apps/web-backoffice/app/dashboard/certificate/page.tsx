@@ -42,7 +42,7 @@ export default async function CertificatePage() {
     profile = {
       ...profile,
       slug: personData.slug,
-      affiliation: personData.affiliation?.name,
+      affiliation: personData.affiliation?.[0]?.name,
     };
   }
 

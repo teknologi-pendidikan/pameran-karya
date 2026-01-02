@@ -14,6 +14,7 @@ import {
   UserIcon,
   MenuIcon,
   XIcon,
+  AwardIcon,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -112,6 +113,12 @@ export function Navigation({ user, userProfile }: NavigationProps) {
       href: "/dashboard/works/new",
       label: "Submit Work",
       icon: PlusIcon,
+      exact: true,
+    },
+    {
+      href: "/dashboard/certificate",
+      label: "Certificate",
+      icon: AwardIcon,
       exact: true,
     },
   ];

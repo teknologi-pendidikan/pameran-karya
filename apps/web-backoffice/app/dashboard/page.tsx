@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, AwardIcon } from "lucide-react";
 import Link from "next/link";
 import { ensureUserProfile } from "@/lib/user-profile";
 
@@ -52,17 +52,34 @@ export default async function DashboardPage() {
                 Welcome back, {profile?.full_name || user.email}
               </p>
             </div>
-            {/* Desktop Submit Button - Hidden on mobile */}
-            <Link href="/dashboard/works/new" className="hidden sm:block">
-              <Button>
-                <PlusIcon className="w-4 h-4 mr-2" />
-                Submit New Work
-              </Button>
-            </Link>
+            {/* Desktop Action Buttons - Hidden on mobile */}
+            <div className="hidden sm:flex sm:gap-3">
+              <Link href="/dashboard/certificate">
+                <Button variant="outline">
+                  <AwardIcon className="w-4 h-4 mr-2" />
+                  Generate Certificate
+                </Button>
+              </Link>
+              <Link href="/dashboard/works/new">
+                <Button>
+                  <PlusIcon className="w-4 h-4 mr-2" />
+                  Submit New Work
+                </Button>
+              </Link>
+            </div>
           </div>
 
-          {/* Mobile CTA Button - Full width, shown only on mobile */}
-          <div className="sm:hidden">
+          {/* Mobile CTA Buttons - Full width, shown only on mobile */}
+          <div className="sm:hidden space-y-2">
+            <Link href="/dashboard/certificate" className="block">
+              <Button
+                variant="outline"
+                className="w-full h-12 text-base font-semibold"
+              >
+                <AwardIcon className="w-5 h-5 mr-2" />
+                Generate Certificate
+              </Button>
+            </Link>
             <Link href="/dashboard/works/new" className="block">
               <Button className="w-full h-12 text-base font-semibold">
                 <PlusIcon className="w-5 h-5 mr-2" />
@@ -72,7 +89,7 @@ export default async function DashboardPage() {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 gap-3 md:gap-4 lg:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
             <Card className="col-span-1">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-xs sm:text-sm font-medium">
@@ -93,6 +110,29 @@ export default async function DashboardPage() {
             </Card>
 
             <Card className="col-span-1">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-xs sm:text-sm font-medium">
+                  Completed Works
+                </CardTitle>
+                <div className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground">
+                  ✅
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="text-lg sm:text-2xl font-bold">
+                  {
+                    works.filter(
+                      (w) => w.status === "ready" || w.status === "final"
+                    ).length
+                  }
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Ready & Final works
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="col-span-2 lg:col-span-1">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-xs sm:text-sm font-medium">
                   Draft Works

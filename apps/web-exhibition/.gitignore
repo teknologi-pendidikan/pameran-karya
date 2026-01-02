@@ -47,3 +47,6 @@ yarn-error.log*
 next-env.d.ts
 *.af*
 placeholder-generator.af
+
+# Sentry Config File
+.env.sentry-build-plugin

@@ -17,15 +17,15 @@ export interface BuildInfo {
 }
 
 const buildInfo: BuildInfo = {
-  "timestamp": "2026-01-02T05:27:45.413Z",
-  "date": "2 Januari 2026 pukul 12.27 WIB",
+  "timestamp": "2026-01-02T10:02:14.892Z",
+  "date": "2 Januari 2026 pukul 17.02 WIB",
   "version": "0.1.0",
   "nodeVersion": "v24.12.0",
-  "buildId": "gdagvxczo05",
+  "buildId": "tqjrl500u6i",
   "git": {
-    "commitHash": "c10a621a8fdd8dc5fdcb0ace0c35f44c1ed02168",
-    "commitShort": "c10a621",
-    "commitMessage": "feat: use centralized affiliation table",
+    "commitHash": "deaa4e6d407f2802ddec389b27b302748d54766b",
+    "commitShort": "deaa4e6",
+    "commitMessage": "ui: changes the max width to larger screen",
     "branchName": "2025",
     "gitlabUrl": "https://gitlab.com/teknologi-pendidikan/pamerankarya"
   }

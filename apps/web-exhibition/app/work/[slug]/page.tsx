@@ -6,6 +6,8 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import { openGraphGlobalMetadata } from "@/app/global-metadata";
+import BackButton from "@/components/BackButton";
+import ShareButton from "@/components/ShareButton";
 
 interface WorkData {
   work: WorkWithDetails;
@@ -168,27 +170,14 @@ export default async function WorkPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Back Navigation */}
-        <div className="mb-6">
-          <Link
-            href="/person"
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200"
-          >
-            <svg
-              className="w-4 h-4 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Back to Directory
-          </Link>
+        {/* Navigation */}
+        <div className="mb-6 flex justify-between items-center">
+          <BackButton />
+          <ShareButton
+            title={work.title}
+            url={`${process.env.NEXT_PUBLIC_SITE_URL || "https://pamerankarya.teknologipendidikan.or.id"}/work/${work.slug}`}
+            description={work.abstract || work.description}
+          />
         </div>
 
         {/* Hero Section */}

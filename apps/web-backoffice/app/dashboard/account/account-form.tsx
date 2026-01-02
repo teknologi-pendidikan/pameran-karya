@@ -341,7 +341,7 @@ export default function AccountForm({ user }: { user: User | null }) {
             </p>
           </div>
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label htmlFor="personTag">Tag/Role</Label>
             <Input
               id="personTag"
@@ -353,7 +353,7 @@ export default function AccountForm({ user }: { user: User | null }) {
             <p className="text-sm text-muted-foreground">
               Your role or tag that will be displayed as a badge
             </p>
-          </div>
+          </div> */}
 
           <div className="space-y-2">
             <Label htmlFor="affiliation">Affiliation</Label>

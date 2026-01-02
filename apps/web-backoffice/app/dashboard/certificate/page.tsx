@@ -23,6 +23,29 @@ export default async function CertificatePage() {
     return redirect("/auth");
   }
 
+  // Get the person's slug and affiliation for the profile URL and letter content
+  const { data: personData } = await supabase
+    .from("person")
+    .select(
+      `
+      slug,
+      affiliation:affiliation_id (
+        name
+      )
+    `
+    )
+    .eq("profile_id", user.id)
+    .single();
+
+  // Add slug and affiliation to profile if person record exists
+  if (personData?.slug) {
+    profile = {
+      ...profile,
+      slug: personData.slug,
+      affiliation: personData.affiliation?.name,
+    };
+  }
+
   // Check if user has any works (using the proper relationship via work_person -> person -> profile_id)
   const { data: works, error } = await supabase
     .from("work")

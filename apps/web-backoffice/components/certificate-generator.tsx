@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PrinterIcon, DownloadIcon } from "lucide-react";
+import QRCode from "react-qr-code";
 
 interface Work {
   work_id: string;
@@ -15,6 +16,8 @@ interface Profile {
   id: string;
   full_name: string;
   email: string;
+  slug?: string; // Person slug for profile URL
+  affiliation?: string; // Affiliation name
 }
 
 interface CertificateGeneratorProps {
@@ -38,11 +41,16 @@ export default function CertificateGenerator({
     }, 100);
   };
 
-  const currentDate = new Date().toLocaleDateString("id-ID", {
+  const currentDate = new Date().toLocaleDateString("en-us", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+
+  // Generate profile URL for QR code
+  const profileUrl = `https://pamerankarya.teknologipendidikan.or.id/person/${
+    profile.slug || profile.id
+  }`;
 
   return (
     <>
@@ -50,17 +58,17 @@ export default function CertificateGenerator({
       <style jsx global>{`
         @media print {
           @page {
-            size: A4 landscape;
-            margin: 0.5in;
+            size: A4 portrait;
+            margin: 1in;
           }
 
-          /* Hide all page elements except certificate */
+          /* Hide all page elements except letter */
           body * {
             visibility: hidden !important;
           }
 
-          .certificate-container,
-          .certificate-container * {
+          .letter-container,
+          .letter-container * {
             visibility: visible !important;
           }
 
@@ -83,7 +91,7 @@ export default function CertificateGenerator({
             padding: 0;
           }
 
-          .certificate-container {
+          .letter-container {
             position: fixed !important;
             top: 0;
             left: 0;
@@ -92,116 +100,53 @@ export default function CertificateGenerator({
             display: flex !important;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(
-              135deg,
-              #1e3a8a 0%,
-              #312e81 100%
-            ) !important;
-            color: white;
-            font-family: "Times New Roman", Times, serif;
+            background: white !important;
             z-index: 9999;
           }
 
-          .certificate-content {
+          .letter-content {
             background: white;
             color: #1a1a1a;
-            padding: 40px 60px;
-            text-align: center;
+            padding: 60px 80px;
             width: 100%;
             height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-            border: 12px solid #d4af37;
-            border-radius: 15px;
-            position: relative;
-            background-image:
-              radial-gradient(
-                circle at 20px 50px,
-                #f0f8ff 2px,
-                transparent 2px
-              ),
-              radial-gradient(
-                circle at 40px 100px,
-                #f0f8ff 1px,
-                transparent 1px
-              ),
-              radial-gradient(circle at 90px 30px, #e6f3ff 1px, transparent 1px);
-            background-size:
-              100px 100px,
-              80px 80px,
-              120px 120px;
-          }
-
-          .certificate-content::before {
-            content: "";
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 3px solid #b8860b;
-            border-radius: 8px;
-          }
-
-          .certificate-content::after {
-            content: "";
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            right: 25px;
-            bottom: 25px;
-            border: 1px solid #daa520;
-            border-radius: 4px;
+            line-height: 1.5;
           }
         }
 
-        .certificate-preview {
-          transform: scale(0.6);
+        .letter-preview {
+          transform: scale(0.8);
           transform-origin: top center;
-          margin-bottom: -300px;
-          border: 8px solid #d4af37;
-          background-image:
-            radial-gradient(circle at 20px 50px, #f0f8ff 2px, transparent 2px),
-            radial-gradient(circle at 40px 100px, #f0f8ff 1px, transparent 1px),
-            radial-gradient(circle at 90px 30px, #e6f3ff 1px, transparent 1px);
-          background-size:
-            100px 100px,
-            80px 80px,
-            120px 120px;
-        }
-
-        .ornament {
-          background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          font-size: 2rem;
-          font-weight: bold;
+          margin-bottom: -100px;
+          border: 1px solid #e5e7eb;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
         }
       `}</style>
 
-      <div className={isPrintMode ? "certificate-container" : ""}>
+      <div className={isPrintMode ? "letter-container" : ""}>
         {!isPrintMode && (
           <div className="space-y-6 print-hidden">
             <div className="flex justify-between items-center">
               <div>
-                <h1 className="text-3xl font-bold">Certificate Generator</h1>
+                <h1 className="text-3xl font-bold">
+                  Letter of Commendation Generator
+                </h1>
                 <p className="text-muted-foreground">
-                  Generate your participation certificate
+                  Generate your letter of commendation
                 </p>
               </div>
               <Button onClick={handlePrint} className="flex items-center gap-2">
                 <PrinterIcon className="w-4 h-4" />
-                Print Certificate
+                Print Letter
               </Button>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle>Certificate Preview</CardTitle>
+                <CardTitle>Letter Preview</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -223,10 +168,10 @@ export default function CertificateGenerator({
                       Print Instructions:
                     </h4>
                     <ol className="text-sm text-blue-800 space-y-1">
-                      <li>1. Click the "Print Certificate" button above</li>
+                      <li>1. Click the "Print Letter" button above</li>
                       <li>2. In the print dialog, ensure you select:</li>
                       <li className="ml-4">• Paper size: A4</li>
-                      <li className="ml-4">• Orientation: Landscape</li>
+                      <li className="ml-4">• Orientation: Portrait</li>
                       <li className="ml-4">
                         • Enable "Background graphics" or "Print backgrounds"
                       </li>
@@ -239,136 +184,188 @@ export default function CertificateGenerator({
           </div>
         )}
 
-        {/* Certificate Content */}
+        {/* Letter Content */}
         <div
-          className={`certificate-content ${!isPrintMode ? "certificate-preview bg-white text-black p-12 rounded-lg shadow-2xl" : ""}`}
+          className={`letter-content ${!isPrintMode ? "letter-preview bg-white text-black p-8 rounded-lg shadow-lg" : ""}`}
         >
-          <div className="space-y-6 w-full max-w-4xl relative z-10">
-            {/* Decorative top ornament */}
-            <div className="flex justify-center">
-              <div className="ornament">❦</div>
-            </div>
-
-            {/* Header */}
-            <div className="text-center space-y-3">
-              <h1
-                className={`font-serif font-bold ${isPrintMode ? "text-5xl" : "text-3xl"} text-blue-900 tracking-wide`}
-              >
-                SERTIFIKAT PENGHARGAAN
-              </h1>
-              <h2
-                className={`font-serif ${isPrintMode ? "text-2xl" : "text-lg"} text-blue-700 tracking-wider`}
-              >
-                CERTIFICATE OF APPRECIATION
-              </h2>
-            </div>
-
-            {/* Decorative line */}
-            <div className="flex justify-center items-center space-x-4">
-              <div className="ornament text-lg">❦</div>
-              <div
-                className={`bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-600 ${isPrintMode ? "h-1 w-80" : "h-0.5 w-48"}`}
-              ></div>
-              <div className="ornament text-lg">❦</div>
-            </div>
-
-            {/* Main content */}
-            <div className="text-center space-y-5">
-              <p
-                className={`font-serif ${isPrintMode ? "text-xl" : "text-base"} text-gray-700 italic`}
-              >
-                Diberikan kepada / This certificate is presented to
-              </p>
-
-              <div
-                className={`${isPrintMode ? "py-5" : "py-3"} px-6 bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 rounded-xl border-2 border-blue-200 shadow-inner`}
-              >
-                <h3
-                  className={`font-serif font-bold ${isPrintMode ? "text-4xl" : "text-2xl"} text-blue-900 tracking-wide uppercase`}
-                >
-                  {profile.full_name}
-                </h3>
-              </div>
-
-              <div className="space-y-4">
+          {/* Letterhead */}
+          <div className="text-left mb-4  font-sans">
+            <div className="flex items-center justify-between mb-4">
+              <img
+                src="/edtech-logo.svg"
+                alt="Pameran Karya Logo"
+                className={`${isPrintMode ? "w-auto h-12" : "w-auto h-9"} mr-4`}
+                onError={(e) => {
+                  e.currentTarget.src =
+                    "https://pamerankarya.teknologipendidikan.or.id/icon.svg";
+                }}
+              />
+              <div className="text-right text-black">
                 <p
-                  className={`font-serif ${isPrintMode ? "text-lg" : "text-sm"} text-gray-700 leading-relaxed`}
+                  className={`font-bold ${isPrintMode ? "text-lg" : "text-lg"} uppercase`}
                 >
-                  Atas partisipasinya dalam{" "}
-                  <strong>Pameran Karya Teknologi Pendidikan</strong>
-                  <br />
-                  dengan telah mengunggah dan mempublikasikan
+                  Teknologi Pendidikan ID (EDTECH-ID)
                 </p>
-
-                <div
-                  className={`inline-flex items-center px-8 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full border-2 border-yellow-600 shadow-lg`}
-                >
-                  <span
-                    className={`font-bold ${isPrintMode ? "text-2xl" : "text-lg"} text-yellow-900`}
-                  >
-                    {worksCount} karya
-                  </span>
-                </div>
-
-                <p
-                  className={`font-serif ${isPrintMode ? "text-lg" : "text-sm"} text-gray-700 italic`}
-                >
-                  For participating in the Educational Technology Exhibition
-                  <br />
-                  with {worksCount} completed work{worksCount > 1 ? "s" : ""}
+                <p className={`${isPrintMode ? "text-base" : "text-sm"} `}>
+                  Directorate of Academic and Education Programs
+                </p>
+                <p className={`${isPrintMode ? "text-base" : "text-sm"} `}>
+                  Educational Technology Works Exhibition
+                </p>
+                <p className={`${isPrintMode ? "text-base" : "text-sm"} `}>
+                  Indonesia
                 </p>
               </div>
-
-              <div className="flex justify-center">
-                <div className="ornament text-2xl">❦</div>
-              </div>
             </div>
-
-            {/* Footer */}
-            <div className="flex justify-between items-end mt-12">
-              <div className="text-left">
+          </div>
+          {/* Letter Details */}
+          <div className="font-sans">
+            <div className="flex justify-between items-start mb-4">
+              <div>
                 <p
-                  className={`font-serif ${isPrintMode ? "text-base" : "text-xs"} text-gray-600`}
-                >
-                  Diterbitkan pada
-                </p>
-                <p
-                  className={`font-serif font-bold ${isPrintMode ? "text-lg" : "text-sm"} text-gray-800`}
+                  className={`${isPrintMode ? "text-base" : "text-sm"} text-black mt-1`}
                 >
                   {currentDate}
                 </p>
-                <div className="mt-2 border-t border-gray-400 w-32"></div>
-                <p
-                  className={`font-serif ${isPrintMode ? "text-sm" : "text-xs"} text-gray-600 mt-1`}
-                >
-                  Tanggal Terbit
-                </p>
               </div>
+            </div>
+          </div>
+          {/* Letter Body */}
+          <div className="space-y-6">
+            <div className="text-center mb-6">
+              <p
+                className={`font-bold underline uppercase ${isPrintMode ? "text-2xl" : "text-xl"} text-black`}
+              >
+                LETTER OF COMMENDATION
+              </p>
+              <p
+                className={`${isPrintMode ? "text-sm" : "text-xs"} text-black`}
+              >
+                citation-id: {profile.id}-{worksCount}-
+                {new Date().getFullYear()}
+              </p>
+            </div>
+            <div>
+              <p
+                className={`${isPrintMode ? "text-base" : "text-sm"} text-black font-semibold mb-2`}
+              >
+                To Whom It May Concern,
+              </p>
+            </div>
 
-              <div className="text-center">
-                <div
-                  className={`${isPrintMode ? "w-40 h-20" : "w-28 h-14"} bg-gradient-to-br from-blue-700 to-indigo-800 rounded-xl flex items-center justify-center mb-2 shadow-lg`}
-                >
-                  <span
-                    className={`text-white font-bold ${isPrintMode ? "text-lg" : "text-xs"} text-center leading-tight`}
-                  >
-                    PAMERAN
-                    <br />
-                    KARYA
-                  </span>
-                </div>
-                <div className="border-t border-gray-400 w-32"></div>
+            <div className="space-y-4">
+              <p
+                className={`${isPrintMode ? "text-base" : "text-sm"} text-black leading-relaxed text-justify`}
+              >
+                This is to certify that <strong>{profile.full_name}</strong>
+                {profile.affiliation && (
+                  <>
+                    {" "}
+                    from <strong>{profile.affiliation}</strong>
+                  </>
+                )}{" "}
+                has successfully participated in the Educational Technology
+                Exhibition (Pameran Karya Teknologi Pendidikan) by contributing
+                and publishing{" "}
+                <strong>
+                  {worksCount} work{worksCount > 1 ? "s" : ""}
+                </strong>{" "}
+                to our platform.
+              </p>
+
+              <p
+                className={`${isPrintMode ? "text-base" : "text-sm"} text-black leading-relaxed text-justify`}
+              >
+                The participant has demonstrated commitment to sharing
+                educational technology resources and contributing to the
+                academic community. Their work
+                {worksCount > 1 ? "s have" : " has"} been reviewed and approved
+                for public exhibition, meeting our platform's quality standards.
+              </p>
+
+              <p
+                className={`${isPrintMode ? "text-base" : "text-sm"} text-black leading-relaxed text-justify`}
+              >
+                We commend {profile.full_name.split(" ")[0]} for their valuable
+                contribution to educational technology advancement and knowledge
+                sharing within our community.
+              </p>
+
+              <p
+                className={`${isPrintMode ? "text-base" : "text-sm"} text-black leading-relaxed text-justify`}
+              >
+                This letter serves as official recognition of their
+                participation and can be used for professional and academic
+                purposes.
+              </p>
+            </div>
+
+            <div className="mt-8">
+              <p
+                className={`${isPrintMode ? "text-base" : "text-sm"} text-black`}
+              >
+                Sincerely,
+              </p>
+
+              {/* <div className="mt-12 mb-4">
+                <div className="border-t border-gray-400 w-48"></div>
+              </div> */}
+
+              <div>
                 <p
-                  className={`font-serif ${isPrintMode ? "text-sm" : "text-xs"} text-gray-600 mt-1`}
+                  className={`${isPrintMode ? "text-base" : "text-sm"} text-black font-semibold`}
                 >
-                  Penyelenggara
+                  Rengga Prakoso Nugroho, M.Ed.
+                </p>
+                <p
+                  className={`${isPrintMode ? "text-sm" : "text-xs"} text-black`}
+                >
+                  Director of Operations, Pameran Karya Teknologi Pendidikan
                 </p>
               </div>
             </div>
-
-            {/* Bottom ornament */}
-            <div className="flex justify-center">
-              <div className="ornament">❦</div>
+          </div>
+          {/* Footer */}
+          <div className="mt-8 pt-4 border-t border-gray-200">
+            <div className="flex justify-between items-start">
+              <div className="flex-1">
+                <p
+                  className={`${isPrintMode ? "text-xs" : "text-xs"} text-black`}
+                >
+                  This letter is digitally generated and valid without a
+                  signature.
+                </p>
+                <p
+                  className={`${isPrintMode ? "text-xs" : "text-xs"} text-black mt-1`}
+                >
+                  Verify at: {/* Verify at the users slug  */}
+                  <a href={profileUrl} className="underline">
+                    pamerankarya.teknologipendidikan.or.id/person/
+                    {profile.slug || profile.id}
+                  </a>
+                </p>
+                <p
+                  className={`${isPrintMode ? "text-xs" : "text-xs"} text-black mt-2`}
+                >
+                  Learn more about us at:{" "}
+                  <a
+                    href="https://teknologipendidikan.or.id"
+                    className="underline"
+                  >
+                    teknologipendidikan.or.id
+                  </a>
+                </p>
+              </div>
+              <div className="ml-4 text-right">
+                <div className={`${isPrintMode ? "w-16 h-16" : "w-12 h-12"}`}>
+                  <QRCode
+                    value={profileUrl}
+                    size={isPrintMode ? 64 : 48}
+                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                    viewBox="0 0 256 256"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

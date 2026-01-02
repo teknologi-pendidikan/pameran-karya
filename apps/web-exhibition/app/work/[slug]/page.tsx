@@ -350,7 +350,6 @@ export default async function WorkPage({ params }: PageProps) {
                               <div className="w-full h-full relative">
                                 <YouTubeEmbed
                                   videoid={videoId}
-                                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
                                   params="controls=1&rel=0"
                                 />
                               </div>

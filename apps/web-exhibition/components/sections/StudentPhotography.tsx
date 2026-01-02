@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
-
 interface PhotoItem {
   id: string;
   title: string;
@@ -84,11 +81,7 @@ const defaultPhotos: PhotoItem[] = [
 ];
 
 export default function StudentPhotography({
-  title = "Student Photography Showcase",
-  description = "Discover the creative vision of our talented students through their captivating photography work, showcasing diverse perspectives and innovative techniques.",
   photos = defaultPhotos,
-  ctaLink = "/photography",
-  ctaText = "View All Photography",
 }: StudentPhotographyProps) {
   const getGridClasses = (index: number) => {
     const gridClasses = [

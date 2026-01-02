@@ -2,8 +2,6 @@
 import { createClient as createClientStatic } from "@supabase/supabase-js";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import { getAllBlogPosts } from "@/lib/blog";
 import { openGraphGlobalMetadata } from "@/app/global-metadata";
 
 interface Work {
@@ -38,7 +36,7 @@ interface Asset {
   file_url?: string;
 }
 
-interface Category {
+interface _Category {
   category_id: string;
   type?: string;
   label: string;

@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getYouTubeVideoId } from "@/lib/youtubeEmbed";
 
@@ -67,10 +66,6 @@ export function WorkDirectoryClient({
   const currentPage = parseInt(searchParams.get("page") || "1");
   const sortBy =
     (searchParams.get("sort") as "newest" | "oldest" | "title") || "newest";
-
-  const [, setSearchQuery] = useState("");
-  const [, setCurrentPage] = useState(1);
-  const [, setSortBy] = useState<"newest" | "oldest" | "title">("newest");
 
   // Update URL when params change
   const updateURL = (newQuery?: string, newPage?: number, newSort?: string) => {

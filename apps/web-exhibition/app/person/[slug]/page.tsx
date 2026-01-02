@@ -4,10 +4,7 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 import { getYouTubeVideoId } from "@/lib/youtubeEmbed";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  openGraphGlobalMetadata,
-  twitterGlobalMetadata,
-} from "@/app/global-metadata";
+import { openGraphGlobalMetadata } from "@/app/global-metadata";
 
 // Helper function to get YouTube thumbnail or original URL
 const getImageUrl = (url: string | undefined): string => {
@@ -417,7 +414,7 @@ export default async function PersonPage({ params }: PageProps) {
               No Works Available
             </h3>
             <p className="text-sm sm:text-base text-gray-600">
-              This person hasn't contributed to any works yet.
+              This person has not contributed to any works yet.
             </p>
           </div>
         )}

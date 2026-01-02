@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient as createClientStatic } from "@supabase/supabase-js";
-import Link from "next/link";
-import Image from "next/image";
 import { Suspense } from "react";
 import { WorkDirectoryClient } from "@/app/work/WorkDirectoryClient";
 import { Metadata } from "next";

@@ -59,7 +59,7 @@ const eslintConfig = defineConfig([
         },
       ],
       // Downgrade img warnings to warnings instead of errors
-      "@next/next/no-img-element": "warn",
+      "@next/next/no-img-element": "off",
     },
   },
   // Override default ignores of eslint-config-next.

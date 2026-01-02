@@ -95,7 +95,7 @@ export default function Navbar() {
         {/* Medium Desktop menu (1280px-1535px, includes 1366x768) */}
         <div className="navbar-end hidden xl:flex 2xl:hidden">
           <ul className="menu menu-horizontal px-0 py-1">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}

@@ -151,7 +151,7 @@ describe("Person Detail Page", () => {
       expect(
         getByText("Technology education expert with 10 years of experience.")
       ).toBeInTheDocument();
-      expect(getByText("Works")).toBeInTheDocument();
+      expect(getByText("Works (1)")).toBeInTheDocument();
       expect(
         getByText("Educational Technology Innovation")
       ).toBeInTheDocument();
@@ -344,9 +344,8 @@ describe("Person Detail Page", () => {
       const { container, getByText } = render(result);
 
       expect(container).toBeInTheDocument();
-      expect(
-        getByText("No assets available for this work")
-      ).toBeInTheDocument();
+      expect(getByText("0 assets")).toBeInTheDocument();
+      expect(getByText("No Preview")).toBeInTheDocument();
     }
   });
 
@@ -472,10 +471,11 @@ describe("Person Detail Page", () => {
         const params = Promise.resolve({ slug: "john-doe" });
         const metadata = await generateMetadata({ params });
 
-        expect(metadata.title).toBe(
+        expect(metadata.title).toBe("John Doe");
+        expect(metadata.description).toContain("Technology education expert");
+        expect(metadata.openGraph.title).toBe(
           "John Doe - Pameran Karya Teknologi Pendidikan"
         );
-        expect(metadata.description).toContain("Technology education expert");
         expect(metadata.openGraph.images).toEqual([{ url: "/john-doe.jpg" }]);
       }
     });

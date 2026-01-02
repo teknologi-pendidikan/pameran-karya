@@ -8,6 +8,7 @@ import Link from "next/link";
 import { openGraphGlobalMetadata } from "@/app/global-metadata";
 import BackButton from "@/components/BackButton";
 import ShareButton from "@/components/ShareButton";
+import VoteButton from "@/components/VoteButton";
 
 interface WorkData {
   work: WorkWithDetails;
@@ -173,11 +174,19 @@ export default async function WorkPage({ params }: PageProps) {
         {/* Navigation */}
         <div className="mb-6 flex justify-between items-center">
           <BackButton />
-          <ShareButton
-            title={work.title}
-            url={`${process.env.NEXT_PUBLIC_SITE_URL || "https://pamerankarya.teknologipendidikan.or.id"}/work/${work.slug}`}
-            description={work.abstract || work.description}
-          />
+          <div className="flex items-center gap-3">
+            <VoteButton
+              workId={work.work_id}
+              workTitle={work.title}
+              workSlug={work.slug}
+              authors={contributors.map((c) => c.name).join(", ") || "Unknown"}
+            />
+            <ShareButton
+              title={work.title}
+              url={`${process.env.NEXT_PUBLIC_SITE_URL || "https://pamerankarya.teknologipendidikan.or.id"}/work/${work.slug}`}
+              description={work.abstract || work.description}
+            />
+          </div>
         </div>
 
         {/* Hero Section */}

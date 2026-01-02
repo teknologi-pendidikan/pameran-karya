@@ -49,6 +49,7 @@ export async function updateSession(request: NextRequest) {
     "/sitemap.xml",
     "/robots.txt",
     "/manifest.webmanifest",
+    "/leaderboard",
   ];
 
   // Check if the current path is a public route

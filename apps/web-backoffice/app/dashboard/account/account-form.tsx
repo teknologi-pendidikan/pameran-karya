@@ -1,4 +1,5 @@
 "use client";
+
 import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { type User } from "@supabase/supabase-js";
@@ -34,10 +35,11 @@ export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+
+  // Profile states
   const [fullname, setFullname] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [accessLevel, setAccessLevel] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
 
   // Person profile states
   const [personData, setPersonData] = useState<any>(null);
@@ -49,54 +51,24 @@ export default function AccountForm({ user }: { user: User | null }) {
   >([]);
 
   const getProfile = useCallback(async () => {
-    if (!user?.id) return;
-
     try {
-      setLoading(true);
+      if (!user?.id) throw new Error("No user");
 
-      // Try to get existing profile or create one
-      let { data, error } = await supabase
+      // Get profile data
+      const { data, error, status } = await supabase
         .from("profiles")
-        .select(`full_name, id, email, access_level`)
+        .select("*")
         .eq("id", user.id)
         .single();
 
-      // If profile doesn't exist, create it
-      if (error && error.code === "PGRST116") {
-        const { data: newProfile, error: createError } = await supabase
-          .from("profiles")
-          .insert([
-            {
-              id: user.id,
-              email: user.email || "",
-              full_name:
-                user.user_metadata?.full_name ||
-                user.user_metadata?.name ||
-                user.email?.split("@")[0] ||
-                "User",
-              access_level: "participant",
-            },
-          ])
-          .select()
-          .single();
-
-        if (createError) {
-          console.error("Error creating profile:", createError);
-          toast.error("Error creating profile");
-          return;
-        }
-        data = newProfile;
-      } else if (error) {
-        console.error("Error loading profile:", error);
-        toast.error("Error loading user data");
-        return;
+      if (error && status !== 406) {
+        throw error;
       }
 
       if (data) {
         setFullname(data.full_name);
-        setUserId(data.id);
-        setAccessLevel(data.access_level);
         setEmail(data.email);
+        setAccessLevel(data.access_level);
       }
 
       // Fetch person data if it exists
@@ -117,7 +89,7 @@ export default function AccountForm({ user }: { user: User | null }) {
           )
         `
         )
-        .eq("user_id", user.id)
+        .eq("profile_id", user.id)
         .single();
 
       if (personData) {
@@ -128,7 +100,7 @@ export default function AccountForm({ user }: { user: User | null }) {
       }
 
       // Fetch available affiliations
-      const { data: affiliations, error: affiliationError } = await supabase
+      const { data: affiliations } = await supabase
         .from("affiliation")
         .select("affiliation_id, name, short_name, type")
         .order("name");
@@ -137,8 +109,8 @@ export default function AccountForm({ user }: { user: User | null }) {
         setAvailableAffiliations(affiliations);
       }
     } catch (error) {
-      console.error("Error in getProfile:", error);
-      toast.error("Error loading user data");
+      console.error("Error loading profile:", error);
+      toast.error("Error loading profile data");
     } finally {
       setLoading(false);
     }
@@ -148,13 +120,36 @@ export default function AccountForm({ user }: { user: User | null }) {
     getProfile();
   }, [user, getProfile]);
 
-  async function updateProfile() {
+  const getAccessLevelBadge = (level: string) => {
+    switch (level) {
+      case "operations":
+        return (
+          <Badge className="bg-yellow-500 text-white text-xs px-2 py-0.5">
+            OPERATIONS
+          </Badge>
+        );
+      case "curator":
+        return (
+          <Badge className="bg-blue-500 text-white text-xs px-2 py-0.5">
+            CURATOR
+          </Badge>
+        );
+      default:
+        return (
+          <Badge variant="secondary" className="text-xs px-2 py-0.5">
+            PARTICIPANT
+          </Badge>
+        );
+    }
+  };
+
+  const updateAllProfiles = async () => {
     if (!user?.id) return;
+    setUpdating(true);
 
     try {
-      setUpdating(true);
-
-      const { error } = await supabase
+      // Update profiles table
+      const { error: profileError } = await supabase
         .from("profiles")
         .update({
           full_name: fullname,
@@ -162,37 +157,20 @@ export default function AccountForm({ user }: { user: User | null }) {
         })
         .eq("id", user.id);
 
-      if (error) throw error;
-      toast.success("Profile updated successfully!");
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      toast.error("Error updating profile");
-    } finally {
-      setUpdating(false);
-    }
-  }
+      if (profileError) throw profileError;
 
-  const updatePersonProfile = async () => {
-    if (!user?.id) return;
-
-    try {
-      setUpdating(true);
-
-      // Check if person exists
+      // Update or create person record
       if (!personData) {
         // Create new person record
         const { data, error } = await supabase
           .from("person")
           .insert([
             {
-              user_id: user.id,
+              profile_id: user.id,
               name: fullname || user.user_metadata?.full_name || "Unknown",
               bio: personBio,
               tag: personTag,
-              affiliation_id:
-                personAffiliationId === "none"
-                  ? null
-                  : personAffiliationId || null,
+              affiliation_id: personAffiliationId || null,
             },
           ])
           .select()
@@ -207,22 +185,18 @@ export default function AccountForm({ user }: { user: User | null }) {
           .update({
             bio: personBio,
             tag: personTag,
-            affiliation_id:
-              personAffiliationId === "none"
-                ? null
-                : personAffiliationId || null,
+            affiliation_id: personAffiliationId || null,
           })
           .eq("person_id", personData.person_id);
 
         if (error) throw error;
       }
 
-      toast.success("Person profile updated successfully!");
-      // Refresh the data
+      toast.success("Profile updated successfully!");
       await getProfile();
     } catch (error) {
-      console.error("Error updating person profile:", error);
-      toast.error("Error updating person profile");
+      console.error("Error updating profile:", error);
+      toast.error("Error updating profile");
     } finally {
       setUpdating(false);
     }
@@ -243,196 +217,152 @@ export default function AccountForm({ user }: { user: User | null }) {
         <CardHeader>
           <CardTitle>Account Overview</CardTitle>
           <CardDescription>
-            View your account information and access level
+            Your account information and access level
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label className="text-sm font-medium">User ID</Label>
-              <p className="text-sm text-muted-foreground font-mono">
-                {userId}
-              </p>
+              <Label className="text-sm font-medium">Email</Label>
+              <p className="text-sm text-muted-foreground">{user?.email}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Access Level</Label>
-              <div className="flex items-center space-x-2">
-                <Badge variant="outline" className="capitalize">
-                  {accessLevel || "participant"}
-                </Badge>
+              <div className="flex items-center gap-2 mt-1">
+                {getAccessLevelBadge(accessLevel || "participant")}
               </div>
             </div>
-            <div className="md:col-span-2">
-              <Label className="text-sm font-medium">
-                Authentication Email
-              </Label>
-              <p className="text-sm text-muted-foreground">{user?.email}</p>
-            </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Profile Settings */}
+      {/* Unified Profile Form */}
       <Card>
         <CardHeader>
-          <CardTitle>Profile Settings</CardTitle>
+          <CardTitle>Profile Information</CardTitle>
           <CardDescription>
-            Update your profile information used in work submissions
+            Update your personal information used in work submissions and public
+            display
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email Address</Label>
-            <Input
-              id="email"
-              type="email"
-              value={email || ""}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your contact email"
-            />
-            <p className="text-sm text-muted-foreground">
-              This email will be used for work-related communications
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="fullName">Full Name</Label>
-            <Input
-              id="fullName"
-              type="text"
-              value={fullname || ""}
-              onChange={(e) => setFullname(e.target.value)}
-              placeholder="Your full name as it appears in publications"
-            />
-            <p className="text-sm text-muted-foreground">
-              This will be used as your author name in work submissions
-            </p>
-          </div>
-
-          <div className="flex justify-end space-x-4">
-            <Button onClick={updateProfile} disabled={updating}>
-              {updating ? "Updating..." : "Update Profile"}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Person Profile */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Person Profile</CardTitle>
-          <CardDescription>
-            Manage your personal information used in work attributions and
-            public display
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="personBio">Bio</Label>
-            <Textarea
-              id="personBio"
-              value={personBio}
-              onChange={(e) => setPersonBio(e.target.value)}
-              placeholder="Brief description about yourself"
-              rows={3}
-            />
-            <p className="text-sm text-muted-foreground">
-              This will be displayed on your public profile
-            </p>
-          </div>
-
-          {/* <div className="space-y-2">
-            <Label htmlFor="personTag">Tag/Role</Label>
-            <Input
-              id="personTag"
-              type="text"
-              value={personTag}
-              onChange={(e) => setPersonTag(e.target.value)}
-              placeholder="e.g. Committee, Operations, Volunteer"
-            />
-            <p className="text-sm text-muted-foreground">
-              Your role or tag that will be displayed as a badge
-            </p>
-          </div> */}
-
-          <div className="space-y-2">
-            <Label htmlFor="affiliation">Affiliation</Label>
-            <Select
-              value={personAffiliationId || "none"}
-              onValueChange={(value) =>
-                setPersonAffiliationId(value === "none" ? "" : value)
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select your affiliation" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="none">No affiliation</SelectItem>
-                {availableAffiliations.map((affiliation) => (
-                  <SelectItem
-                    key={affiliation.affiliation_id}
-                    value={affiliation.affiliation_id}
-                  >
-                    {affiliation.short_name
-                      ? `${affiliation.name} (${affiliation.short_name})`
-                      : affiliation.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <p className="text-sm text-muted-foreground">
-              Your institutional affiliation. Only you can change this.
-            </p>
-          </div>
-
-          {personData?.affiliation && (
-            <div className="p-3 bg-muted/50 rounded-lg">
-              <p className="text-sm font-medium mb-1">Current Affiliation:</p>
+        <CardContent className="space-y-6">
+          {/* Basic Profile Info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Contact Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email || ""}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your contact email"
+              />
               <p className="text-sm text-muted-foreground">
-                {personData.affiliation.name}
-                {personData.affiliation.short_name &&
-                  ` (${personData.affiliation.short_name})`}
-                <span className="ml-2 text-xs capitalize px-2 py-1 bg-secondary rounded">
-                  {personData.affiliation.type}
-                </span>
+                Used for work-related communications
               </p>
             </div>
-          )}
 
-          <div className="flex justify-end space-x-4">
-            <Button onClick={updatePersonProfile} disabled={updating}>
-              {updating ? "Updating..." : "Update Person Profile"}
-            </Button>
+            <div className="space-y-2">
+              <Label htmlFor="fullName">Full Name *</Label>
+              <Input
+                id="fullName"
+                type="text"
+                value={fullname || ""}
+                onChange={(e) => setFullname(e.target.value)}
+                placeholder="Your full name as it appears in publications"
+                required
+              />
+              <p className="text-sm text-muted-foreground">
+                Used in work submissions and certificates
+              </p>
+            </div>
           </div>
-        </CardContent>
-      </Card>
 
-      {/* Work Statistics */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Your Work Statistics</CardTitle>
-          <CardDescription>
-            Summary of your contributions to the platform
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 border rounded-lg">
-              <div className="text-2xl font-bold">0</div>
-              <div className="text-sm text-muted-foreground">
-                Works Submitted
+          {/* Personal Details */}
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="personBio">Bio</Label>
+              <Textarea
+                id="personBio"
+                value={personBio}
+                onChange={(e) => setPersonBio(e.target.value)}
+                placeholder="Brief description about yourself and your expertise"
+                rows={3}
+              />
+              <p className="text-sm text-muted-foreground">
+                Optional - displayed on your public profile
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="personTag">Role/Title</Label>
+              <Input
+                id="personTag"
+                type="text"
+                value={personTag}
+                onChange={(e) => setPersonTag(e.target.value)}
+                placeholder="e.g., Student, Lecturer, Researcher"
+              />
+              <p className="text-sm text-muted-foreground">
+                Optional - your role or academic title
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="affiliation">Affiliation</Label>
+              <Select
+                value={personAffiliationId || "none"}
+                onValueChange={(value) =>
+                  setPersonAffiliationId(value === "none" ? "" : value)
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select your institution (optional)" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">No affiliation</SelectItem>
+                  {availableAffiliations.map((affiliation) => (
+                    <SelectItem
+                      key={affiliation.affiliation_id}
+                      value={affiliation.affiliation_id}
+                    >
+                      <div className="flex flex-col">
+                        <span>{affiliation.name}</span>
+                        {affiliation.short_name && (
+                          <span className="text-xs text-muted-foreground">
+                            ({affiliation.short_name})
+                          </span>
+                        )}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-sm text-muted-foreground">
+                Optional - your university, company, or organization
+              </p>
+            </div>
+
+            {personData?.affiliation && (
+              <div className="p-3 bg-muted/50 rounded-lg">
+                <p className="text-sm font-medium mb-1">Current Affiliation:</p>
+                <p className="text-sm text-muted-foreground">
+                  {personData.affiliation.name}
+                  {personData.affiliation.short_name &&
+                    ` (${personData.affiliation.short_name})`}
+                  <span className="ml-2 text-xs capitalize px-2 py-1 bg-secondary rounded">
+                    {personData.affiliation.type}
+                  </span>
+                </p>
               </div>
-            </div>
-            <div className="text-center p-4 border rounded-lg">
-              <div className="text-2xl font-bold">0</div>
-              <div className="text-sm text-muted-foreground">Draft Works</div>
-            </div>
-            <div className="text-center p-4 border rounded-lg">
-              <div className="text-2xl font-bold">0</div>
-              <div className="text-sm text-muted-foreground">
-                Published Works
-              </div>
-            </div>
+            )}
+          </div>
+
+          {/* Single Update Button */}
+          <div className="flex justify-end pt-4 border-t">
+            <Button onClick={updateAllProfiles} disabled={updating}>
+              {updating ? "Updating..." : "Update Profile"}
+            </Button>
           </div>
         </CardContent>
       </Card>

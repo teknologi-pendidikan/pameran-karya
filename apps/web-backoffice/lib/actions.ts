@@ -94,11 +94,11 @@ export async function createWorkAction(
     // Step 2: Get or create person record for current user
     let person;
 
-    // First, try to find existing person linked to this user
+    // First, try to find existing person linked to this user's profile
     const { data: userPerson, error: personLookupError } = await supabase
       .from("person")
       .select("*")
-      .or(`user_id.eq.${user.id},profile_id.eq.${user.id}`)
+      .eq("profile_id", user.id)
       .single();
 
     if (userPerson) {

@@ -23,6 +23,18 @@ export default async function NewWorkPage() {
     const fetchedCategories = await getCategories();
     categories = fetchedCategories || [];
     userProfile = await ensureUserProfile();
+
+    // Check if user has completed their profile setup
+    const { data: personData } = await supabase
+      .from("person")
+      .select("person_id, name, bio, affiliation_id")
+      .eq("profile_id", user.id)
+      .single();
+
+    // If no person record exists or if name is missing, redirect to account setup
+    if (!personData || !personData.name || !userProfile.full_name) {
+      return redirect("/account-setup?from=work-submission");
+    }
   } catch (error) {
     console.error("Database error:", error);
     hasError = true;

@@ -5,8 +5,8 @@ export default function LeaderboardPage() {
     process.env.NEXT_PUBLIC_BACKOFFICE_URL || "http://localhost:3001";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="min-h-screen container mx-auto px-4 py-8 max-w-7xl">
+      <div className="">
         {/* Header */}
         <div className="mb-8 text-center">
           <div className="flex items-center justify-center gap-4 mb-6">

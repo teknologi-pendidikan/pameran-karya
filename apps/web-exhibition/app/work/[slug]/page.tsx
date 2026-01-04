@@ -334,110 +334,239 @@ export default async function WorkPage({ params }: PageProps) {
                   </span>
                 </h2>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {assets.map((asset, index) => (
-                    <div
-                      key={asset.asset_id}
-                      className="group relative bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
-                    >
-                      {/* Media Preview */}
-                      <div className="aspect-video relative overflow-hidden bg-gray-100">
-                        {asset.type === "video" && asset.file_url ? (
-                          (() => {
-                            const videoId = getYouTubeVideoId(asset.file_url);
-                            return videoId ? (
-                              <div className="w-full h-full relative">
-                                <YouTubeEmbed
-                                  videoid={videoId}
-                                  params="controls=1&rel=0"
-                                />
+                <div className="space-y-6">
+                  {assets.map((asset, ) =>
+                    asset.type === "video" ? (
+                      // Video Layout - Full width with embedded player
+                      <div
+                        key={asset.asset_id}
+                        className="bg-gray-50 rounded-xl overflow-hidden shadow-sm border border-gray-100"
+                      >
+                        <div className="aspect-video relative overflow-hidden bg-gray-100">
+                          {asset.file_url &&
+                          getYouTubeVideoId(asset.file_url) ? (
+                            <YouTubeEmbed
+                              videoid={getYouTubeVideoId(asset.file_url)!}
+                              params="controls=1&rel=0"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center">
+                              <div className="text-center">
+                                <svg
+                                  className="w-8 h-8 text-red-400 mx-auto mb-2"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                  />
+                                </svg>
+                                <p className="text-sm text-red-600">
+                                  Video not available
+                                </p>
                               </div>
-                            ) : (
-                              <div className="w-full h-full bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center">
-                                <div className="text-center">
+                            </div>
+                          )}
+                        </div>
+                        <div className="p-4">
+                          <div className="flex items-center justify-between">
+                            <span className="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-700">
+                              VIDEO
+                            </span>
+                            {asset.license && (
+                              <span className="text-xs text-gray-500">
+                                {asset.license}
+                              </span>
+                            )}
+                          </div>
+                          <time
+                            className="text-xs text-gray-400 mt-2 block"
+                            dateTime={asset.created_at}
+                          >
+                            Added{" "}
+                            {new Date(asset.created_at).toLocaleDateString(
+                              "id-ID"
+                            )}
+                          </time>
+                        </div>
+                      </div>
+                    ) : (
+                      // Non-Video Layout - Horizontal bar with link
+                      <div
+                        key={asset.asset_id}
+                        className="bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300"
+                      >
+                        {asset.file_url ? (
+                          <a
+                            href={asset.file_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200"
+                          >
+                            <div className="flex items-center space-x-4 flex-1 min-w-0">
+                              <div
+                                className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
+                                  asset.type === "image"
+                                    ? "bg-blue-100"
+                                    : asset.type === "document"
+                                      ? "bg-green-100"
+                                      : asset.type === "audio"
+                                        ? "bg-purple-100"
+                                        : "bg-gray-100"
+                                }`}
+                              >
+                                {asset.type === "image" ? (
                                   <svg
-                                    className="w-8 h-8 text-red-400 mx-auto mb-2"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
+                                    className="w-5 h-5 text-blue-600"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
                                   >
                                     <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                      fillRule="evenodd"
+                                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                      clipRule="evenodd"
                                     />
                                   </svg>
-                                  <p className="text-sm text-red-600">
-                                    Video not available
-                                  </p>
+                                ) : asset.type === "document" ? (
+                                  <svg
+                                    className="w-5 h-5 text-green-600"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                ) : asset.type === "audio" ? (
+                                  <svg
+                                    className="w-5 h-5 text-purple-600"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM15.657 6.343a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-1.929 5.657 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 12a7.971 7.971 0 00-1.343-4.243 1 1 0 010-1.414z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                ) : (
+                                  <svg
+                                    className="w-5 h-5 text-gray-600"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                )}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center space-x-3 mb-2">
+                                  <span
+                                    className={`px-2 py-1 text-xs font-medium rounded-full ${
+                                      asset.type === "image"
+                                        ? "bg-blue-100 text-blue-700"
+                                        : asset.type === "document"
+                                          ? "bg-green-100 text-green-700"
+                                          : asset.type === "audio"
+                                            ? "bg-purple-100 text-purple-700"
+                                            : "bg-gray-100 text-gray-700"
+                                    }`}
+                                  >
+                                    {asset.type.toUpperCase()}
+                                  </span>
+                                  {asset.license && (
+                                    <span className="text-xs text-gray-500">
+                                      {asset.license}
+                                    </span>
+                                  )}
+                                </div>
+                                <time
+                                  className="text-xs text-gray-400 block mb-1"
+                                  dateTime={asset.created_at}
+                                >
+                                  Added{" "}
+                                  {new Date(
+                                    asset.created_at
+                                  ).toLocaleDateString("id-ID")}
+                                </time>
+                                <div className="text-xs text-blue-600 truncate font-mono">
+                                  {asset.file_url}
                                 </div>
                               </div>
-                            );
-                          })()
+                            </div>
+                            <div className="flex items-center space-x-2 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-4">
+                              <span className="text-sm font-medium">View</span>
+                              <svg
+                                className="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                />
+                              </svg>
+                            </div>
+                          </a>
                         ) : (
-                          <div className="relative w-full h-full group">
-                            <img
-                              src={
-                                asset.thumbnail_url ||
-                                asset.file_url ||
-                                "/placeholder-asset.png"
-                              }
-                              alt={`${work.title} - Asset ${index + 1}`}
-                              className="object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                            {asset.file_url && asset.type !== "video" && (
-                              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 flex items-center justify-center">
-                                <a
-                                  href={asset.file_url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white text-gray-900 px-4 py-2 rounded-lg font-medium shadow-lg hover:bg-gray-100"
+                          <div className="flex items-center justify-between p-4 bg-gray-50">
+                            <div className="flex items-center space-x-4">
+                              <div className="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center">
+                                <svg
+                                  className="w-5 h-5 text-gray-400"
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
                                 >
-                                  View Full Size
-                                </a>
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
                               </div>
-                            )}
+                              <div>
+                                <div className="flex items-center space-x-3 mb-1">
+                                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-700">
+                                    {asset.type.toUpperCase()}
+                                  </span>
+                                  {asset.license && (
+                                    <span className="text-xs text-gray-500">
+                                      {asset.license}
+                                    </span>
+                                  )}
+                                </div>
+                                <time
+                                  className="text-xs text-gray-400"
+                                  dateTime={asset.created_at}
+                                >
+                                  Added{" "}
+                                  {new Date(
+                                    asset.created_at
+                                  ).toLocaleDateString("id-ID")}
+                                </time>
+                              </div>
+                            </div>
+                            <span className="text-sm text-gray-500">
+                              File not available
+                            </span>
                           </div>
                         )}
                       </div>
-
-                      {/* Asset Info */}
-                      <div className="p-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <span
-                            className={`px-2 py-1 text-xs font-medium rounded-full ${
-                              asset.type === "video"
-                                ? "bg-red-100 text-red-700"
-                                : asset.type === "image"
-                                  ? "bg-blue-100 text-blue-700"
-                                  : asset.type === "document"
-                                    ? "bg-green-100 text-green-700"
-                                    : asset.type === "audio"
-                                      ? "bg-purple-100 text-purple-700"
-                                      : "bg-gray-100 text-gray-700"
-                            }`}
-                          >
-                            {asset.type.toUpperCase()}
-                          </span>
-                          {asset.license && (
-                            <span className="text-xs text-gray-500">
-                              {asset.license}
-                            </span>
-                          )}
-                        </div>
-                        <time
-                          className="text-xs text-gray-400"
-                          dateTime={asset.created_at}
-                        >
-                          Added{" "}
-                          {new Date(asset.created_at).toLocaleDateString(
-                            "id-ID"
-                          )}
-                        </time>
-                      </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               </section>
             )}

@@ -38,6 +38,35 @@ interface Profile {
   email: string;
 }
 
+interface PersonData {
+  person_id: string;
+  name: string;
+  bio?: string;
+  tag?: string;
+  affiliation_id?: string;
+  slug: string;
+}
+
+// Generate slug from name + 5 chars of UUID
+const generatePersonSlug = async (
+  name: string,
+  userId: string
+): Promise<string> => {
+  const { generateSlug } = await import("@/lib/client-utils");
+  const baseSlug = generateSlug(name.trim());
+  const shortUuid = userId.replace(/-/g, "").substring(0, 5).toLowerCase();
+  return `${baseSlug}-${shortUuid}`;
+};
+
+interface PersonData {
+  person_id: string;
+  name: string;
+  bio?: string;
+  tag?: string;
+  affiliation_id?: string;
+  slug: string;
+}
+
 export default function AccountSetupForm({
   user,
   profile,
@@ -60,29 +89,56 @@ export default function AccountSetupForm({
   const [availableAffiliations, setAvailableAffiliations] = useState<
     Affiliation[]
   >([]);
+  const [existingPersonData, setExistingPersonData] =
+    useState<PersonData | null>(null);
+  const [generatedSlug, setGeneratedSlug] = useState("");
 
-  const loadAffiliations = useCallback(async () => {
+  const loadData = useCallback(async () => {
     try {
-      const { data: affiliations, error } = await supabase
+      // Load affiliations
+      const { data: affiliations, error: affiliationsError } = await supabase
         .from("affiliation")
         .select("affiliation_id, name, short_name, type")
         .order("name");
 
-      if (error) throw error;
+      if (affiliationsError) throw affiliationsError;
       if (affiliations) {
         setAvailableAffiliations(affiliations);
       }
+
+      // Load existing person data if it exists
+      const { data: personData, error: personError } = await supabase
+        .from("person")
+        .select("person_id, name, bio, tag, affiliation_id, slug")
+        .eq("profile_id", user?.id)
+        .single();
+
+      if (personData) {
+        setExistingPersonData(personData);
+        setFullName(personData.name || profile?.full_name || "");
+        setBio(personData.bio || "");
+        setTag(personData.tag || "");
+        setAffiliationId(personData.affiliation_id || "");
+        setGeneratedSlug(personData.slug);
+      }
     } catch (error) {
-      console.error("Error loading affiliations:", error);
-      toast.error("Error loading affiliations");
+      console.error("Error loading data:", error);
+      toast.error("Error loading form data");
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, [supabase, user?.id, profile?.full_name]);
 
   useEffect(() => {
-    loadAffiliations();
-  }, [loadAffiliations]);
+    loadData();
+  }, [loadData]);
+
+  // Update generated slug when name changes
+  useEffect(() => {
+    if (user?.id && fullName.trim()) {
+      generatePersonSlug(fullName, user.id).then(setGeneratedSlug);
+    }
+  }, [fullName, user?.id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,14 +151,7 @@ export default function AccountSetupForm({
     setSubmitting(true);
 
     try {
-      // Check if person record exists, if not create it
-      const { data: existingPerson } = await supabase
-        .from("person")
-        .select("person_id")
-        .eq("profile_id", user?.id)
-        .single();
-
-      if (existingPerson) {
+      if (existingPersonData) {
         // Update existing person record
         const { error: personError } = await supabase
           .from("person")
@@ -112,15 +161,13 @@ export default function AccountSetupForm({
             tag: tag.trim() || null,
             affiliation_id:
               affiliationId === "none" ? null : affiliationId || null,
+            slug: generatedSlug, // Use the generated slug
           })
           .eq("profile_id", user?.id);
 
         if (personError) throw personError;
       } else {
         // Create new person record if it doesn't exist
-        const { generateSlug } = await import("@/lib/client-utils");
-        const baseSlug = generateSlug(fullName.trim());
-
         const { error: personError } = await supabase.from("person").insert([
           {
             profile_id: user?.id,
@@ -129,7 +176,7 @@ export default function AccountSetupForm({
             tag: tag.trim() || null,
             affiliation_id:
               affiliationId === "none" ? null : affiliationId || null,
-            slug: `${baseSlug}-${Date.now()}`, // Simple unique slug generation
+            slug: generatedSlug, // Use the generated slug
           },
         ]);
 
@@ -219,6 +266,20 @@ export default function AccountSetupForm({
                 This will appear on your works and certificates
               </p>
             </div>
+
+            {/* Generated Slug Display */}
+            {generatedSlug && (
+              <div className="space-y-2">
+                <Label>Profile URL Slug</Label>
+                <div className="p-3 bg-muted rounded-md border">
+                  <code className="text-sm font-mono">{generatedSlug}</code>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  This is your unique profile identifier (generated from your
+                  name + ID)
+                </p>
+              </div>
+            )}
 
             {/* Bio and Tag in grid layout for larger screens */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

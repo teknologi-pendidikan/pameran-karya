@@ -21,8 +21,22 @@ export async function GET(request: Request) {
         const { ensureUserProfile } = await import("@/lib/user-profile");
         await ensureUserProfile();
       } catch (profileError) {
-        console.error("Error ensuring user profile:", profileError);
-        // Continue anyway, the account setup can handle missing profiles
+        console.error(
+          "Error ensuring user profile during OAuth:",
+          profileError
+        );
+        // For new users, if profile creation fails, redirect to account setup
+        // where they can manually complete the setup
+        next = "/account-setup";
+        const forwardedHost = request.headers.get("x-forwarded-host");
+        const isLocalEnv = process.env.NODE_ENV === "development";
+        if (isLocalEnv) {
+          return NextResponse.redirect(`${origin}${next}`);
+        } else if (forwardedHost) {
+          return NextResponse.redirect(`https://${forwardedHost}${next}`);
+        } else {
+          return NextResponse.redirect(`${origin}${next}`);
+        }
       }
 
       // Check if this is a new user by checking if they have completed profile setup

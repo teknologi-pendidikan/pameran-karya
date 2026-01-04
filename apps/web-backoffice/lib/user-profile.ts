@@ -59,18 +59,19 @@ export async function ensureUserProfile() {
       return existingProfile;
     }
 
-    // Create new profile for user
+    // Create new profile for user (system operational data only)
+    const initialName =
+      user.user_metadata?.full_name ||
+      user.user_metadata?.name ||
+      user.email?.split("@")[0] ||
+      "User";
+
     const { data: newProfile, error: profileError } = await supabase
       .from("profiles")
       .insert([
         {
           id: user.id,
           email: user.email || "",
-          full_name:
-            user.user_metadata?.full_name ||
-            user.user_metadata?.name ||
-            user.email?.split("@")[0] ||
-            "User",
           access_level: "participant",
         },
       ])
@@ -84,9 +85,12 @@ export async function ensureUserProfile() {
 
     console.log("Created new user profile:", newProfile);
 
-    // Create person record for the new user, but handle race condition
+    // Create person record for the new user with the actual name (SSOT)
     try {
-      await createPersonForUser(user, newProfile);
+      await createPersonForUser(user, {
+        full_name: initialName,
+        id: newProfile.id,
+      });
     } catch (error: unknown) {
       // If it's a duplicate key error, it means another concurrent call already created the person
       if (
@@ -259,7 +263,25 @@ export async function getUserProfile() {
       .eq("id", user.id)
       .single();
 
-    return profile;
+    if (!profile) return null;
+
+    // Get the name from person table (SSOT)
+    const { data: person } = await supabase
+      .from("person")
+      .select("name")
+      .eq("profile_id", user.id)
+      .single();
+
+    // Return profile with name from person table
+    return {
+      ...profile,
+      full_name:
+        person?.name ||
+        profile.full_name ||
+        user.user_metadata?.full_name ||
+        user.email?.split("@")[0] ||
+        "User",
+    };
   } catch (error) {
     console.error("Error getting user profile:", error);
     return null;

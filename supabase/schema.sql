@@ -1,6 +1,17 @@
 -- WARNING: This schema is for context only and is not meant to be run.
 -- Table order and constraints may not be valid for execution.
 
+CREATE TABLE public.affiliation (
+  affiliation_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  name text NOT NULL UNIQUE,
+  short_name text,
+  type text CHECK (type = ANY (ARRAY['university'::text, 'institute'::text, 'company'::text, 'organization'::text, 'other'::text])),
+  country text,
+  website text,
+  slug text NOT NULL UNIQUE,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT affiliation_pkey PRIMARY KEY (affiliation_id)
+);
 CREATE TABLE public.asset (
   asset_id uuid NOT NULL DEFAULT gen_random_uuid(),
   work_id uuid,
@@ -12,18 +23,6 @@ CREATE TABLE public.asset (
   CONSTRAINT asset_pkey PRIMARY KEY (asset_id),
   CONSTRAINT asset_work_id_fkey FOREIGN KEY (work_id) REFERENCES public.work(work_id)
 );
-CREATE TABLE public.affiliation (
-  affiliation_id uuid NOT NULL DEFAULT gen_random_uuid(),
-  name text NOT NULL,
-  short_name text,
-  type text CHECK (type = ANY (ARRAY['university'::text, 'institute'::text, 'company'::text, 'organization'::text, 'other'::text])),
-  country text,
-  website text,
-  slug text NOT NULL UNIQUE,
-  created_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT affiliation_pkey PRIMARY KEY (affiliation_id),
-  CONSTRAINT affiliation_name_unique UNIQUE (name)
-);
 CREATE TABLE public.category (
   category_id uuid NOT NULL DEFAULT gen_random_uuid(),
   type text,
@@ -34,21 +33,20 @@ CREATE TABLE public.category (
 CREATE TABLE public.person (
   person_id uuid NOT NULL DEFAULT gen_random_uuid(),
   name text NOT NULL,
-  affiliation_id uuid,
+  tag_system text,
   slug text NOT NULL UNIQUE,
   bio text,
   tag text,
-  email text,
   profile_id uuid,
+  affiliation_id uuid,
   CONSTRAINT person_pkey PRIMARY KEY (person_id),
-  CONSTRAINT person_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES public.profiles(id),
-  CONSTRAINT person_affiliation_id_fkey FOREIGN KEY (affiliation_id) REFERENCES public.affiliation(affiliation_id)
+  CONSTRAINT person_affiliation_id_fkey FOREIGN KEY (affiliation_id) REFERENCES public.affiliation(affiliation_id),
+  CONSTRAINT person_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES public.profiles(id)
 );
 CREATE TABLE public.profiles (
   id uuid NOT NULL,
   created_at timestamp with time zone NOT NULL DEFAULT now(),
   access_level text,
-  full_name text,
   email text NOT NULL UNIQUE,
   CONSTRAINT profiles_pkey PRIMARY KEY (id),
   CONSTRAINT profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id)
@@ -77,6 +75,16 @@ CREATE TABLE public.story_work (
   CONSTRAINT story_work_pkey PRIMARY KEY (story_id, work_id),
   CONSTRAINT story_work_story_id_fkey FOREIGN KEY (story_id) REFERENCES public.story(story_id),
   CONSTRAINT story_work_work_id_fkey FOREIGN KEY (work_id) REFERENCES public.work(work_id)
+);
+CREATE TABLE public.votes (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL UNIQUE,
+  work_id uuid NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT votes_pkey PRIMARY KEY (id),
+  CONSTRAINT votes_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id),
+  CONSTRAINT votes_work_id_fkey FOREIGN KEY (work_id) REFERENCES public.work(work_id)
 );
 CREATE TABLE public.work (
   work_id uuid NOT NULL DEFAULT gen_random_uuid(),

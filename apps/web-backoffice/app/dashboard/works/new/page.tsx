@@ -32,7 +32,7 @@ export default async function NewWorkPage() {
       .single();
 
     // If no person record exists or if name is missing, redirect to account setup
-    if (!personData || !personData.name || !userProfile.full_name) {
+    if (!personData || !personData.name) {
       return redirect("/account-setup?from=work-submission");
     }
   } catch (error) {

@@ -75,7 +75,6 @@ export default function AccountForm({ user }: { user: User | null }) {
       }
 
       if (data) {
-        setFullname(data.full_name);
         setEmail(data.email);
         setAccessLevel(data.access_level);
       }
@@ -108,9 +107,14 @@ export default function AccountForm({ user }: { user: User | null }) {
             ? personData.affiliation[0]
             : personData.affiliation,
         });
+        // Set fullname from person table (SSOT)
+        setFullname(personData.name);
         setPersonBio(personData.bio || "");
         setPersonTag(personData.tag || "");
         setPersonAffiliationId(personData.affiliation_id || "");
+      } else {
+        // If no person record exists, initialize with profile full_name as fallback
+        setFullname(data?.full_name || user.user_metadata?.full_name || "");
       }
 
       // Fetch available affiliations
@@ -162,11 +166,10 @@ export default function AccountForm({ user }: { user: User | null }) {
     setUpdating(true);
 
     try {
-      // Update profiles table
+      // Update profiles table (system operational data only)
       const { error: profileError } = await supabase
         .from("profiles")
         .update({
-          full_name: fullname,
           email: email,
         })
         .eq("id", user.id);
@@ -197,6 +200,7 @@ export default function AccountForm({ user }: { user: User | null }) {
         const { error } = await supabase
           .from("person")
           .update({
+            name: fullname || user.user_metadata?.full_name || "Unknown",
             bio: personBio,
             tag: personTag,
             affiliation_id: personAffiliationId || null,

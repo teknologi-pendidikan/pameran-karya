@@ -95,14 +95,6 @@ export default function AccountSetupForm({
     setSubmitting(true);
 
     try {
-      // Update profile full_name
-      const { error: profileError } = await supabase
-        .from("profiles")
-        .update({ full_name: fullName.trim() })
-        .eq("id", user?.id);
-
-      if (profileError) throw profileError;
-
       // Check if person record exists, if not create it
       const { data: existingPerson } = await supabase
         .from("person")
@@ -156,10 +148,6 @@ export default function AccountSetupForm({
     } finally {
       setSubmitting(false);
     }
-  };
-
-  const handleSkip = () => {
-    router.push("/dashboard");
   };
 
   if (loading) {
@@ -301,20 +289,9 @@ export default function AccountSetupForm({
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t">
-              <Button type="submit" disabled={submitting} className="flex-1">
+              <Button type="submit" disabled={submitting} className="w-full">
                 {submitting ? "Setting up..." : "Complete Setup"}
               </Button>
-              {!fromWorkSubmission && (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  onClick={handleSkip}
-                  disabled={submitting}
-                  className="flex-1"
-                >
-                  Skip for now
-                </Button>
-              )}
             </div>
           </form>
         </CardContent>

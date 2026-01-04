@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -35,6 +35,39 @@ import { Badge } from "@/components/ui/badge";
 import { type Category, getAllowedStatusOptions } from "@/lib/client-utils";
 import { createWorkAction } from "@/lib/actions";
 import { toast } from "sonner";
+
+// Auto-detect asset type based on URL
+function detectAssetType(url: string): string {
+  if (!url) return "link";
+
+  const urlLower = url.toLowerCase();
+
+  // Video platforms
+  if (urlLower.includes("youtube.com") || urlLower.includes("youtu.be"))
+    return "video";
+  if (urlLower.includes("vimeo.com")) return "video";
+  if (urlLower.includes("tiktok.com")) return "video";
+
+  // Document/File platforms
+  if (urlLower.includes("drive.google.com")) return "document";
+  if (urlLower.includes("dropbox.com")) return "document";
+  if (urlLower.includes("onedrive")) return "document";
+  if (urlLower.includes("academia.edu")) return "document";
+  if (urlLower.includes("researchgate.net")) return "document";
+  if (urlLower.includes("heyzine.com")) return "document";
+
+  // Image platforms
+  if (urlLower.includes("imgur.com")) return "image";
+  if (urlLower.includes("flickr.com")) return "image";
+
+  // File extensions
+  if (urlLower.match(/\.(pdf|doc|docx|ppt|pptx|xls|xlsx)$/)) return "document";
+  if (urlLower.match(/\.(mp4|mov|avi|mkv|webm)$/)) return "video";
+  if (urlLower.match(/\.(jpg|jpeg|png|gif|svg|webp)$/)) return "image";
+  if (urlLower.match(/\.(mp3|wav|m4a|flac)$/)) return "audio";
+
+  return "link";
+}
 
 const workSchema = z.object({
   title: z
@@ -71,6 +104,7 @@ export function WorkSubmissionForm({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [showTypeOverride, setShowTypeOverride] = useState(false);
 
   // Get allowed status options based on user role
   const allowedStatuses = getAllowedStatusOptions(
@@ -85,9 +119,25 @@ export function WorkSubmissionForm({
       status: "draft",
       categories: [],
       assetUrl: "",
-      assetType: "link",
+      assetType: "video",
     },
   });
+
+  // Auto-detect type when URL changes
+  const watchedUrl = form.watch("assetUrl");
+
+  // Update asset type when URL changes (only if not manually overridden)
+  useEffect(() => {
+    if (watchedUrl && !showTypeOverride) {
+      const detectedType = detectAssetType(watchedUrl);
+      if (form.getValues("assetType") !== detectedType) {
+        form.setValue(
+          "assetType",
+          detectedType as "image" | "video" | "audio" | "document" | "link"
+        );
+      }
+    }
+  }, [watchedUrl, showTypeOverride, form]);
 
   function onSubmit(data: WorkFormData) {
     startTransition(async () => {
@@ -309,36 +359,83 @@ export function WorkSubmissionForm({
                   />
                 </div>
 
-                <FormField
-                  control={form.control}
-                  name="assetType"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Asset Type</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
+                {!showTypeOverride ? (
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Detected Type</label>
+                    <div className="flex items-center space-x-2">
+                      <div className="p-2 bg-muted rounded border capitalize">
+                        {form.watch("assetType") || "link"}
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowTypeOverride(true)}
                       >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select type" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="link">Link/Website</SelectItem>
-                          <SelectItem value="document">Document</SelectItem>
-                          <SelectItem value="image">Image</SelectItem>
-                          <SelectItem value="video">Video</SelectItem>
-                          <SelectItem value="audio">Audio</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormDescription>
-                        Type of asset youre linking
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                        Change
+                      </Button>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Auto-detected from your URL. Click &quot;Change&quot; to
+                      override.
+                    </p>
+                  </div>
+                ) : (
+                  <FormField
+                    control={form.control}
+                    name="assetType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Asset Type</FormLabel>
+                        <div className="flex space-x-2">
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select type" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="video">Video</SelectItem>
+                              <SelectItem value="document">Document</SelectItem>
+                              <SelectItem value="image">Image</SelectItem>
+                              <SelectItem value="audio">Audio</SelectItem>
+                              <SelectItem value="link">Link/Website</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              setShowTypeOverride(false);
+                              const detectedType = detectAssetType(
+                                form.getValues("assetUrl")
+                              );
+                              form.setValue(
+                                "assetType",
+                                detectedType as
+                                  | "image"
+                                  | "video"
+                                  | "audio"
+                                  | "document"
+                                  | "link"
+                              );
+                            }}
+                          >
+                            Auto
+                          </Button>
+                        </div>
+                        <FormDescription>
+                          Manually select the asset type
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
               </div>
             </div>
 

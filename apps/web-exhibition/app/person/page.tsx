@@ -45,8 +45,16 @@ interface Person {
     short_name?: string;
     type: string;
   };
+  tag_system?: string;
   works_count?: number;
   tag?: string;
+  work_person?: Array<{
+    work_id: string;
+    work?: {
+      work_id: string;
+      status: string;
+    };
+  }>;
 }
 
 export default async function PersonDirectoryPage() {
@@ -64,7 +72,13 @@ export default async function PersonDirectoryPage() {
         short_name,
         type
       ),
-      work_person(count)
+      work_person(
+        work_id,
+        work(
+          work_id,
+          status
+        )
+      )
     `
     )
     .order("name", { ascending: true });
@@ -87,6 +101,13 @@ export default async function PersonDirectoryPage() {
   const persons =
     personsWithCounts?.map((person) => ({
       ...person,
+      works_count:
+        person.work_person?.filter(
+          (wp: {
+            work_id: string;
+            work?: { work_id: string; status: string };
+          }) => wp.work?.status === "final" || wp.work?.status === "ready"
+        )?.length || 0,
     })) || [];
 
   return <PersonDirectoryContent persons={persons} />;
@@ -127,12 +148,9 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
             >
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-full">
                 {/* Profile Image */}
-                <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 aspect-[4/5]">
+                <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 aspect-square">
                   <img
-                    src={
-                      person.image ||
-                      "/placeholder-foto-praktikum-lego-16x9.webp"
-                    }
+                    src={person.image || "/placeholder-avatar.webp"}
                     alt={person.name}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
                   />
@@ -141,11 +159,11 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
                     <div
                       className={`absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-medium shadow-sm
                         ${
-                          person.tag === "Committee"
-                            ? "bg-red-500 text-white"
-                            : person.tag === "Operations"
-                              ? "bg-blue-500 text-white"
-                              : person.tag === "Volunteer"
+                          person.tag_system === "system"
+                            ? "bg-red-700 text-white"
+                            : person.tag_system === "operations"
+                              ? "bg-blue-800 text-white"
+                              : person.tag_system === "volunteer"
                                 ? "bg-green-500 text-white"
                                 : "bg-gray-500 text-white"
                         }
@@ -154,6 +172,14 @@ function PersonDirectoryContent({ persons }: { persons: Person[] }) {
                       {person.tag}
                     </div>
                   )}
+
+                  {/* Works Count Badge - Positioned on bottom left of image */}
+                  {person.works_count !== undefined &&
+                    person.works_count > 0 && (
+                      <div className="absolute bottom-3 left-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-xs font-medium shadow-sm">
+                        {person.works_count} karya
+                      </div>
+                    )}
                 </div>
 
                 {/* Content */}

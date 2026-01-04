@@ -240,15 +240,23 @@ export default function AccountSetupForm({
               {/* Tag/Role */}
               <div className="space-y-2">
                 <Label htmlFor="tag">Role/Title</Label>
-                <Input
-                  id="tag"
-                  type="text"
-                  value={tag}
-                  onChange={(e) => setTag(e.target.value)}
-                  placeholder="e.g., Student, Lecturer, Researcher"
-                />
+                <Select
+                  value={tag || "none"}
+                  onValueChange={(value) =>
+                    setTag(value === "none" ? "" : value)
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">No role specified</SelectItem>
+                    <SelectItem value="Student">Student</SelectItem>
+                    <SelectItem value="Alumni">Alumni</SelectItem>
+                  </SelectContent>
+                </Select>
                 <p className="text-sm text-muted-foreground">
-                  Optional - your role or academic title
+                  Optional - your academic status
                 </p>
               </div>
             </div>

@@ -292,9 +292,9 @@ export default function CertificateGenerator({
               <p
                 className={`${isPrintMode ? "text-base" : "text-sm"} text-black leading-relaxed text-justify`}
               >
-                We commend {profile.full_name.split(" ")[0]} for their valuable
-                contribution to educational technology advancement and knowledge
-                sharing within our community.
+                We commend {profile.full_name} for their valuable contribution
+                to educational technology advancement and knowledge sharing
+                within our community.
               </p>
 
               <p

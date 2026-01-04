@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { ensureUserProfile } from "@/lib/user-profile";
+import { ensureUserProfile, getUserProfile } from "@/lib/user-profile";
 import CertificateGenerator from "@/components/certificate-generator";
 
 export default async function CertificatePage() {
@@ -15,21 +15,27 @@ export default async function CertificatePage() {
   }
 
   // Ensure user has a profile
-  let profile;
   try {
-    profile = await ensureUserProfile();
+    await ensureUserProfile();
   } catch (error) {
     console.error("Error ensuring user profile:", error);
     return redirect("/auth");
   }
 
+  // Get profile with name from person table (SSOT)
+  const profile = await getUserProfile();
+  if (!profile) {
+    return redirect("/auth");
+  }
+
   // Get the person's slug and affiliation for the profile URL and letter content
-  const { data: personData } = await supabase
+  const { data: personData, error: personError } = await supabase
     .from("person")
     .select(
       `
       slug,
-      affiliation:affiliation_id (
+      affiliation_id,
+      affiliation (
         name
       )
     `
@@ -37,12 +43,24 @@ export default async function CertificatePage() {
     .eq("profile_id", user.id)
     .single();
 
+  if (personError) {
+    console.error("Error fetching person data:", personError);
+  }
+
   // Add slug and affiliation to profile if person record exists
-  if (personData?.slug) {
-    profile = {
+  let enhancedProfile = profile;
+  if (personData) {
+    // Handle both TypeScript array type and actual object structure
+    const affiliationName = personData.affiliation
+      ? Array.isArray(personData.affiliation)
+        ? personData.affiliation[0]?.name
+        : (personData.affiliation as { name: string }).name
+      : null;
+
+    enhancedProfile = {
       ...profile,
       slug: personData.slug,
-      affiliation: personData.affiliation?.[0]?.name,
+      affiliation: affiliationName,
     };
   }
 
@@ -85,7 +103,7 @@ export default async function CertificatePage() {
 
   return (
     <CertificateGenerator
-      profile={profile}
+      profile={enhancedProfile}
       worksCount={works.length}
       works={works}
     />

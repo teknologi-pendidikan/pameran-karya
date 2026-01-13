@@ -16,6 +16,7 @@ import {
   XIcon,
   AwardIcon,
   SettingsIcon,
+  MessageCircleIcon,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -130,6 +131,22 @@ export function Navigation({ user, userProfile }: NavigationProps) {
     },
   ];
 
+  // Add comments moderation for admin/moderator users
+  const moderationItems = [];
+  if (
+    userProfile?.access_level &&
+    ["operations", "serviceaccount"].includes(userProfile.access_level)
+  ) {
+    moderationItems.push({
+      href: "/dashboard/comments",
+      label: "Comments",
+      icon: MessageCircleIcon,
+      exact: true,
+    });
+  }
+
+  const allNavItems = [...navItems, ...moderationItems];
+
   return (
     <nav className="border-b bg-background">
       <div className="container mx-auto px-4 py-3">
@@ -141,7 +158,7 @@ export function Navigation({ user, userProfile }: NavigationProps) {
 
             {/* Desktop Navigation - Hidden on mobile and tablets */}
             <div className="hidden xl:flex items-center space-x-4">
-              {navItems.map((item) => {
+              {allNavItems.map((item) => {
                 const isActive = item.exact
                   ? pathname === item.href
                   : pathname.startsWith(item.href);
@@ -209,7 +226,7 @@ export function Navigation({ user, userProfile }: NavigationProps) {
 
         {/* Tablet Navigation (1366x768 and similar) */}
         <div className="hidden md:flex xl:hidden mt-4 items-center space-x-2 overflow-x-auto">
-          {navItems.map((item) => {
+          {allNavItems.map((item) => {
             const isActive = item.exact
               ? pathname === item.href
               : pathname.startsWith(item.href);
@@ -236,7 +253,7 @@ export function Navigation({ user, userProfile }: NavigationProps) {
           <div className="md:hidden mt-4 border-t pt-4">
             {/* Navigation Items */}
             <div className="space-y-2 mb-4">
-              {navItems.map((item) => {
+              {allNavItems.map((item) => {
                 const isActive = item.exact
                   ? pathname === item.href
                   : pathname.startsWith(item.href);

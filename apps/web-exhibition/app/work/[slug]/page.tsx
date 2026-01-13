@@ -8,6 +8,7 @@ import { openGraphGlobalMetadata } from "@/app/global-metadata";
 import BackButton from "@/components/BackButton";
 import ShareButton from "@/components/ShareButton";
 import VoteButton from "@/components/VoteButton";
+import CommentsSection from "@/components/CommentsSection";
 
 interface WorkData {
   work: WorkWithDetails;
@@ -335,7 +336,7 @@ export default async function WorkPage({ params }: PageProps) {
                 </h2>
 
                 <div className="space-y-6">
-                  {assets.map((asset, ) =>
+                  {assets.map((asset) =>
                     asset.type === "video" ? (
                       // Video Layout - Full width with embedded player
                       <div
@@ -695,6 +696,11 @@ export default async function WorkPage({ params }: PageProps) {
               </div>
             </section>
           </div>
+        </div>
+
+        {/* Comments Section */}
+        <div className="max-w-7xl mx-auto container mt-8">
+          <CommentsSection pageSlug={`work/${work.slug}`} />
         </div>
       </div>
     </div>

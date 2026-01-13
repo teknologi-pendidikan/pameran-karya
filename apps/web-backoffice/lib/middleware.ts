@@ -50,6 +50,7 @@ export async function updateSession(request: NextRequest) {
     "/robots.txt",
     "/manifest.webmanifest",
     "/leaderboard",
+    "/api/comments", // Public API for comment submissions
   ];
 
   // Check if the current path is a public route

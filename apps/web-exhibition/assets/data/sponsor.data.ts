@@ -30,6 +30,42 @@ export const sponsors: Sponsor[] = [
     website: "https://imatepsi.or.id",
     tier: "diamond",
   },
+  {
+    name: "Universitas Negeri Surabaya",
+    logo: "/lambang-unesa.webp",
+    website: "#",
+    tier: "diamond",
+  },
+  {
+    name: "Universitas Negeri Yogyakarta",
+    logo: "/lambang-uny.webp",
+    website: "#",
+    tier: "diamond",
+  },
+  {
+    name: "Universitas Negeri Jakarta",
+    logo: "/lambang-unj.webp",
+    website: "#",
+    tier: "diamond",
+  },
+  {
+    name: "Universitas Negeri Semarang",
+    logo: "/lambang-unnes.webp",
+    website: "#",
+    tier: "diamond",
+  },
+  {
+    name: "Universitas Negeri Surakarta",
+    logo: "/lambang-uns.webp",
+    website: "#",
+    tier: "diamond",
+  },
+  {
+    name: "Universitas Veteran Bangun Nusantara Sukoharjo",
+    logo: "/lambang-univet.webp",
+    website: "#",
+    tier: "diamond",
+  },
 ];
 
 export const tierConfig = {
